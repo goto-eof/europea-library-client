@@ -3,16 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavigatorComponent } from './component/navigator/navigator.component';
+import { ExplorerComponent } from './component/explorer/explorer.component';
+import { HomeComponent } from './component/home/home.component';
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import FileSystemService from './service/FileSystemService';
+import { HttpClientModule } from '@angular/common/http';
+import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
+import { FileInfoComponent } from './component/file-info/file-info.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavigatorComponent,
+    ExplorerComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    BreadcrumbComponent,
+    FileInfoComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [FileSystemService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

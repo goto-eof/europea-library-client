@@ -1,0 +1,10 @@
+<p>breadcrumb works!</p>
+<span *ngFor="let fsi of breadcrumb">
+  »
+  <a
+    (click)="goToFileSystem(fsi)"
+    [class]="fsi.id === fileSystemItem?.id ? '' : 'link'"
+  >
+    {{ fsi.name }}</a
+  >
+</span>

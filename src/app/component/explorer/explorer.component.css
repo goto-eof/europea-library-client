@@ -1,0 +1,16 @@
+.directory{
+    color: red;
+}
+
+.file{
+    color:green;
+}
+
+
+.link {
+    cursor: pointer;
+}
+
+.link:hover{
+    text-decoration: underline;
+}

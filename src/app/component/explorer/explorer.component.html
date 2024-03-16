@@ -1,0 +1,16 @@
+<p>explorer</p>
+<app-breadcrumb
+  [fileSystemItem]="file"
+  (navigate)="listDirectory($event)"
+></app-breadcrumb>
+<ul>
+  <li *ngFor="let item of file.childrenList">
+    <a
+      class="link"
+      (click)="listDirectory(item)"
+      [ngClass]="item.isDirectory ? 'directory' : 'file'"
+    >
+      {{ item.name }}
+    </a>
+  </li>
+</ul>
