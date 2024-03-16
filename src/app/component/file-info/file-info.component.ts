@@ -35,11 +35,14 @@ export class FileInfoComponent implements OnInit {
   }
 
   private loadBookInfo(fileSystemItemId: string) {
-    this.bookInfoService
-      .retrieveByFileSystemId(+fileSystemItemId)
-      .subscribe((data) => {
+    this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
+      next: (data) => {
         this.bookInfo = data;
-      });
+      },
+      error: () => {
+        this.router.navigate(['/page-not-found']);
+      },
+    });
   }
 
   private loadFileSystemItem() {
