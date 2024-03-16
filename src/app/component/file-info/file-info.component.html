@@ -1,3 +1,9 @@
+<app-breadcrumb
+  *ngIf="fileSystemItem"
+  [fileSystemItem]="fileSystemItem"
+  (navigate)="goToExplorer($event)"
+/>
+
 <div *ngIf="bookInfo">
   <table>
     <tr>

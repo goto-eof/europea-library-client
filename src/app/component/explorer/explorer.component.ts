@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import FileSystemService from '../../service/FileSystemService';
 import FileSystemItem from '../../model/FileSystemItem';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-explorer',
@@ -38,6 +38,12 @@ export class ExplorerComponent implements OnInit {
       this.router.navigate([`/explorer/${file.id}`]);
       return;
     }
-    this.router.navigate([`/file-info/${file.id}`]);
+    file.parent = this.file;
+    const extras: NavigationExtras = {
+      state: {
+        fileSystemItem: file,
+      },
+    };
+    this.router.navigate([`/file-info/${file.id}`], extras);
   }
 }

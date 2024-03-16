@@ -1,7 +1,4 @@
-<app-breadcrumb
-  [fileSystemItem]="file"
-  (navigate)="listDirectory($event)"
-></app-breadcrumb>
+<app-breadcrumb [fileSystemItem]="file" (navigate)="listDirectory($event)" />
 <ul class="mx-3">
   <li *ngFor="let item of file.childrenList">
     <a
