@@ -1,9 +1,8 @@
-<p>explorer</p>
 <app-breadcrumb
   [fileSystemItem]="file"
   (navigate)="listDirectory($event)"
 ></app-breadcrumb>
-<ul>
+<ul class="mx-3">
   <li *ngFor="let item of file.childrenList">
     <a
       class="link"
