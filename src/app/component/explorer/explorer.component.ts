@@ -21,15 +21,20 @@ export class ExplorerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      let parentId = params.get('id');
-      if (!parentId) {
-        this.fileSystemService.list().subscribe((file) => (this.file = file));
-      } else {
-        this.fileSystemService
-          .list(+parentId)
-          .subscribe((file) => (this.file = file));
-      }
+    this.activatedRoute.paramMap.subscribe({
+      next: (params) => {
+        let parentId = params.get('id');
+        if (!parentId) {
+          this.fileSystemService.list().subscribe((file) => (this.file = file));
+        } else {
+          this.fileSystemService.list(+parentId).subscribe({
+            next: (file) => (this.file = file),
+            error: () => {
+              this.router.navigate(['/explorer']);
+            },
+          });
+        }
+      },
     });
   }
 
