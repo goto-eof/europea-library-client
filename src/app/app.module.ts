@@ -13,6 +13,7 @@ import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component
 import { FileInfoComponent } from './component/file-info/file-info.component';
 import BookInfoService from './service/BookInfoService';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './component/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PageNotFoundComponent,
     BreadcrumbComponent,
     FileInfoComponent,
+    FooterComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [FileSystemService, BookInfoService],
