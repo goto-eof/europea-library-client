@@ -38,6 +38,6 @@ export class ExplorerComponent implements OnInit {
       this.router.navigate([`/explorer/${file.id}`]);
       return;
     }
-    // TODO download or load book meta info
+    this.router.navigate([`/file-info/${file.id}`]);
   }
 }

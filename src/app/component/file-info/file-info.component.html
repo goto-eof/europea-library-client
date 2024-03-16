@@ -1,1 +1,13 @@
 <p>file-info works!</p>
+<div *ngIf="bookInfo">
+  <table>
+    <tr>
+      <td>Title</td>
+      <td>{{ bookInfo.title }}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>{{ bookInfo.description }}</td>
+    </tr>
+  </table>
+</div>
