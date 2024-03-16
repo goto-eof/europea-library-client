@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { FileInfoComponent } from './component/file-info/file-info.component';
 import BookInfoService from './service/BookInfoService';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import BookInfoService from './service/BookInfoService';
     BreadcrumbComponent,
     FileInfoComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [FileSystemService, BookInfoService],
   bootstrap: [AppComponent],
 })
