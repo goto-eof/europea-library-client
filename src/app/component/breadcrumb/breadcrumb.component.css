@@ -1,5 +1,6 @@
 .link{
-    color: blue;
+    color: royalblue;
+    text-decoration: none;
 }
 
 .link:hover {
