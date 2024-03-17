@@ -1,9 +1,10 @@
 .directory{
-    color: red;
+    font-weight: bold;
+    color: royalblue;
 }
 
 .file{
-    color:green;
+    color: royalblue;
 }
 
 
