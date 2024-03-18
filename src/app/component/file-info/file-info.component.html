@@ -7,8 +7,20 @@
   <div *ngIf="bookInfo">
     <table>
       <tr>
-        <td (click)="open(demoModal)">Title</td>
+        <td>Title</td>
         <td>{{ bookInfo.title }}</td>
+      </tr>
+      <tr>
+        <td>Authors</td>
+        <td>{{ bookInfo.authors }}</td>
+      </tr>
+      <tr>
+        <td>Note</td>
+        <td>{{ bookInfo.note }}</td>
+      </tr>
+      <tr>
+        <td>Year</td>
+        <td>{{ bookInfo.year }}</td>
       </tr>
       <tr>
         <td>Description</td>
@@ -17,7 +29,7 @@
     </table>
   </div>
 </div>
-
+<!-- 
 <ng-template #demoModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
@@ -60,4 +72,4 @@
       Save
     </button>
   </div>
-</ng-template>
+</ng-template> -->
