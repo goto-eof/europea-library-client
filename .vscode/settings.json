@@ -1,5 +1,6 @@
 {
-    "workbench.colorCustomizations": {
-        "editorUnnecessaryCode.border": "#d55151"
-    }
+  "workbench.colorCustomizations": {
+    "editorUnnecessaryCode.border": "#d55151"
+  },
+  "cSpell.words": ["Europea"]
 }

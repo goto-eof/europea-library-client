@@ -14,6 +14,8 @@ import { FileInfoComponent } from './component/file-info/file-info.component';
 import BookInfoService from './service/BookInfoService';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './component/footer/footer.component';
+import { WorkInProgressComponent } from './component/work-in-progress/work-in-progress.component';
+import { InternalServerErrorComponent } from './component/internal-server-error/internal-server-error.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { FooterComponent } from './component/footer/footer.component';
     BreadcrumbComponent,
     FileInfoComponent,
     FooterComponent,
+    WorkInProgressComponent,
+    InternalServerErrorComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [FileSystemService, BookInfoService],
