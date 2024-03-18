@@ -21,3 +21,7 @@ A library web application that allows to catalog and download e-books. The back-
 - TypeScript
 - Angular 17
 - Bootstrap UI
+
+## Run the project
+
+Execute `npm install && ng serve`.
