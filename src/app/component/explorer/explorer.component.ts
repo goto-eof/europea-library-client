@@ -28,7 +28,6 @@ export class ExplorerComponent implements OnInit {
           this.fileSystemService.list().subscribe({
             next: (file) => (this.file = file),
             error: (e) => {
-              console.log(e);
               if (e.error.code === 503) {
                 this.router.navigate(['/work-in-progress']);
                 return;
