@@ -14,6 +14,8 @@
 
 A library web application that allows to catalog and download e-books. The back-end project can be found [here](https://github.com/goto-eof/europea-library-server).
 
+**Work In Progress**
+
 ## Technologies
 
 - TypeScript
