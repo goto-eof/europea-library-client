@@ -23,3 +23,6 @@ A library web application that allows to catalog and download e-books. The back-
 ## Run the project
 
 Execute `npm install && ng serve`.
+
+## More
+- if you have any suggestions or found a bug please contact me [here](https://andre-i.eu/#contactme)
