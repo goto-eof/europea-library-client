@@ -2,11 +2,11 @@
   <div class="hstack p-3">
     <div class="p-1 m-0" *ngFor="let fsi of breadcrumb">
       »
-      <a
-        (click)="goToFileSystem(fsi)"
+      <span
         [class]="fsi.id === fileSystemItem.id ? '' : 'link'"
+        (click)="goToFileSystem(fsi)"
       >
-        {{ fsi.name }}</a
+        {{ fsi.name }}</span
       >
     </div>
   </div>
