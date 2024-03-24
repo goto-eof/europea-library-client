@@ -46,7 +46,9 @@ export class BreadcrumbComponent implements OnInit {
     this.initArray();
   }
 
-  goToFileSystem(fileSystemItem: FileSystemItem) {
-    this.navigate.emit(fileSystemItem);
+  goToFileSystem(selectedFileSystemItem: FileSystemItem) {
+    if (selectedFileSystemItem.id !== this.fileSystemItem.id) {
+      this.navigate.emit(selectedFileSystemItem);
+    }
   }
 }
