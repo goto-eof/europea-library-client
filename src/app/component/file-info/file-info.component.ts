@@ -32,6 +32,7 @@ export class FileInfoComponent implements OnInit {
         this.loadBookInfo(fileSystemItemId);
       }
     });
+    window.scrollTo(0, 0);
   }
 
   private loadBookInfo(fileSystemItemId: string) {

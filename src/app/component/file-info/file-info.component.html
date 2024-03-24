@@ -7,24 +7,77 @@
   <div *ngIf="bookInfo">
     <table>
       <tr>
-        <td>Title</td>
-        <td>{{ bookInfo.title }}</td>
-      </tr>
-      <tr>
-        <td>Authors</td>
-        <td>{{ bookInfo.authors }}</td>
-      </tr>
-      <tr>
-        <td>Note</td>
-        <td>{{ bookInfo.note }}</td>
-      </tr>
-      <tr>
-        <td>Year</td>
-        <td>{{ bookInfo.year }}</td>
-      </tr>
-      <tr>
-        <td>Description</td>
-        <td>{{ bookInfo.description }}</td>
+        <td>
+          <table>
+            <tr>
+              <td><img [src]="bookInfo.imageUrl" /></td>
+            </tr>
+            <tr *ngIf="bookInfo.averageRating">
+              <td>
+                <app-rating [bookInfo]="bookInfo" />
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <td>Title</td>
+              <td>{{ bookInfo.title }}</td>
+            </tr>
+            <tr>
+              <td>Authors</td>
+              <td>{{ bookInfo.authors }}</td>
+            </tr>
+            <tr>
+              <td>ISBN 10:</td>
+              <td>{{ bookInfo.isbn10 }}</td>
+            </tr>
+            <tr>
+              <td>ISBN 13:</td>
+              <td>{{ bookInfo.isbn13 }}</td>
+            </tr>
+            <tr>
+              <td>Number of pages:</td>
+              <td>{{ bookInfo.numberOfPages }}</td>
+            </tr>
+            <tr>
+              <td>Language:</td>
+              <td>{{ bookInfo.language }}</td>
+            </tr>
+            <tr>
+              <td>Note</td>
+              <td>{{ bookInfo.note }}</td>
+            </tr>
+            <tr>
+              <td>Publisher</td>
+              <td>{{ bookInfo.publisher }}, {{ bookInfo.publishedDate }}</td>
+            </tr>
+            <tr>
+              <td>Categories</td>
+              <td>
+                <div
+                  class="category"
+                  *ngFor="let category of bookInfo.categoryList"
+                >
+                  {{ category.name }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Tags</td>
+              <td>
+                <div class="tag" *ngFor="let tag of bookInfo.tagList">
+                  {{ tag.name }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>{{ bookInfo.description }}</td>
+            </tr>
+          </table>
+        </td>
       </tr>
     </table>
   </div>

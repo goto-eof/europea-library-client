@@ -1,0 +1,19 @@
+tr td {
+    vertical-align: top;
+    padding: 0 4px;
+}
+
+.category {
+    background-color: rgb(207, 233, 241);
+    padding: 0 10px;
+    display: inline-block;
+}
+
+.tag {
+    background-color: rgb(226, 249, 176);
+    border-radius: 5px;
+    padding: 0 10px;
+    display: inline-block;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}

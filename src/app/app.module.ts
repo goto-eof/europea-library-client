@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './component/footer/footer.component';
 import { WorkInProgressComponent } from './component/work-in-progress/work-in-progress.component';
 import { InternalServerErrorComponent } from './component/internal-server-error/internal-server-error.component';
+import { RatingComponent } from './component/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { InternalServerErrorComponent } from './component/internal-server-error/
     FooterComponent,
     WorkInProgressComponent,
     InternalServerErrorComponent,
+    RatingComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [FileSystemService, BookInfoService],
