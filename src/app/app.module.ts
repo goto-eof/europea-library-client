@@ -17,7 +17,8 @@ import { FooterComponent } from './component/footer/footer.component';
 import { WorkInProgressComponent } from './component/work-in-progress/work-in-progress.component';
 import { InternalServerErrorComponent } from './component/internal-server-error/internal-server-error.component';
 import { RatingComponent } from './component/rating/rating.component';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,8 +33,14 @@ import { RatingComponent } from './component/rating/rating.component';
     InternalServerErrorComponent,
     RatingComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
-  providers: [FileSystemService, BookInfoService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    MatCardModule,
+  ],
+  providers: [FileSystemService, BookInfoService, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
