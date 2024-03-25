@@ -19,6 +19,8 @@ import { InternalServerErrorComponent } from './component/internal-server-error/
 import { RatingComponent } from './component/rating/rating.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatCardModule } from '@angular/material/card';
+import { CursoredExplorerComponent } from './component/cursored-explorer/cursored-explorer.component';
+import CursoredFileSystemService from './service/CursoredFileSystemService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
     WorkInProgressComponent,
     InternalServerErrorComponent,
     RatingComponent,
+    CursoredExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,12 @@ import { MatCardModule } from '@angular/material/card';
     NgbModule,
     MatCardModule,
   ],
-  providers: [FileSystemService, BookInfoService, provideAnimationsAsync()],
+  providers: [
+    FileSystemService,
+    CursoredFileSystemService,
+    BookInfoService,
+    provideAnimationsAsync(),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

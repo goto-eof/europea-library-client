@@ -1,0 +1,18 @@
+.directory{
+    font-weight: bold;
+    color: royalblue;
+}
+
+.file{
+    color: royalblue;
+}
+
+
+.link {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link:hover{
+    text-decoration: underline;
+}
