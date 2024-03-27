@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import CursoredRequest from '../model/CursoredRequest';
 import CursoredFileSystemItem from '../model/CursoredFileSystemItem';
+import ApplicationConst from '../constants/ApplicationConst';
 
-const baseUrl = 'http://localhost:8081/api/v1/file/cursored';
+const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/file/cursored';
 
 @Injectable()
 export default class CursoredFileSystemService {

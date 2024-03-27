@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import FileMetaInfoBook from '../model/FileMetaInfoBook';
 import { Observable } from 'rxjs';
+import ApplicationConst from '../constants/ApplicationConst';
 
-const baseUrl = 'http://localhost:8081/api/v1/bookInfo';
+const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/bookInfo';
 @Injectable()
 export default class BookInfoService {
   constructor(private httpClient: HttpClient) {}
