@@ -24,10 +24,10 @@ A library web application that allows to index, gather information about books a
 
 Execute `npm install && ng serve`.
 
-## More
-
-- if you have any suggestions or found a bug please contact me [here](https://andre-i.eu/#contactme)
-
 ## Screenshots
 
 ![screenshot](/images/europea-library-client.png)
+
+## More
+
+- if you have any suggestions or found a bug please contact me [here](https://andre-i.eu/#contactme)
