@@ -21,6 +21,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatCardModule } from '@angular/material/card';
 import { CursoredExplorerComponent } from './component/cursored-explorer/cursored-explorer.component';
 import CursoredFileSystemService from './service/CursoredFileSystemService';
+import { CategoriesExplorerComponent as CursoredCategoriesExplorerComponent } from './component/cursored-categories-explorer/cursored-categories-explorer.component';
+import { MatChipsModule } from '@angular/material/chips';
+import CursoredCategoriesService from './service/CursoredCategoriesService';
+import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
+import CursoredTagService from './service/CursoredTagService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +40,8 @@ import CursoredFileSystemService from './service/CursoredFileSystemService';
     InternalServerErrorComponent,
     RatingComponent,
     CursoredExplorerComponent,
+    CursoredCategoriesExplorerComponent,
+    CursoredTagExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,12 +49,15 @@ import CursoredFileSystemService from './service/CursoredFileSystemService';
     HttpClientModule,
     NgbModule,
     MatCardModule,
+    MatChipsModule,
   ],
   providers: [
     FileSystemService,
     CursoredFileSystemService,
     BookInfoService,
     provideAnimationsAsync(),
+    CursoredCategoriesService,
+    CursoredTagService,
   ],
   bootstrap: [AppComponent],
 })

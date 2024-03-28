@@ -1,0 +1,14 @@
+<mat-chip
+  color="primary"
+  class="m-1"
+  *ngFor="let category of categories.items"
+  >{{ category.name }}</mat-chip
+>
+
+<button
+  *ngIf="categories.nextCursor"
+  (click)="loadMore()"
+  class="btn btn-primary"
+>
+  More
+</button>

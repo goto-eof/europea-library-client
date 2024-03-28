@@ -6,9 +6,13 @@ import { FileInfoComponent } from './component/file-info/file-info.component';
 import { InternalServerErrorComponent } from './component/internal-server-error/internal-server-error.component';
 import { WorkInProgressComponent } from './component/work-in-progress/work-in-progress.component';
 import { CursoredExplorerComponent } from './component/cursored-explorer/cursored-explorer.component';
+import { CategoriesExplorerComponent as CursoredCategoriesExplorerComponent } from './component/cursored-categories-explorer/cursored-categories-explorer.component';
+import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'categories', component: CursoredCategoriesExplorerComponent },
+  { path: 'tags', component: CursoredTagExplorerComponent },
   { path: 'explorer', component: CursoredExplorerComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
   { path: 'file-info/:fileSystemItemId', component: FileInfoComponent },

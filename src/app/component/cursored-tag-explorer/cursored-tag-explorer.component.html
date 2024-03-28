@@ -1,0 +1,7 @@
+<mat-chip color="primary" class="m-1" *ngFor="let category of tags.items">{{
+  category.name
+}}</mat-chip>
+
+<button *ngIf="tags.nextCursor" (click)="loadMore()" class="btn btn-primary">
+  More
+</button>
