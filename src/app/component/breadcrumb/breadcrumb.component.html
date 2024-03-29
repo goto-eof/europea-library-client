@@ -1,13 +1,17 @@
-<div class="hstack">
-  <div class="hstack p-3">
-    <div class="p-1 m-0" *ngFor="let fsi of breadcrumb">
-      »
-      <span
-        [class]="fsi.id === fileSystemItem.id ? '' : 'link'"
-        (click)="goToFileSystem(fsi)"
-      >
-        {{ fsi.name }}</span
-      >
+<mat-card class="my-2">
+  <mat-card-content>
+    <div class="hstack">
+      <div class="hstack">
+        <div class="p-1 m-0" *ngFor="let fsi of breadcrumb">
+          »
+          <span
+            [class]="fsi.id === fileSystemItem.id ? '' : 'link'"
+            (click)="goToFileSystem(fsi)"
+          >
+            {{ fsi.name }}</span
+          >
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

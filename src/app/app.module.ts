@@ -24,8 +24,10 @@ import CursoredFileSystemService from './service/CursoredFileSystemService';
 import { CategoriesExplorerComponent as CursoredCategoriesExplorerComponent } from './component/cursored-categories-explorer/cursored-categories-explorer.component';
 import { MatChipsModule } from '@angular/material/chips';
 import CursoredCategoriesService from './service/CursoredCategoriesService';
-import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
 import CursoredTagService from './service/CursoredTagService';
+import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
+import { CursoredCategoryFileExplorerComponent } from './component/cursored-category-file-explorer/cursored-category-file-explorer.component';
+import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +44,8 @@ import CursoredTagService from './service/CursoredTagService';
     CursoredExplorerComponent,
     CursoredCategoriesExplorerComponent,
     CursoredTagExplorerComponent,
+    CursoredTagFileExplorerComponent,
+    CursoredCategoryFileExplorerComponent,
   ],
   imports: [
     BrowserModule,

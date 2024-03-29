@@ -9,6 +9,11 @@ tr td {
     display: inline-block;
 }
 
+.category:hover {
+    cursor: pointer;
+    background-color: aquamarine;
+}
+
 .tag {
     background-color: rgb(226, 249, 176);
     border-radius: 5px;
@@ -16,4 +21,9 @@ tr td {
     display: inline-block;
     margin-right: 4px;
     margin-bottom: 4px;
+}
+
+.tag:hover {
+    cursor: pointer;
+    background-color: rgb(198, 218, 153);
 }

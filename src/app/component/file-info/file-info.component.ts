@@ -5,6 +5,8 @@ import BookInfoService from '../../service/BookInfoService';
 import FileMetaInfoBook from '../../model/FileMetaInfoBook';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
+import Category from '../../model/Category';
+import Tag from '../../model/Tag';
 
 @Component({
   selector: 'app-file-info',
@@ -60,5 +62,13 @@ export class FileInfoComponent implements OnInit {
 
   goToExplorer(fileSystemItem: FileSystemItem) {
     this.router.navigate([`/explorer/${fileSystemItem.id}`]);
+  }
+
+  goToCategory(category: Category) {
+    this.router.navigate([`/explorer/category/${category.id}`]);
+  }
+
+  goToTag(tag: Tag) {
+    this.router.navigate([`/explorer/tag/${tag.id}`]);
   }
 }

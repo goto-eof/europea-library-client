@@ -58,8 +58,9 @@
                 <td>Categories</td>
                 <td>
                   <div
-                    class="category"
+                    class="category m-1"
                     *ngFor="let category of bookInfo.categoryList"
+                    (click)="goToCategory(category)"
                   >
                     {{ category.name }}
                   </div>
@@ -68,7 +69,11 @@
               <tr>
                 <td>Tags</td>
                 <td>
-                  <div class="tag" *ngFor="let tag of bookInfo.tagList">
+                  <div
+                    class="tag"
+                    *ngFor="let tag of bookInfo.tagList"
+                    (click)="goToTag(tag)"
+                  >
                     {{ tag.name }}
                   </div>
                 </td>

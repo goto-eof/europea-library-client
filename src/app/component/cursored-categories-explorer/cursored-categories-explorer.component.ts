@@ -3,6 +3,7 @@ import CursoredCategoriesService from '../../service/CursoredCategoriesService';
 import Cursor from '../../model/Cursor';
 import Category from '../../model/Category';
 import CommonCursoredRequest from '../../model/CommonCursoredRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursored-categories-explorer',
@@ -16,7 +17,10 @@ export class CategoriesExplorerComponent implements OnInit {
   };
   isShowMoreButton: boolean = false;
 
-  constructor(private cursoredCategoriesService: CursoredCategoriesService) {}
+  constructor(
+    private cursoredCategoriesService: CursoredCategoriesService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cursoredCategoriesService.list().subscribe((data) => {
@@ -33,5 +37,9 @@ export class CategoriesExplorerComponent implements OnInit {
       this.categories.items = [...this.categories.items, ...data.items];
       this.categories.nextCursor = data.nextCursor;
     });
+  }
+
+  goToCategory(category: Category) {
+    this.router.navigate([`/explorer/category/${category.id}`]);
   }
 }

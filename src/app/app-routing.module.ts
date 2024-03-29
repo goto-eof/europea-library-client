@@ -8,6 +8,8 @@ import { WorkInProgressComponent } from './component/work-in-progress/work-in-pr
 import { CursoredExplorerComponent } from './component/cursored-explorer/cursored-explorer.component';
 import { CategoriesExplorerComponent as CursoredCategoriesExplorerComponent } from './component/cursored-categories-explorer/cursored-categories-explorer.component';
 import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
+import { CursoredCategoryFileExplorerComponent } from './component/cursored-category-file-explorer/cursored-category-file-explorer.component';
+import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,6 +17,11 @@ const routes: Routes = [
   { path: 'tags', component: CursoredTagExplorerComponent },
   { path: 'explorer', component: CursoredExplorerComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
+  {
+    path: 'explorer/category/:id',
+    component: CursoredCategoryFileExplorerComponent,
+  },
+  { path: 'explorer/tag/:id', component: CursoredTagFileExplorerComponent },
   { path: 'file-info/:fileSystemItemId', component: FileInfoComponent },
   {
     path: '',

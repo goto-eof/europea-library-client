@@ -1,0 +1,30 @@
+<mat-card class="my-2" *ngIf="cursoredTag?.tag">
+  <mat-card-content
+    ><a routerLink="/tags">Tags</a> »
+    {{ cursoredTag?.tag?.name }}</mat-card-content
+  >
+</mat-card>
+<mat-card class="p-2 my-2" *ngIf="cursoredTag">
+  <ul class="mx-3">
+    <li *ngFor="let item of cursoredTag?.childrenList">
+      <a
+        class="link"
+        (click)="listDirectory(item)"
+        [ngClass]="item.isDirectory ? 'directory' : 'file'"
+      >
+        <i
+          class="bi px-1"
+          [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
+        ></i
+        >{{ item.name }}
+      </a>
+    </li>
+  </ul>
+  <button
+    *ngIf="cursoredTag?.nextCursor"
+    class="btn btn-primary"
+    (click)="loadMore()"
+  >
+    More
+  </button>
+</mat-card>

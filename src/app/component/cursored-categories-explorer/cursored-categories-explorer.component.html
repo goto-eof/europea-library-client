@@ -1,14 +1,20 @@
-<mat-chip
-  color="primary"
-  class="m-1"
-  *ngFor="let category of categories.items"
-  >{{ category.name }}</mat-chip
->
+<mat-card class="p-2 m-2">
+  <mat-card-title>Categories</mat-card-title>
+  <mat-card-content>
+    <mat-chip
+      color="primary"
+      class="m-1 pointer"
+      *ngFor="let category of categories.items"
+      (click)="goToCategory(category)"
+      >{{ category.name }}</mat-chip
+    >
 
-<button
-  *ngIf="categories.nextCursor"
-  (click)="loadMore()"
-  class="btn btn-primary"
+    <button
+      *ngIf="categories.nextCursor"
+      (click)="loadMore()"
+      class="btn btn-primary"
+    >
+      More
+    </button>
+  </mat-card-content></mat-card
 >
-  More
-</button>
