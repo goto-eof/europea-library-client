@@ -82,10 +82,17 @@
                 <td>Description</td>
                 <td>{{ bookInfo.description }}</td>
               </tr>
-
+              <tr *ngIf="fileSystemItem && fileSystemItem.size">
+                <td>Size</td>
+                <td>{{ fileSystemItem!.size | bytesToMegabytes }} Megabytes</td>
+              </tr>
+              <tr *ngIf="fileSystemItem && fileSystemItem.extension">
+                <td>Format</td>
+                <td>{{ fileSystemItem!.extension }}</td>
+              </tr>
               <tr>
-                <td>Download</td>
-                <td>
+                <td></td>
+                <td class="p-3">
                   <a class="pointer-cursor btn btn-primary" (click)="download()"
                     >Click here to Download the e-book</a
                   >

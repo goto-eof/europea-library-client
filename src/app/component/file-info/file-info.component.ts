@@ -94,12 +94,9 @@ export class FileInfoComponent implements OnInit {
           const blob: any = new Blob([data], {
             type: 'octet/stream',
           });
-
-          // const blob: Blob = data;
           const url = window.URL.createObjectURL(blob);
           a.href = url;
-          a.download =
-            this.fileSystemItem!.name + '.' + this.fileSystemItem!.extension;
+          a.download = this.fileSystemItem!.name!;
           a.click();
           window.URL.revokeObjectURL(url);
         },
