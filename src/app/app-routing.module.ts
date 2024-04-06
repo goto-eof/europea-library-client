@@ -10,6 +10,8 @@ import { CategoriesExplorerComponent as CursoredCategoriesExplorerComponent } fr
 import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
 import { CursoredCategoryFileExplorerComponent } from './component/cursored-category-file-explorer/cursored-category-file-explorer.component';
 import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
+import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
+import { ExtensionsComponent } from './component/extensions/extensions.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +19,11 @@ const routes: Routes = [
   { path: 'tags', component: CursoredTagExplorerComponent },
   { path: 'explorer', component: CursoredExplorerComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
+  { path: 'extension', component: ExtensionsComponent },
+  {
+    path: 'explore/extension/:extension',
+    component: ByFileExtensionExplorerComponent,
+  },
   {
     path: 'explorer/category/:id',
     component: CursoredCategoryFileExplorerComponent,

@@ -28,6 +28,8 @@ import CursoredTagService from './service/CursoredTagService';
 import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
 import { CursoredCategoryFileExplorerComponent } from './component/cursored-category-file-explorer/cursored-category-file-explorer.component';
 import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
+import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
+import { ExtensionsComponent } from './component/extensions/extensions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,8 @@ import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/
     CursoredTagExplorerComponent,
     CursoredTagFileExplorerComponent,
     CursoredCategoryFileExplorerComponent,
+    ByFileExtensionExplorerComponent,
+    ExtensionsComponent,
   ],
   imports: [
     BrowserModule,

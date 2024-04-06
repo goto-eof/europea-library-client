@@ -36,7 +36,7 @@ export class CursoredExplorerComponent implements OnInit {
       next: (params) => {
         let parentId = params.get('id');
         if (!parentId) {
-          this.cursoredFileSystemService.list().subscribe({
+          this.cursoredFileSystemService.listCursored().subscribe({
             next: (cursoredFileSystemResponse) => {
               this.parentId = cursoredFileSystemResponse.parent?.id;
               this.cursoredFileSystemItem = cursoredFileSystemResponse;
@@ -82,7 +82,7 @@ export class CursoredExplorerComponent implements OnInit {
       limit: 10,
       nextCursor: this.cursoredFileSystemItem.nextCursor,
     };
-    this.cursoredFileSystemService.list(cursoredRequest).subscribe({
+    this.cursoredFileSystemService.listCursored(cursoredRequest).subscribe({
       next: (cursoredFileSystemItemResponse) => {
         this.cursoredFileSystemItem = cursoredFileSystemItemResponse;
         cursoredFileSystemItemResponse.childrenList?.forEach((child) =>

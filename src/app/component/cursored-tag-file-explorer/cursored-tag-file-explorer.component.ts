@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import FileSystemService from '../../service/FileSystemService';
 import CursoredRequest from '../../model/CursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
+import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 
 @Component({
   selector: 'app-cursored-tag-file-explorer',
@@ -16,14 +17,15 @@ export class CursoredTagFileExplorerComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fileSystemService: FileSystemService
+    private fileSystemService: FileSystemService,
+    private cursoredFileSystemService: CursoredFileSystemService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       let tagId = params.get('id');
       if (tagId) {
-        this.fileSystemService
+        this.cursoredFileSystemService
           .listByTag({
             limit: 10,
             nextCursor: null,
@@ -42,7 +44,7 @@ export class CursoredTagFileExplorerComponent {
       nextCursor: this.cursoredTag?.nextCursor!,
       parentId: this.cursoredTag?.tag.id!,
     };
-    this.fileSystemService
+    this.cursoredFileSystemService
       .listByTag(cursoredRequest)
       .subscribe((cursoredTag) => {
         this.cursoredTag!.childrenList = [

@@ -3,10 +3,10 @@
   <mat-card-content>
     <mat-chip
       color="primary"
-      class="m-1 pointer"
+      class="m-1"
       *ngFor="let category of categories.items"
       (click)="goToCategory(category)"
-      >{{ category.name }}</mat-chip
+      ><span class="cursor-pointer">{{ category.name }}</span></mat-chip
     >
 
     <button

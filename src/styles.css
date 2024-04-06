@@ -48,3 +48,12 @@
   .overflow-hidden { overflow: hidden; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.cursor-pointer {
+ cursor: auto;   
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}

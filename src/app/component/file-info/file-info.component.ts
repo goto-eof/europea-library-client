@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import Category from '../../model/Category';
 import Tag from '../../model/Tag';
+import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 
 @Component({
   selector: 'app-file-info',
@@ -23,14 +24,22 @@ export class FileInfoComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private bookInfoService: BookInfoService
+    private bookInfoService: BookInfoService,
+    private cursoredFileSystemService: CursoredFileSystemService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((map) => {
       const fileSystemItemId: string | null = map.get('fileSystemItemId');
       if (fileSystemItemId) {
-        this.loadFileSystemItem();
+        this.cursoredFileSystemService.get(+fileSystemItemId).subscribe({
+          error: () => {
+            this.loadFileSystemItem();
+          },
+          next: (fsi: FileSystemItem) => {
+            this.fileSystemItem = fsi;
+          },
+        });
         this.loadBookInfo(fileSystemItemId);
       }
     });
@@ -70,5 +79,33 @@ export class FileInfoComponent implements OnInit {
 
   goToTag(tag: Tag) {
     this.router.navigate([`/explorer/tag/${tag.id}`]);
+  }
+
+  download() {
+    if (!this.fileSystemItem || this.fileSystemItem.isDirectory) {
+      return;
+    }
+    this.cursoredFileSystemService
+      .download(this.fileSystemItem!.id!)
+      .subscribe({
+        next: (data: any) => {
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          const blob: any = new Blob([data], {
+            type: 'octet/stream',
+          });
+
+          // const blob: Blob = data;
+          const url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download =
+            this.fileSystemItem!.name + '.' + this.fileSystemItem!.extension;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          this.router.navigate(['/page-not-found']);
+        },
+      });
   }
 }

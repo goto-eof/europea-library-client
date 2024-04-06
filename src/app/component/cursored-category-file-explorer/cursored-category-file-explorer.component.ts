@@ -4,6 +4,7 @@ import FileSystemService from '../../service/FileSystemService';
 import CursoredCategory from '../../model/CursoredCategory';
 import CursoredRequest from '../../model/CursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
+import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 
 @Component({
   selector: 'app-cursored-category-file-explorer',
@@ -16,14 +17,15 @@ export class CursoredCategoryFileExplorerComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fileSystemService: FileSystemService
+    private fileSystemService: FileSystemService,
+    private cursoredFileSystemService: CursoredFileSystemService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       let categoryId = params.get('id');
       if (categoryId) {
-        this.fileSystemService
+        this.cursoredFileSystemService
           .listByCategory({
             limit: 10,
             nextCursor: null,
@@ -37,13 +39,12 @@ export class CursoredCategoryFileExplorerComponent implements OnInit {
   }
 
   loadMore() {
-    console.log(this.cursoredCategory);
     const cursoredRequest: CursoredRequest = {
       limit: 10,
       nextCursor: this.cursoredCategory?.nextCursor!,
       parentId: this.cursoredCategory?.category.id!,
     };
-    this.fileSystemService
+    this.cursoredFileSystemService
       .listByCategory(cursoredRequest)
       .subscribe((cursoredCategory) => {
         this.cursoredCategory!.childrenList = [

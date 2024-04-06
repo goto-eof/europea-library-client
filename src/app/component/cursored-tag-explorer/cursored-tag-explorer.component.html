@@ -6,7 +6,7 @@
       class="m-1"
       *ngFor="let tag of tags.items"
       (click)="goToTag(tag)"
-      >{{ tag.name }}</mat-chip
+      ><span class="cursor-pointer">{{ tag.name }}</span></mat-chip
     >
 
     <button

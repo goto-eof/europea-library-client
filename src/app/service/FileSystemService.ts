@@ -6,7 +6,9 @@ import ApplicationConst from '../constants/ApplicationConst';
 import CursoredRequest from '../model/CursoredRequest';
 import CursoredCategory from '../model/CursoredCategory';
 import CursoredTag from '../model/CursoredTag';
-import CursoredCategoriesService from './CursoredCategoriesService';
+import FileExtension from '../model/FileExtension';
+import CursoredFileSystemItem from '../model/CursoredFileSystemItem';
+import CursoredFileSystemItemByExtension from '../model/CursoredFileExtensionRequest';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/file';
 
@@ -19,19 +21,5 @@ export default class FileSystemService {
       return this.httpClient.get<FileSystemItem>(`${baseUrl}`);
     }
     return this.httpClient.get<FileSystemItem>(`${baseUrl}/parentId/${id}`);
-  }
-
-  listByCategory(cursorRequest: CursoredRequest): Observable<CursoredCategory> {
-    return this.httpClient.post<CursoredCategory>(
-      `${baseUrl}/cursored/category`,
-      cursorRequest
-    );
-  }
-
-  listByTag(cursorRequest?: CursoredRequest): Observable<CursoredTag> {
-    return this.httpClient.post<CursoredTag>(
-      `${baseUrl}/cursored/tag`,
-      cursorRequest
-    );
   }
 }

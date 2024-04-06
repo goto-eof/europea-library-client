@@ -1,0 +1,16 @@
+<mat-card class="p-3">
+  <mat-card-title>
+    Extension: {{ cursoredExtension?.extension }}</mat-card-title
+  >
+
+  <mat-card-content>
+    <ul>
+      <li *ngFor="let fsi of cursoredExtension?.childrenList">
+        <a class="cursor-pointer" (click)="goToFile(fsi)"> {{ fsi.name }}</a>
+      </li>
+    </ul>
+  </mat-card-content>
+  <mat-card-footer class="d-flex justify-content-center">
+    <button (click)="more()" class="btn btn-primary">More</button>
+  </mat-card-footer>
+</mat-card>
