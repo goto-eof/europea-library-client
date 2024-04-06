@@ -30,7 +30,7 @@ import { CursoredCategoryFileExplorerComponent } from './component/cursored-cate
 import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
 import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
 import { ExtensionsComponent } from './component/extensions/extensions.component';
-import { BytesToMegabytesPipe } from './bytes-to-megabytes.pipe';
+import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
 @NgModule({
   declarations: [
     AppComponent,
