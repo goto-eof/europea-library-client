@@ -12,7 +12,8 @@
 
 # Europea Library (client - Work In Progress)
 
-A library web application that allows to index, gather information about books, search and download ebooks. The back-end project can be found [here](https://github.com/goto-eof/europea-library-server).
+A library web application that allows to index, retrieve information about books from file metadata/web (by using
+multithreading), search and download ebooks. The back-end project can be found [here](https://github.com/goto-eof/europea-library-server).
 
 ## Technologies
 
