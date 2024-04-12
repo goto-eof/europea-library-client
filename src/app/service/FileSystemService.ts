@@ -3,12 +3,6 @@ import { Injectable } from '@angular/core';
 import FileSystemItem from '../model/FileSystemItem';
 import { Observable } from 'rxjs';
 import ApplicationConst from '../constants/ApplicationConst';
-import CursoredRequest from '../model/CursoredRequest';
-import CursoredCategory from '../model/CursoredCategory';
-import CursoredTag from '../model/CursoredTag';
-import FileExtension from '../model/FileExtension';
-import CursoredFileSystemItem from '../model/CursoredFileSystemItem';
-import CursoredFileSystemItemByExtension from '../model/CursoredFileExtensionRequest';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/file';
 

@@ -1,0 +1,30 @@
+<mat-card class="p-2 m-2">
+  <mat-card-title>Search results</mat-card-title>
+  <mat-card-content>
+    <div class="px-1">
+      <ul class="mx-3">
+        <li *ngFor="let item of searchResult.childrenList">
+          <a
+            class="link cursor-pointer"
+            (click)="goToChildren(item)"
+            [ngClass]="item.isDirectory ? 'directory' : 'file'"
+          >
+            <i
+              class="bi px-1"
+              [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
+            ></i
+            >{{ item.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      *ngIf="searchResult.query.nextCursor"
+      (click)="loadMore()"
+      class="btn btn-primary"
+    >
+      More
+    </button>
+  </mat-card-content></mat-card
+>

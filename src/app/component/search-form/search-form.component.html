@@ -1,0 +1,167 @@
+<form
+  [formGroup]="searchForm"
+  (ngSubmit)="submitForm()"
+  class="d-flex justify-content-center"
+>
+  <div class="col-sm-10">
+    <div class="form-group row py-1 mx-auto">
+      <!-- <label for="title" class="col-sm-2 col-form-label form-title"
+        >Title</label
+      > -->
+      <div class="col-sm-10">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Book title"
+            aria-label="Book title"
+            aria-describedby="basic-addon2"
+            formControlName="title"
+            name="title"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-success mx-1"
+              type="button"
+              (click)="toggleAdvanceSearch()"
+            >
+              ⋮
+            </button>
+            <button class="btn btn-outline-primary mx-1" type="submit">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="
+          searchForm?.get('name')?.invalid && searchForm?.get('name')?.touched
+        "
+        class="text-danger"
+      >
+        Title is required
+      </div>
+    </div>
+
+    <div *ngIf="isAdvanceSearchEnable">
+      <div class="form-group row py-1 mx-auto">
+        <!-- <label for="title" class="col-sm-2 col-form-label form-title"
+          >Author</label
+        > -->
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Book author"
+            id="author"
+            formControlName="author"
+          />
+          <div
+            *ngIf="
+              searchForm?.get('author')?.invalid &&
+              searchForm?.get('author')?.touched
+            "
+            class="text-danger"
+          >
+            Error
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row py-1 mx-auto">
+        <!-- <label for="publisher" class="col-sm-2 col-form-label form-title"
+          >Publisher</label
+        > -->
+        <div class="col-sm-10">
+          <input
+            type="text"
+            placeholder="Book publisher"
+            class="form-control"
+            id="publisher"
+            formControlName="publisher"
+          />
+          <div
+            *ngIf="
+              searchForm?.get('publisher')?.invalid &&
+              searchForm?.get('publisher')?.touched
+            "
+            class="text-danger"
+          >
+            Error
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row py-1 mx-auto">
+        <!-- <label for="description" class="col-sm-2 col-form-label form-title"
+          >Description</label
+        > -->
+        <div class="col-sm-10">
+          <input
+            type="text"
+            placeholder="Book description"
+            class="form-control"
+            id="description"
+            formControlName="description"
+          />
+          <div
+            *ngIf="
+              searchForm?.get('description')?.invalid &&
+              searchForm?.get('description')?.touched
+            "
+            class="text-danger"
+          >
+            Error
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row py-1 mx-auto">
+        <!-- <label for="year" class="col-sm-2 col-form-label form-title"
+          >Year</label
+        > -->
+        <div class="col-sm-10">
+          <input
+            type="text"
+            placeholder="Book year"
+            class="form-control"
+            id="year"
+            formControlName="year"
+          />
+          <div
+            *ngIf="
+              searchForm?.get('year')?.invalid &&
+              searchForm?.get('year')?.touched
+            "
+            class="text-danger"
+          >
+            Error
+          </div>
+        </div>
+      </div>
+      <div class="form-group row py-1 mx-auto">
+        <!-- <label for="isbn" class="col-sm-2 col-form-label form-title"
+          >ISBN</label
+        > -->
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Book ISBN"
+            id="isbn"
+            formControlName="isbn"
+          />
+          <div
+            *ngIf="
+              searchForm?.get('isbn')?.invalid &&
+              searchForm?.get('isbn')?.touched
+            "
+            class="text-danger"
+          >
+            Error
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

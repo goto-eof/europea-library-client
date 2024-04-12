@@ -11,7 +11,7 @@
 
     <button
       *ngIf="categories.nextCursor"
-      (click)="loadMore()"
+      (click)="loadMore(this)"
       class="btn btn-primary"
     >
       More

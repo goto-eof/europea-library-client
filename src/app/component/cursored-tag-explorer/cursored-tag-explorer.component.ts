@@ -4,6 +4,7 @@ import Tag from '../../model/Tag';
 import CursoredTagService from '../../service/CursoredTagService';
 import CommonCursoredRequest from '../../model/CommonCursoredRequest';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cursored-tag-explorer',
@@ -16,6 +17,8 @@ export class CursoredTagExplorerComponent implements OnInit {
     nextCursor: null,
   };
   isShowMoreButton: boolean = false;
+  private isAutoLoadEnabled: boolean = environment.isAutoLoadEnabled;
+  private autoLoadTime: number = environment.autoLoadTime;
 
   constructor(
     private cursoredTaxService: CursoredTagService,
@@ -25,17 +28,28 @@ export class CursoredTagExplorerComponent implements OnInit {
   ngOnInit(): void {
     this.cursoredTaxService.list().subscribe((data) => {
       this.tags = data;
+      const loadMore = this.loadMore;
+      const that = this;
+      if (this.isAutoLoadEnabled) {
+        var intervalId = window.setInterval(function () {
+          if (data.nextCursor) {
+            loadMore(that);
+          } else {
+            clearInterval(intervalId);
+          }
+        }, this.autoLoadTime);
+      }
     });
   }
 
-  loadMore() {
+  loadMore(that: CursoredTagExplorerComponent) {
     const request: CommonCursoredRequest = {
-      limit: 10,
-      nextCursor: this.tags.nextCursor,
+      limit: environment.tagsPerRequest,
+      nextCursor: that.tags.nextCursor,
     };
-    this.cursoredTaxService.list(request).subscribe((data) => {
-      this.tags.items = [...this.tags.items, ...data.items];
-      this.tags.nextCursor = data.nextCursor;
+    that.cursoredTaxService.list(request).subscribe((data: Cursor<Tag>) => {
+      that.tags.items = [...that.tags.items, ...data.items];
+      that.tags.nextCursor = data.nextCursor;
     });
   }
 

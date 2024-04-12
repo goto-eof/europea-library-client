@@ -9,6 +9,9 @@ import FileExtension from '../model/FileExtension';
 import CursoredExtension from '../model/CursoredExtension';
 import CursoredCategory from '../model/CursoredCategory';
 import CursoredTag from '../model/CursoredTag';
+import SearchFileSystemItemRequest from '../model/SearchFileSystemItemRequest';
+import SearchResult from '../model/SearchResult';
+import FileSystemItem from '../model/FileSystemItem';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v2/file';
 
@@ -65,5 +68,13 @@ export default class CursoredFileSystemService {
       `${baseUrl}/cursored/tag`,
       cursorRequest
     );
+  }
+
+  search(
+    cursorRequest?: SearchFileSystemItemRequest
+  ): Observable<SearchResult<SearchFileSystemItemRequest, FileSystemItem>> {
+    return this.httpClient.post<
+      SearchResult<SearchFileSystemItemRequest, FileSystemItem>
+    >(`${baseUrl}/cursored/search`, cursorRequest);
   }
 }

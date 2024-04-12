@@ -4,6 +4,7 @@ import Cursor from '../../model/Cursor';
 import Category from '../../model/Category';
 import CommonCursoredRequest from '../../model/CommonCursoredRequest';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cursored-categories-explorer',
@@ -16,6 +17,8 @@ export class CategoriesExplorerComponent implements OnInit {
     nextCursor: null,
   };
   isShowMoreButton: boolean = false;
+  private isAutoLoadEnabled: boolean = environment.isAutoLoadEnabled;
+  private autoLoadTime: number = environment.autoLoadTime;
 
   constructor(
     private cursoredCategoriesService: CursoredCategoriesService,
@@ -25,18 +28,30 @@ export class CategoriesExplorerComponent implements OnInit {
   ngOnInit(): void {
     this.cursoredCategoriesService.list().subscribe((data) => {
       this.categories = data;
+      const that = this;
+      if (this.isAutoLoadEnabled) {
+        var intervalId = window.setInterval(function () {
+          if (data.nextCursor) {
+            that.loadMore(that);
+          } else {
+            clearInterval(intervalId);
+          }
+        }, this.autoLoadTime);
+      }
     });
   }
 
-  loadMore() {
+  loadMore(that: CategoriesExplorerComponent) {
     const request: CommonCursoredRequest = {
-      limit: 10,
-      nextCursor: this.categories.nextCursor,
+      limit: environment.categoriesPerRequest,
+      nextCursor: that.categories.nextCursor,
     };
-    this.cursoredCategoriesService.list(request).subscribe((data) => {
-      this.categories.items = [...this.categories.items, ...data.items];
-      this.categories.nextCursor = data.nextCursor;
-    });
+    that.cursoredCategoriesService
+      .list(request)
+      .subscribe((data: Cursor<Category>) => {
+        that.categories.items = [...that.categories.items, ...data.items];
+        that.categories.nextCursor = data.nextCursor;
+      });
   }
 
   goToCategory(category: Category) {

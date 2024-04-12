@@ -31,6 +31,9 @@ import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/
 import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
 import { ExtensionsComponent } from './component/extensions/extensions.component';
 import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
+import { SearchFormComponent } from './component/search-form/search-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +55,8 @@ import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
     ByFileExtensionExplorerComponent,
     ExtensionsComponent,
     BytesToMegabytesPipe,
+    SearchFormComponent,
+    CursoredSearchExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,7 @@ import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
     NgbModule,
     MatCardModule,
     MatChipsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     FileSystemService,

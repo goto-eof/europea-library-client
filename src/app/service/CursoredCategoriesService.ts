@@ -5,6 +5,7 @@ import ApplicationConst from '../constants/ApplicationConst';
 import CommonCursoredRequest from '../model/CommonCursoredRequest';
 import Cursor from '../model/Cursor';
 import Category from '../model/Category';
+import { environment } from '../../environments/environment';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/category';
 
@@ -15,7 +16,7 @@ export default class CursoredCategoriesService {
   list(cursoredRequest?: CommonCursoredRequest): Observable<Cursor<Category>> {
     if (!cursoredRequest) {
       cursoredRequest = {
-        limit: 10,
+        limit: environment.categoriesPerRequest,
         nextCursor: null,
       };
     }

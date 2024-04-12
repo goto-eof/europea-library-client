@@ -12,12 +12,14 @@ import { CursoredCategoryFileExplorerComponent } from './component/cursored-cate
 import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
 import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
 import { ExtensionsComponent } from './component/extensions/extensions.component';
+import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'categories', component: CursoredCategoriesExplorerComponent },
   { path: 'tags', component: CursoredTagExplorerComponent },
   { path: 'explorer', component: CursoredExplorerComponent },
+  { path: 'search', component: CursoredSearchExplorerComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
   { path: 'extension', component: ExtensionsComponent },
   {
