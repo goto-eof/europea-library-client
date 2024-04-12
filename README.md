@@ -27,7 +27,7 @@ Execute `npm install && ng serve`.
 
 ## Screenshots
 
-![screenshot](/images/europea-library-client.png)
+![screenshot](/images/screenshot.png)
 
 ## More
 
