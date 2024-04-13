@@ -24,46 +24,61 @@
             <table>
               <tr>
                 <td>Title</td>
-                <td>{{ bookInfo.title }}</td>
+                <td *ngIf="bookInfo.title">{{ bookInfo.title }}</td>
+                <td *ngIf="!bookInfo.title">-</td>
               </tr>
               <tr>
                 <td>Authors</td>
-                <td>{{ bookInfo.authors }}</td>
+                <td *ngIf="bookInfo.authors">{{ bookInfo.authors }}</td>
+                <td *ngIf="!bookInfo.authors">-</td>
               </tr>
               <tr>
                 <td>ISBN 10:</td>
-                <td>{{ bookInfo.isbn10 }}</td>
+                <td *ngIf="bookInfo.isbn10">{{ bookInfo.isbn10 }}</td>
+                <td *ngIf="!bookInfo.isbn10">-</td>
               </tr>
               <tr>
                 <td>ISBN 13:</td>
-                <td>{{ bookInfo.isbn13 }}</td>
+                <td *ngIf="bookInfo.isbn13">{{ bookInfo.isbn13 }}</td>
+                <td *ngIf="!bookInfo.isbn13">-</td>
               </tr>
               <tr>
                 <td>Number of pages:</td>
-                <td>{{ bookInfo.numberOfPages }}</td>
+                <td *ngIf="bookInfo.numberOfPages">
+                  {{ bookInfo.numberOfPages }}
+                </td>
+                <td *ngIf="!bookInfo.numberOfPages">-</td>
               </tr>
               <tr>
                 <td>Language:</td>
-                <td>{{ bookInfo.language }}</td>
+                <td *ngIf="bookInfo.language">{{ bookInfo.language }}</td>
+                <td *ngIf="!bookInfo.language">-</td>
               </tr>
               <tr>
                 <td>Note</td>
-                <td>{{ bookInfo.note }}</td>
+                <td *ngIf="bookInfo.note">{{ bookInfo.note }}</td>
+                <td *ngIf="!bookInfo.note">-</td>
               </tr>
               <tr>
                 <td>Publisher</td>
                 <td>
-                  <span *ngIf="bookInfo.publisher"
-                    >{{ bookInfo.publisher }},</span
-                  >
+                  <span *ngIf="bookInfo.publisher">{{
+                    bookInfo.publisher
+                  }}</span>
+                  <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
+                    >,
+                  </span>
                   <span *ngIf="bookInfo.publishedDate">
                     {{ bookInfo.publishedDate }}
                   </span>
+                  <span *ngIf="!bookInfo.publishedDate && !bookInfo.publisher"
+                    >-</span
+                  >
                 </td>
               </tr>
               <tr>
                 <td>Categories</td>
-                <td>
+                <td *ngIf="bookInfo.categoryList.length > 0">
                   <div
                     class="category m-1"
                     *ngFor="let category of bookInfo.categoryList"
@@ -72,10 +87,11 @@
                     {{ category.name }}
                   </div>
                 </td>
+                <td *ngIf="bookInfo.categoryList.length === 0">-</td>
               </tr>
               <tr>
                 <td>Tags</td>
-                <td>
+                <td *ngIf="bookInfo.tagList.length > 0">
                   <div
                     class="tag"
                     *ngFor="let tag of bookInfo.tagList"
@@ -84,18 +100,26 @@
                     {{ tag.name }}
                   </div>
                 </td>
+                <td *ngIf="bookInfo.tagList.length === 0">-</td>
               </tr>
               <tr>
                 <td>Description</td>
-                <td>{{ bookInfo.description }}</td>
+                <td *ngIf="bookInfo.description">{{ bookInfo.description }}</td>
+                <td *ngIf="!bookInfo.description">-</td>
               </tr>
               <tr *ngIf="fileSystemItem && fileSystemItem.size">
                 <td>Size</td>
-                <td>{{ fileSystemItem!.size | bytesToMegabytes }} Megabytes</td>
+                <td *ngIf="fileSystemItem.size">
+                  {{ fileSystemItem!.size | bytesToMegabytes }} Megabytes
+                </td>
+                <td *ngIf="!fileSystemItem.size">-</td>
               </tr>
               <tr *ngIf="fileSystemItem && fileSystemItem.extension">
                 <td>Format</td>
-                <td>{{ fileSystemItem!.extension }}</td>
+                <td *ngIf="fileSystemItem.extension">
+                  {{ fileSystemItem!.extension }}
+                </td>
+                <td *ngIf="!fileSystemItem.extension">-</td>
               </tr>
               <tr>
                 <td></td>
