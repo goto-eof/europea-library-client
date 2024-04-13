@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Cursor from '../../model/Cursor';
 import Tag from '../../model/Tag';
 import CursoredTagService from '../../service/CursoredTagService';
@@ -11,11 +11,12 @@ import { environment } from '../../../environments/environment';
   templateUrl: './cursored-tag-explorer.component.html',
   styleUrl: './cursored-tag-explorer.component.css',
 })
-export class CursoredTagExplorerComponent implements OnInit {
+export class CursoredTagExplorerComponent implements OnInit, OnDestroy {
   tags: Cursor<Tag> = {
     items: [],
     nextCursor: null,
   };
+  intervalId: any;
   isShowMoreButton: boolean = false;
   private isAutoLoadEnabled: boolean = environment.isAutoLoadEnabled;
   private autoLoadTime: number = environment.autoLoadTime;
@@ -24,6 +25,9 @@ export class CursoredTagExplorerComponent implements OnInit {
     private cursoredTaxService: CursoredTagService,
     private router: Router
   ) {}
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
+  }
 
   ngOnInit(): void {
     this.cursoredTaxService.list().subscribe((data) => {
@@ -31,11 +35,11 @@ export class CursoredTagExplorerComponent implements OnInit {
       const loadMore = this.loadMore;
       const that = this;
       if (this.isAutoLoadEnabled) {
-        var intervalId = window.setInterval(function () {
+        this.intervalId = window.setInterval(function () {
           if (data.nextCursor) {
             loadMore(that);
           } else {
-            clearInterval(intervalId);
+            clearInterval(that.intervalId);
           }
         }, this.autoLoadTime);
       }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import CursoredCategoriesService from '../../service/CursoredCategoriesService';
 import Cursor from '../../model/Cursor';
 import Category from '../../model/Category';
@@ -11,11 +11,12 @@ import { environment } from '../../../environments/environment';
   templateUrl: './cursored-categories-explorer.component.html',
   styleUrl: './cursored-categories-explorer.component.css',
 })
-export class CategoriesExplorerComponent implements OnInit {
+export class CategoriesExplorerComponent implements OnInit, OnDestroy {
   categories: Cursor<Category> = {
     items: [],
     nextCursor: null,
   };
+  intervalId: any;
   isShowMoreButton: boolean = false;
   private isAutoLoadEnabled: boolean = environment.isAutoLoadEnabled;
   private autoLoadTime: number = environment.autoLoadTime;
@@ -30,11 +31,11 @@ export class CategoriesExplorerComponent implements OnInit {
       this.categories = data;
       const that = this;
       if (this.isAutoLoadEnabled) {
-        var intervalId = window.setInterval(function () {
+        this.intervalId = window.setInterval(function () {
           if (data.nextCursor) {
             that.loadMore(that);
           } else {
-            clearInterval(intervalId);
+            clearInterval(that.intervalId);
           }
         }, this.autoLoadTime);
       }
@@ -56,5 +57,9 @@ export class CategoriesExplorerComponent implements OnInit {
 
   goToCategory(category: Category) {
     this.router.navigate([`/explorer/category/${category.id}`]);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 }
