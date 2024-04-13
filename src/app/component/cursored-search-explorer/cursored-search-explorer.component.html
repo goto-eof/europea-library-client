@@ -1,5 +1,31 @@
 <mat-card class="p-2 m-2">
-  <mat-card-title>Search results</mat-card-title>
+  <mat-card-title
+    >Search results (
+    <span *ngIf="searchResult.query.author">
+      • author: {{ searchResult.query.author }}
+    </span>
+    <span *ngIf="searchResult.query.description">
+      • description: {{ searchResult.query.description }}</span
+    >
+
+    <span *ngIf="searchResult.query.isbn">
+      • isbn: {{ searchResult.query.isbn }}</span
+    >
+
+    <span *ngIf="searchResult.query.publisher">
+      • publisher: {{ searchResult.query.publisher }}</span
+    >
+
+    <span *ngIf="searchResult.query.title">
+      • title: {{ searchResult.query.title }}</span
+    >
+
+    <span *ngIf="searchResult.query.year">
+      • year: {{ searchResult.query.year }}</span
+    >
+
+    )</mat-card-title
+  >
   <mat-card-content>
     <div class="px-1">
       <ul class="mx-3">

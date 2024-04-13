@@ -29,17 +29,29 @@
               </tr>
               <tr>
                 <td>Authors</td>
-                <td *ngIf="bookInfo.authors">{{ bookInfo.authors }}</td>
+                <td *ngIf="bookInfo.authors">
+                  <a class="cursor-pointer" (click)="searchByAuthor()">{{
+                    bookInfo.authors
+                  }}</a>
+                </td>
                 <td *ngIf="!bookInfo.authors">-</td>
               </tr>
               <tr>
                 <td>ISBN 10:</td>
-                <td *ngIf="bookInfo.isbn10">{{ bookInfo.isbn10 }}</td>
+                <td *ngIf="bookInfo.isbn10">
+                  <a class="cursor-pointer" (click)="searchByIsbn10()">{{
+                    bookInfo.isbn10
+                  }}</a>
+                </td>
                 <td *ngIf="!bookInfo.isbn10">-</td>
               </tr>
               <tr>
                 <td>ISBN 13:</td>
-                <td *ngIf="bookInfo.isbn13">{{ bookInfo.isbn13 }}</td>
+                <td *ngIf="bookInfo.isbn13">
+                  <a class="cursor-pointer" (click)="searchByIsbn13()">{{
+                    bookInfo.isbn13
+                  }}</a>
+                </td>
                 <td *ngIf="!bookInfo.isbn13">-</td>
               </tr>
               <tr>
@@ -62,14 +74,18 @@
               <tr>
                 <td>Publisher</td>
                 <td>
-                  <span *ngIf="bookInfo.publisher">{{
-                    bookInfo.publisher
-                  }}</span>
+                  <span *ngIf="bookInfo.publisher">
+                    <a class="cursor-pointer" (click)="searchByPublisher()">{{
+                      bookInfo.publisher
+                    }}</a></span
+                  >
                   <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
                     >,
                   </span>
                   <span *ngIf="bookInfo.publishedDate">
-                    {{ bookInfo.publishedDate }}
+                    <a class="cursor-pointer" (click)="searchByPublishedDate()">
+                      {{ bookInfo.publishedDate }}
+                    </a>
                   </span>
                   <span *ngIf="!bookInfo.publishedDate && !bookInfo.publisher"
                     >-</span

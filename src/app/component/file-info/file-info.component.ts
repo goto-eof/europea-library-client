@@ -8,6 +8,8 @@ import { Location } from '@angular/common';
 import Category from '../../model/Category';
 import Tag from '../../model/Tag';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
+import { SearchService } from '../../service/SearchService';
+import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
 
 @Component({
   selector: 'app-file-info',
@@ -25,7 +27,8 @@ export class FileInfoComponent implements OnInit {
     private router: Router,
     private location: Location,
     private bookInfoService: BookInfoService,
-    private cursoredFileSystemService: CursoredFileSystemService
+    private cursoredFileSystemService: CursoredFileSystemService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -104,5 +107,55 @@ export class FileInfoComponent implements OnInit {
           this.router.navigate(['/page-not-found']);
         },
       });
+  }
+
+  searchByAuthor() {
+    const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
+      author: this.bookInfo?.authors,
+    };
+    this.search(searchFileSystemItemRequest);
+  }
+
+  searchByIsbn10() {
+    const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
+      isbn: this.bookInfo?.isbn10,
+    };
+    this.search(searchFileSystemItemRequest);
+  }
+
+  searchByIsbn13() {
+    const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
+      isbn: this.bookInfo?.isbn13,
+    };
+    this.search(searchFileSystemItemRequest);
+  }
+
+  searchByPublisher() {
+    const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
+      publisher: this.bookInfo?.publisher,
+    };
+    this.search(searchFileSystemItemRequest);
+  }
+
+  searchByPublishedDate() {
+    const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
+      year: this.extractYear(this.bookInfo?.publishedDate),
+    };
+    this.search(searchFileSystemItemRequest);
+  }
+
+  extractYear(date?: string) {
+    if (!date) {
+      return;
+    }
+    const publishedDate = new Date(date);
+    return publishedDate.getFullYear();
+  }
+
+  search(searchFileSystemItemRequest: SearchFileSystemItemRequest) {
+    this.router.navigate(['/search']);
+    this.searchService.setSearchFileSystemItemRequest(
+      searchFileSystemItemRequest
+    );
   }
 }
