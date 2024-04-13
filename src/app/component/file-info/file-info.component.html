@@ -24,7 +24,11 @@
             <table>
               <tr>
                 <td>Title</td>
-                <td *ngIf="bookInfo.title">{{ bookInfo.title }}</td>
+                <td *ngIf="bookInfo.title">
+                  <a class="cursor-pointer" (click)="searchByTitle()">
+                    {{ bookInfo.title }}
+                  </a>
+                </td>
                 <td *ngIf="!bookInfo.title">-</td>
               </tr>
               <tr>
