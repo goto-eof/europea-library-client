@@ -25,36 +25,42 @@
               <tr>
                 <td>Title</td>
                 <td *ngIf="bookInfo.title">
-                  <a class="cursor-pointer" (click)="searchByTitle()">
-                    {{ bookInfo.title }}
-                  </a>
+                  <span class="cursor-pointer"
+                    ><a (click)="searchByTitle()">
+                      {{ bookInfo.title }}
+                    </a>
+                  </span>
                 </td>
                 <td *ngIf="!bookInfo.title">-</td>
               </tr>
               <tr>
                 <td>Authors</td>
                 <td *ngIf="bookInfo.authors">
-                  <a class="cursor-pointer" (click)="searchByAuthor()">{{
-                    bookInfo.authors
-                  }}</a>
+                  <span class="cursor-pointer">
+                    <a (click)="searchByAuthor()">{{ bookInfo.authors }}</a>
+                  </span>
                 </td>
                 <td *ngIf="!bookInfo.authors">-</td>
               </tr>
               <tr>
                 <td>ISBN 10:</td>
                 <td *ngIf="bookInfo.isbn10">
-                  <a class="cursor-pointer" (click)="searchByIsbn10()">{{
-                    bookInfo.isbn10
-                  }}</a>
+                  <span class="cursor-pointer"
+                    ><a (click)="searchByIsbn10()">{{
+                      bookInfo.isbn10
+                    }}</a></span
+                  >
                 </td>
                 <td *ngIf="!bookInfo.isbn10">-</td>
               </tr>
               <tr>
                 <td>ISBN 13:</td>
                 <td *ngIf="bookInfo.isbn13">
-                  <a class="cursor-pointer" (click)="searchByIsbn13()">{{
-                    bookInfo.isbn13
-                  }}</a>
+                  <span class="cursor-pointer"
+                    ><a (click)="searchByIsbn13()">{{
+                      bookInfo.isbn13
+                    }}</a></span
+                  >
                 </td>
                 <td *ngIf="!bookInfo.isbn13">-</td>
               </tr>
@@ -78,16 +84,16 @@
               <tr>
                 <td>Publisher</td>
                 <td>
-                  <span *ngIf="bookInfo.publisher">
-                    <a class="cursor-pointer" (click)="searchByPublisher()">{{
+                  <span *ngIf="bookInfo.publisher" class="cursor-pointer">
+                    <a (click)="searchByPublisher()">{{
                       bookInfo.publisher
                     }}</a></span
                   >
                   <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
                     >,
                   </span>
-                  <span *ngIf="bookInfo.publishedDate">
-                    <a class="cursor-pointer" (click)="searchByPublishedDate()">
+                  <span *ngIf="bookInfo.publishedDate" class="cursor-pointer">
+                    <a (click)="searchByPublishedDate()">
                       {{ bookInfo.publishedDate }}
                     </a>
                   </span>

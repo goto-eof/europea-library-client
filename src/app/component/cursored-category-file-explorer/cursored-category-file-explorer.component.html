@@ -6,9 +6,11 @@
 </mat-card>
 <mat-card class="p-2 my-2" *ngIf="cursoredCategory">
   <ul class="mx-3">
-    <li *ngFor="let item of cursoredCategory?.childrenList">
+    <li
+      *ngFor="let item of cursoredCategory?.childrenList"
+      class="cursor-pointer"
+    >
       <a
-        class="link cursor-pointer"
         (click)="listDirectory(item)"
         [ngClass]="item.isDirectory ? 'directory' : 'file'"
       >

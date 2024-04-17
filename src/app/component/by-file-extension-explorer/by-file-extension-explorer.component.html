@@ -5,8 +5,11 @@
 
   <mat-card-content>
     <ul>
-      <li *ngFor="let fsi of cursoredExtension?.childrenList">
-        <a class="cursor-pointer" (click)="goToFile(fsi)"> {{ fsi.name }}</a>
+      <li
+        *ngFor="let fsi of cursoredExtension?.childrenList"
+        class="cursor-pointer"
+      >
+        <a (click)="goToFile(fsi)"> {{ fsi.name }}</a>
       </li>
     </ul>
   </mat-card-content>
