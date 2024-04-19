@@ -12,11 +12,11 @@ import { SearchService } from '../../service/SearchService';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
 
 @Component({
-  selector: 'app-file-info',
-  templateUrl: './file-info.component.html',
-  styleUrl: './file-info.component.css',
+  selector: 'app-file-info-editor',
+  templateUrl: './file-info-editor.component.html',
+  styleUrl: './file-info-editor.component.css',
 })
-export class FileInfoComponent implements OnInit {
+export class FileInfoEditorComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
   constructor(
