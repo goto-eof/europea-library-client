@@ -16,4 +16,8 @@ export default class BookInfoService {
       `${baseUrl}/fileSystemItemId/${fileSystemItemId}`
     );
   }
+
+  update(fileSystemItemId: number, bookInfo: FileMetaInfoBook) {
+    return this.httpClient.put(`${baseUrl}/id/${fileSystemItemId}`, bookInfo);
+  }
 }

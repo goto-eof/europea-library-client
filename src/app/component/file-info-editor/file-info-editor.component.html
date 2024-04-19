@@ -5,7 +5,7 @@
 />
 <form
   [formGroup]="editForm"
-  (ngSubmit)="submitForm()"
+  (submit)="submitForm()"
   style="width: 100%"
   class=""
 >
@@ -102,7 +102,7 @@
                 </tr>
                 <tr>
                   <td>Language:</td>
-                  <td *ngIf="bookInfo.language">
+                  <td>
                     <mat-form-field class="w-100" appearance="fill">
                       <mat-label></mat-label>
                       <input
@@ -116,8 +116,17 @@
                 </tr>
                 <tr>
                   <td>Note</td>
-                  <td *ngIf="bookInfo.note">{{ bookInfo.note }}</td>
-                  <td *ngIf="!bookInfo.note">-</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Note"
+                        formControlName="note"
+                      />
+                      <mat-hint>Book notes</mat-hint>
+                    </mat-form-field>
+                  </td>
                 </tr>
                 <tr>
                   <td>Publisher</td>
@@ -153,7 +162,7 @@
                         placeholder="Categories separated by comma"
                         formControlName="categoryList"
                       />
-                      <mat-hint>Book categories</mat-hint>
+                      <mat-hint>Book categories separated by commas</mat-hint>
                     </mat-form-field>
                   </td>
                 </tr>
@@ -167,7 +176,7 @@
                         placeholder="Tags"
                         formControlName="tagList"
                       />
-                      <mat-hint>Book tags</mat-hint>
+                      <mat-hint>Book tags separated by commas</mat-hint>
                     </mat-form-field>
                   </td>
                 </tr>
@@ -201,6 +210,15 @@
                 </tr>
                 <tr></tr>
               </table>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              <div>
+                <button class="btn btn-danger" type="submit">Update</button>
+              </div>
             </td>
           </tr>
         </table>

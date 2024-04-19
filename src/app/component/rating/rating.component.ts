@@ -11,7 +11,7 @@ export class RatingComponent implements OnInit {
   stars: Array<string>;
   constructor() {
     this.stars = Array(5).map((x, i) =>
-      i <= this.bookInfo.averageRating ? '★' : '☆'
+      i <= this.bookInfo.averageRating! ? '★' : '☆'
     );
   }
 

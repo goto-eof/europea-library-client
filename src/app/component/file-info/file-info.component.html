@@ -8,11 +8,6 @@
     <mat-card-content>
       <table>
         <tr>
-          <td colspan="3" style="text-align: right">
-            <span class="cursor-pointer" (click)="edit()">Edit</span>
-          </td>
-        </tr>
-        <tr>
           <td>
             <table>
               <tr>
@@ -155,9 +150,15 @@
               <tr>
                 <td></td>
                 <td class="p-3">
-                  <a class="pointer-cursor btn btn-primary" (click)="download()"
-                    >Click here to Download the e-book</a
+                  <button
+                    class="pointer-cursor btn btn-primary"
+                    (click)="download()"
                   >
+                    Click here to Download the e-book
+                  </button>
+                </td>
+                <td class="p-3">
+                  <button class="btn btn-warning" (click)="edit()">Edit</button>
                 </td>
               </tr>
             </table>

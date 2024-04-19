@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import FileSystemItem from '../model/FileSystemItem';
 import { Observable } from 'rxjs';
 import ApplicationConst from '../constants/ApplicationConst';
+import FileMetaInfoBook from '../model/FileMetaInfoBook';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/file';
 
@@ -16,4 +17,5 @@ export default class FileSystemService {
     }
     return this.httpClient.get<FileSystemItem>(`${baseUrl}/parentId/${id}`);
   }
+
 }
