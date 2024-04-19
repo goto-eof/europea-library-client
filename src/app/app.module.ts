@@ -34,6 +34,10 @@ import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
 import { SearchFormComponent } from './component/search-form/search-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
+import { FileInfoEditorComponent } from './component/file-info-editor/file-info-editor.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +47,7 @@ import { CursoredSearchExplorerComponent } from './component/cursored-search-exp
     PageNotFoundComponent,
     BreadcrumbComponent,
     FileInfoComponent,
+    FileInfoEditorComponent,
     FooterComponent,
     WorkInProgressComponent,
     InternalServerErrorComponent,
@@ -66,6 +71,9 @@ import { CursoredSearchExplorerComponent } from './component/cursored-search-exp
     MatCardModule,
     MatChipsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
   ],
   providers: [
     FileSystemService,

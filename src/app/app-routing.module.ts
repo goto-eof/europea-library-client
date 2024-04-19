@@ -13,6 +13,7 @@ import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-
 import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
 import { ExtensionsComponent } from './component/extensions/extensions.component';
 import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
+import { FileInfoEditorComponent } from './component/file-info-editor/file-info-editor.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,6 +33,10 @@ const routes: Routes = [
   },
   { path: 'explorer/tag/:id', component: CursoredTagFileExplorerComponent },
   { path: 'file-info/:fileSystemItemId', component: FileInfoComponent },
+  {
+    path: 'file-info/edit/:fileSystemItemId',
+    component: FileInfoEditorComponent,
+  },
   {
     path: '',
     redirectTo: '/home',

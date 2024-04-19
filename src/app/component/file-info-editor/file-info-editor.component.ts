@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import FileSystemItem from '../../model/FileSystemItem';
 import { ActivatedRoute, Router } from '@angular/router';
 import BookInfoService from '../../service/BookInfoService';
@@ -10,7 +10,25 @@ import Tag from '../../model/Tag';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { SearchService } from '../../service/SearchService';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+type FileMetaInfoBookForm = {
+  title: string;
+  publisher: string;
+  author: string;
+  description: string;
+  year: string;
+  isbn: string;
+  imageUrl: string;
+  authors: string;
+  note: string;
+  isbn10: string;
+  isbn13: string;
+  numberOfPages: number;
+  language: string;
+  publishedDate: string;
+  categoryList: string;
+  tagList: string;
+};
 @Component({
   selector: 'app-file-info-editor',
   templateUrl: './file-info-editor.component.html',
@@ -19,7 +37,39 @@ import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest
 export class FileInfoEditorComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
+  editForm: FormGroup<any> = this.generateForm(undefined);
+
+  generateForm(data: FileMetaInfoBook | undefined) {
+    return this.formBuilder.group({
+      title: [data?.title, Validators.maxLength(100)],
+      publisher: [data?.publisher, [Validators.maxLength(100)]],
+      author: [data?.authors, Validators.maxLength(100)],
+      description: [data?.description, [Validators.maxLength(100)]],
+      year: [
+        data?.publishedDate,
+        [Validators.maxLength(4), Validators.pattern('[0-9]{4}')],
+      ],
+      isbn10: [data?.isbn10, Validators.maxLength(100)],
+      isbn13: [data?.isbn13, Validators.maxLength(100)],
+      imageUrl: [data?.imageUrl, Validators.maxLength(100)],
+      authors: [data?.authors, Validators.maxLength(100)],
+      note: [data?.note, Validators.maxLength(100)],
+      numberOfPages: data?.numberOfPages,
+      language: [data?.language, Validators.maxLength(100)],
+      publishedDate: [data?.publishedDate, Validators.maxLength(100)],
+      categoryList: [
+        data?.categoryList.map((cat) => cat.name).join(','),
+        Validators.maxLength(100),
+      ],
+      tagList: [
+        data?.tagList.map((tag) => tag.name).join(','),
+        Validators.maxLength(100),
+      ],
+    });
+  }
+
   constructor(
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -47,10 +97,13 @@ export class FileInfoEditorComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  submitForm(): void {}
+
   private loadBookInfo(fileSystemItemId: string) {
     this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
       next: (data) => {
         this.bookInfo = data;
+        this.editForm = this.generateForm(data);
       },
       error: () => {
         this.router.navigate(['/page-not-found']);

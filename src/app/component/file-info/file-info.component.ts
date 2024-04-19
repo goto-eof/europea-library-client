@@ -19,6 +19,7 @@ import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest
 export class FileInfoComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
+
   constructor(
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
@@ -161,5 +162,8 @@ export class FileInfoComponent implements OnInit {
     this.searchService.setSearchFileSystemItemRequest(
       searchFileSystemItemRequest
     );
+  }
+  edit() {
+    this.router.navigate([`/file-info/edit/${this.fileSystemItem!.id}`]);
   }
 }

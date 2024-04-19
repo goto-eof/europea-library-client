@@ -3,162 +3,208 @@
   [fileSystemItem]="fileSystemItem"
   (navigate)="goToExplorer($event)"
 />
-<div class="px-4">
-  <mat-card *ngIf="bookInfo">
-    <mat-card-content>
-      <table>
-        <tr>
-          <td>
-            <table>
-              <tr>
-                <td><img [src]="bookInfo.imageUrl" /></td>
-              </tr>
-              <tr *ngIf="bookInfo.averageRating">
-                <td>
-                  <app-rating [bookInfo]="bookInfo" />
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table>
-              <tr>
-                <td>Title</td>
-                <td *ngIf="bookInfo.title">
-                  <span class="cursor-pointer"
-                    ><a (click)="searchByTitle()">
-                      {{ bookInfo.title }}
-                    </a>
-                  </span>
-                </td>
-                <td *ngIf="!bookInfo.title">-</td>
-              </tr>
-              <tr>
-                <td>Authors</td>
-                <td *ngIf="bookInfo.authors">
-                  <span class="cursor-pointer">
-                    <a (click)="searchByAuthor()">{{ bookInfo.authors }}</a>
-                  </span>
-                </td>
-                <td *ngIf="!bookInfo.authors">-</td>
-              </tr>
-              <tr>
-                <td>ISBN 10:</td>
-                <td *ngIf="bookInfo.isbn10">
-                  <span class="cursor-pointer"
-                    ><a (click)="searchByIsbn10()">{{
-                      bookInfo.isbn10
-                    }}</a></span
-                  >
-                </td>
-                <td *ngIf="!bookInfo.isbn10">-</td>
-              </tr>
-              <tr>
-                <td>ISBN 13:</td>
-                <td *ngIf="bookInfo.isbn13">
-                  <span class="cursor-pointer"
-                    ><a (click)="searchByIsbn13()">{{
-                      bookInfo.isbn13
-                    }}</a></span
-                  >
-                </td>
-                <td *ngIf="!bookInfo.isbn13">-</td>
-              </tr>
-              <tr>
-                <td>Number of pages:</td>
-                <td *ngIf="bookInfo.numberOfPages">
-                  {{ bookInfo.numberOfPages }}
-                </td>
-                <td *ngIf="!bookInfo.numberOfPages">-</td>
-              </tr>
-              <tr>
-                <td>Language:</td>
-                <td *ngIf="bookInfo.language">{{ bookInfo.language }}</td>
-                <td *ngIf="!bookInfo.language">-</td>
-              </tr>
-              <tr>
-                <td>Note</td>
-                <td *ngIf="bookInfo.note">{{ bookInfo.note }}</td>
-                <td *ngIf="!bookInfo.note">-</td>
-              </tr>
-              <tr>
-                <td>Publisher</td>
-                <td>
-                  <span *ngIf="bookInfo.publisher" class="cursor-pointer">
-                    <a (click)="searchByPublisher()">{{
-                      bookInfo.publisher
-                    }}</a></span
-                  >
-                  <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
-                    >,
-                  </span>
-                  <span *ngIf="bookInfo.publishedDate" class="cursor-pointer">
-                    <a (click)="searchByPublishedDate()">
-                      {{ bookInfo.publishedDate }}
-                    </a>
-                  </span>
-                  <span *ngIf="!bookInfo.publishedDate && !bookInfo.publisher"
-                    >-</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>Categories</td>
-                <td *ngIf="bookInfo.categoryList.length > 0">
-                  <div
-                    class="category m-1"
-                    *ngFor="let category of bookInfo.categoryList"
-                    (click)="goToCategory(category)"
-                  >
-                    {{ category.name }}
-                  </div>
-                </td>
-                <td *ngIf="bookInfo.categoryList.length === 0">-</td>
-              </tr>
-              <tr>
-                <td>Tags</td>
-                <td *ngIf="bookInfo.tagList.length > 0">
-                  <div
-                    class="tag"
-                    *ngFor="let tag of bookInfo.tagList"
-                    (click)="goToTag(tag)"
-                  >
-                    {{ tag.name }}
-                  </div>
-                </td>
-                <td *ngIf="bookInfo.tagList.length === 0">-</td>
-              </tr>
-              <tr>
-                <td>Description</td>
-                <td *ngIf="bookInfo.description">{{ bookInfo.description }}</td>
-                <td *ngIf="!bookInfo.description">-</td>
-              </tr>
-              <tr *ngIf="fileSystemItem && fileSystemItem.size">
-                <td>Size</td>
-                <td *ngIf="fileSystemItem.size">
-                  {{ fileSystemItem!.size | bytesToMegabytes }} Megabytes
-                </td>
-                <td *ngIf="!fileSystemItem.size">-</td>
-              </tr>
-              <tr *ngIf="fileSystemItem && fileSystemItem.extension">
-                <td>Format</td>
-                <td *ngIf="fileSystemItem.extension">
-                  {{ fileSystemItem!.extension }}
-                </td>
-                <td *ngIf="!fileSystemItem.extension">-</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td class="p-3">
-                  <a class="pointer-cursor btn btn-primary" (click)="download()"
-                    >Click here to Download the e-book</a
-                  >
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
-</div>
+<form
+  [formGroup]="editForm"
+  (ngSubmit)="submitForm()"
+  style="width: 100%"
+  class=""
+>
+  <div class="px-4" style="color: red">Edit mode</div>
+  <div class="px-4">
+    <mat-card *ngIf="bookInfo">
+      <mat-card-content>
+        <table class="w-100">
+          <tr class="w-100">
+            <td>
+              <table class="w-100">
+                <tr>
+                  <td><img [src]="bookInfo.imageUrl" /></td>
+                </tr>
+                <tr *ngIf="bookInfo.averageRating">
+                  <td>
+                    <app-rating [bookInfo]="bookInfo" />
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="w-100">
+              <table class="w-100">
+                <tr>
+                  <td>Title</td>
+                  <td class="w-100">
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Title"
+                        formControlName="title"
+                      />
+                      <mat-hint>Book title</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Authors</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Authors"
+                        formControlName="authors"
+                      />
+                      <mat-hint>Book authors</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ISBN 10:</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="ISBN 10"
+                        formControlName="isbn10"
+                      />
+                      <mat-hint>Book ISBN-10</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>ISBN 13:</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="ISBN 13"
+                        formControlName="isbn13"
+                      />
+                      <mat-hint>Book ISBN-13</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Number of pages:</td>
+                  <td *ngIf="bookInfo.numberOfPages">
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Number of pages"
+                        formControlName="numberOfPages"
+                        type="number"
+                      />
+                      <mat-hint>Number of pages</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Language:</td>
+                  <td *ngIf="bookInfo.language">
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Language"
+                        formControlName="language"
+                      />
+                      <mat-hint>Book language</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Note</td>
+                  <td *ngIf="bookInfo.note">{{ bookInfo.note }}</td>
+                  <td *ngIf="!bookInfo.note">-</td>
+                </tr>
+                <tr>
+                  <td>Publisher</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Publisher"
+                        formControlName="publisher"
+                      />
+                      <mat-hint>Book publisher</mat-hint>
+                    </mat-form-field>
+                    <span class="p-3"> </span>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Published date"
+                        formControlName="publishedDate"
+                      />
+                      <mat-hint>Book published date</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Categories</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Categories separated by comma"
+                        formControlName="categoryList"
+                      />
+                      <mat-hint>Book categories</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tags</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Tags"
+                        formControlName="tagList"
+                      />
+                      <mat-hint>Book tags</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>
+                    <mat-form-field class="w-100" appearance="fill">
+                      <mat-label></mat-label>
+                      <input
+                        matInput
+                        placeholder="Description"
+                        formControlName="description"
+                      />
+                      <mat-hint>Book description</mat-hint>
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Size</td>
+                  <td *ngIf="fileSystemItem && fileSystemItem.size">
+                    {{ fileSystemItem!.size | bytesToMegabytes }} Megabytes
+                  </td>
+                  <td *ngIf="!fileSystemItem || !fileSystemItem.size">-</td>
+                </tr>
+                <tr *ngIf="fileSystemItem && fileSystemItem.extension">
+                  <td>Format</td>
+                  <td *ngIf="fileSystemItem.extension">
+                    {{ fileSystemItem!.extension }}
+                  </td>
+                  <td *ngIf="!fileSystemItem.extension">-</td>
+                </tr>
+                <tr></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</form>
