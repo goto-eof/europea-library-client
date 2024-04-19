@@ -118,9 +118,9 @@ export class FileInfoEditorComponent implements OnInit {
         publisher: !!!this.editForm.value.publisher
           ? null
           : this.editForm.value.publisher,
-        authors: !!!this.editForm.value.author
+        authors: !!!this.editForm.value.authors
           ? null
-          : this.editForm.value.author,
+          : this.editForm.value.authors,
         description: !!!this.editForm.value.description
           ? null
           : this.editForm.value.description,
@@ -137,7 +137,9 @@ export class FileInfoEditorComponent implements OnInit {
         language: !!!this.editForm.value.language
           ? null
           : this.editForm.value.language!,
-        numberOfPages: this.bookInfo?.numberOfPages!,
+        numberOfPages: !!!this.editForm.value.numberOfPages
+          ? null
+          : this.editForm.value.numberOfPages,
         note: !!!this.editForm.value.note! ? null : this.editForm.value.note,
         tagList: !!!this.editForm.value.tagList
           ? []
