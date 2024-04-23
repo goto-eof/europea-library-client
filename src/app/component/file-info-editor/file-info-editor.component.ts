@@ -133,7 +133,7 @@ export class FileInfoEditorComponent implements OnInit {
         isbn13: !!!this.editForm.value.isbn13
           ? null
           : this.editForm.value.isbn13,
-        imageUrl: '',
+        imageUrl: undefined,
         language: !!!this.editForm.value.language
           ? null
           : this.editForm.value.language!,

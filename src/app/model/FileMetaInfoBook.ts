@@ -2,7 +2,7 @@ import Category from './Category';
 import FileMetaInfo from './FileMetaInfo';
 
 export default interface FileMetaInfoBook extends FileMetaInfo {
-  imageUrl: string;
+  imageUrl?: string;
   authors: string;
   note: string;
   isbn10: string;
