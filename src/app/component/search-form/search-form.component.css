@@ -4,3 +4,19 @@
 .red {
     border: 1px solid red;
 }
+
+.transitioned {
+    transition: "all .2s",
+}
+
+.opacity1 {
+    max-height: 500px;
+    transition: max-height 0.25s ease-in;
+
+}
+
+.opacity0{
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+}

@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div *ngIf="isAdvanceSearchEnable">
+    <div [ngClass]="isAdvanceSearchEnable ? 'opacity1' : 'opacity0'">
       <div class="form-group row py-1 mx-auto">
         <!-- <label for="title" class="col-sm-2 col-form-label form-title"
           >Author</label
