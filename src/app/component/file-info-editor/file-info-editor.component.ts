@@ -6,7 +6,6 @@ import FileMetaInfoBook from '../../model/FileMetaInfoBook';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
-import { SearchService } from '../../service/SearchService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -58,7 +57,6 @@ export class FileInfoEditorComponent implements OnInit {
     private location: Location,
     private bookInfoService: BookInfoService,
     private cursoredFileSystemService: CursoredFileSystemService,
-    private searchService: SearchService,
     private fileMetaInfoService: BookInfoService
   ) {}
 
