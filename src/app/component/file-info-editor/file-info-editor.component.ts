@@ -36,7 +36,6 @@ export class FileInfoEditorComponent implements OnInit {
         data?.isbn13,
         [Validators.maxLength(13), Validators.minLength(13)],
       ],
-      // imageUrl: [data?.imageUrl, Validators.maxLength(500)],
       authors: [data?.authors, Validators.maxLength(500)],
       note: [data?.note, Validators.maxLength(2000)],
       numberOfPages: data?.numberOfPages,
