@@ -15,10 +15,12 @@ import { ExtensionsComponent } from './component/extensions/extensions.component
 import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
 import { FileInfoEditorComponent } from './component/file-info-editor/file-info-editor.component';
 import { LoginFormComponent } from './component/login-form/login-form.component';
+import { RegistrationFormComponent } from './component/registration-form/registration-form.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginFormComponent },
+  { path: 'register', component: RegistrationFormComponent },
   { path: 'categories', component: CursoredCategoriesExplorerComponent },
   { path: 'tags', component: CursoredTagExplorerComponent },
   { path: 'explorer', component: CursoredExplorerComponent },

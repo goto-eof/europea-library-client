@@ -16,9 +16,14 @@ export default class AuthService {
     });
   }
 
-  registration(username: string, password: string): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${baseUrl}`, {
+  registration(
+    username: string,
+    email: string,
+    password: string
+  ): Observable<AuthResponse> {
+    return this.httpClient.post<AuthResponse>(`${baseUrl}/register`, {
       username,
+      email,
       password,
     });
   }
