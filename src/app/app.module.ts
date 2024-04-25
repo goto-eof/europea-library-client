@@ -38,6 +38,9 @@ import { FileInfoEditorComponent } from './component/file-info-editor/file-info-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { LoginFormComponent } from './component/login-form/login-form.component';
+import { RegistrationFormComponent } from './component/registration-form/registration-form.component';
+import AuthService from './service/AuthService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +65,8 @@ import { MatIconModule } from '@angular/material/icon';
     BytesToMegabytesPipe,
     SearchFormComponent,
     CursoredSearchExplorerComponent,
+    LoginFormComponent,
+    RegistrationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +87,7 @@ import { MatIconModule } from '@angular/material/icon';
     provideAnimationsAsync(),
     CursoredCategoriesService,
     CursoredTagService,
+    AuthService,
   ],
   bootstrap: [AppComponent],
 })

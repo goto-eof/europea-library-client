@@ -29,8 +29,7 @@
 
     <div class="dropdown">
       <button
-        class="btn btn-link dropdown-toggle"
-        style="text-decoration: none; font-weight: bold; color: royalblue"
+        class="btn btn-link dropdown-toggle menu-item"
         type="button"
         id="dropdownExplore"
         data-bs-toggle="dropdown"
@@ -66,6 +65,14 @@
         </button>
       </div>
     </div>
+
+    <button
+      class="btn btn-link menu-item"
+      [routerLink]="['/login']"
+      type="button"
+    >
+      Login
+    </button>
   </div>
   <div>
     <app-search-form />
