@@ -27,4 +27,8 @@ export default class AuthService {
       password,
     });
   }
+
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
 }

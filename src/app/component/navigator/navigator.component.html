@@ -67,6 +67,7 @@
     </div>
 
     <button
+      *ngIf="!isLoggedIn()"
       class="btn btn-link menu-item"
       [routerLink]="['/login']"
       type="button"
@@ -74,11 +75,20 @@
       Login
     </button>
     <button
+      *ngIf="!isLoggedIn()"
       class="btn btn-link menu-item"
       [routerLink]="['/register']"
       type="button"
     >
       Register
+    </button>
+    <button
+      *ngIf="isLoggedIn()"
+      class="btn btn-link menu-item"
+      (click)="logout()"
+      type="button"
+    >
+      Logout
     </button>
   </div>
   <div>
