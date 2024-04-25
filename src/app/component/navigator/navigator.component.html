@@ -26,16 +26,46 @@
       Europea Library
     </a>
     <a class="py-2 d-none d-md-inline-block" [routerLink]="['/home']">Home</a>
-    <a class="py-2 d-none d-md-inline-block" [routerLink]="['/explorer']"
-      >Explorer</a
-    >
-    <a class="py-2 d-none d-md-inline-block" [routerLink]="['/categories']"
-      >Categories</a
-    >
-    <a class="py-2 d-none d-md-inline-block" [routerLink]="['/tags']">Tags</a>
-    <a class="py-2 d-none d-md-inline-block" [routerLink]="['/extension']"
-      >Extensions</a
-    >
+
+    <div class="dropdown">
+      <button
+        class="btn btn-link dropdown-toggle"
+        style="text-decoration: none; font-weight: bold; color: royalblue"
+        type="button"
+        id="dropdownExplore"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Explore
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownExplore">
+        <button
+          class="dropdown-item"
+          [routerLink]="['/explorer']"
+          type="button"
+        >
+          by Directory
+        </button>
+        <button
+          class="dropdown-item"
+          [routerLink]="['/categories']"
+          type="button"
+        >
+          by Category
+        </button>
+        <button class="dropdown-item" [routerLink]="['/tags']" type="button">
+          by Tags
+        </button>
+        <button
+          class="dropdown-item"
+          [routerLink]="['/extension']"
+          type="button"
+        >
+          by File Extension
+        </button>
+      </div>
+    </div>
   </div>
   <div>
     <app-search-form />

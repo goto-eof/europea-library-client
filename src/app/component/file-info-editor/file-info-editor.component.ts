@@ -22,20 +22,20 @@ export class FileInfoEditorComponent implements OnInit {
   }
   generateForm(data: FileMetaInfoBook | undefined) {
     return this.formBuilder.group({
-      title: [data?.title.trim(), Validators.maxLength(512)],
-      publisher: [data?.publisher.trim(), [Validators.maxLength(100)]],
-      description: [data?.description.trim(), [Validators.maxLength(4000)]],
-      publishedDate: [data?.publishedDate.trim(), [Validators.maxLength(50)]],
+      title: [data?.title?.trim(), Validators.maxLength(512)],
+      publisher: [data?.publisher?.trim(), [Validators.maxLength(100)]],
+      description: [data?.description?.trim(), [Validators.maxLength(4000)]],
+      publishedDate: [data?.publishedDate?.trim(), [Validators.maxLength(50)]],
       isbn10: [
-        data?.isbn10.trim(),
+        data?.isbn10?.trim(),
         [Validators.maxLength(10), Validators.minLength(10)],
       ],
       isbn13: [
-        data?.isbn13.trim(),
+        data?.isbn13?.trim(),
         [Validators.maxLength(13), Validators.minLength(13)],
       ],
       authors: [data?.authors, Validators.maxLength(500)],
-      note: [data?.note.trim(), Validators.maxLength(2000)],
+      note: [data?.note?.trim(), Validators.maxLength(2000)],
       numberOfPages: data?.numberOfPages,
       language: [data?.language?.trim(), Validators.maxLength(10)],
       categoryList: [
