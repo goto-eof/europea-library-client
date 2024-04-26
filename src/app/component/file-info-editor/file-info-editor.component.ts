@@ -158,7 +158,6 @@ export class FileInfoEditorComponent implements OnInit {
                 };
               }),
       };
-      console.info('calling api...');
       this.fileMetaInfoService
         .update(this.bookInfo!.id!, fileMetaInfoBook)
         .subscribe(() => {

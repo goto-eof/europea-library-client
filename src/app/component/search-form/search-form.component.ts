@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
 import { environment } from '../../../environments/environment';
 import { SearchService } from '../../service/SearchService';
+import { NavigationService } from '../../service/NavigationService';
 
 @Component({
   selector: 'app-search-form',

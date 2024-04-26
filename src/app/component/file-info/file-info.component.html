@@ -157,7 +157,7 @@
                     Click here to Download the e-book
                   </button>
                 </td>
-                <td class="p-3">
+                <td class="p-3" *ngIf="isAdminAuthenticated()">
                   <button class="btn btn-warning" (click)="edit()">Edit</button>
                 </td>
               </tr>

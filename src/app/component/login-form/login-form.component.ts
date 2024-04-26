@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthService from '../../service/AuthService';
 import AuthResponse from '../../model/AuthResponse';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  NavigationService,
+  UPDATE_NAV_BAR_AFTER_LOGIN,
+} from '../../service/NavigationService';
+import SnackBarService from '../../service/SnackBarService';
 
 @Component({
   selector: 'app-login-form',
@@ -18,7 +24,9 @@ export class LoginFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService,
+    private snackBarService: SnackBarService
   ) {}
 
   async submitForm() {
@@ -27,12 +35,23 @@ export class LoginFormComponent {
         .login(this.loginForm.value.username, this.loginForm.value.password)
         .subscribe({
           next: (authResponse: AuthResponse) => {
-            console.log(authResponse);
             localStorage.setItem('token', authResponse.token);
-            this.router.navigate(['/home']);
+            this.authService.me().subscribe({
+              next: (me) => {
+                const user = JSON.stringify(me);
+                localStorage.setItem('user', user);
+                this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
+                this.router.navigate(['/home']);
+              },
+              error: () => {
+                this.router.navigate(['/error']);
+              },
+            });
           },
-          error: (e) => {
-            console.error(e);
+          error: () => {
+            this.snackBarService.showErrorWithMessage(
+              'Wrong username or password'
+            );
             localStorage.removeItem('token');
           },
         });

@@ -8,7 +8,7 @@ import { ExplorerComponent } from './component/explorer/explorer.component';
 import { HomeComponent } from './component/home/home.component';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import FileSystemService from './service/FileSystemService';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { FileInfoComponent } from './component/file-info/file-info.component';
 import BookInfoService from './service/BookInfoService';
@@ -41,6 +41,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginFormComponent } from './component/login-form/login-form.component';
 import { RegistrationFormComponent } from './component/registration-form/registration-form.component';
 import AuthService from './service/AuthService';
+import RequestInterceptor from './interceptor/RequestInterceptor';
+import SnackBarService from './service/SnackBarService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,6 +90,12 @@ import AuthService from './service/AuthService';
     CursoredCategoriesService,
     CursoredTagService,
     AuthService,
+    SnackBarService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -10,6 +10,8 @@ import Tag from '../../model/Tag';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { SearchService } from '../../service/SearchService';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
+import AuthService from '../../service/AuthService';
+import User from '../../model/User';
 
 @Component({
   selector: 'app-file-info',
@@ -27,7 +29,8 @@ export class FileInfoComponent implements OnInit {
     private location: Location,
     private bookInfoService: BookInfoService,
     private cursoredFileSystemService: CursoredFileSystemService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -102,8 +105,10 @@ export class FileInfoComponent implements OnInit {
           a.click();
           window.URL.revokeObjectURL(url);
         },
-        error: () => {
-          this.router.navigate(['/page-not-found']);
+        error: (e: any) => {
+          if (e.status !== 401) {
+            this.router.navigate(['/page-not-found']);
+          }
         },
       });
   }
@@ -165,5 +170,15 @@ export class FileInfoComponent implements OnInit {
   }
   edit() {
     this.router.navigate([`/file-info/edit/${this.fileSystemItem!.id}`]);
+  }
+
+  isAdminAuthenticated() {
+    const userStr: string = localStorage.getItem('user') || '{}';
+    const user: User = JSON.parse(userStr);
+    const isAdmin =
+      user.authorityList &&
+      user.authorityList.length > 0 &&
+      user.authorityList[0].name === 'ADMINISTRATOR';
+    return this.authService.isLoggedIn() && isAdmin;
   }
 }

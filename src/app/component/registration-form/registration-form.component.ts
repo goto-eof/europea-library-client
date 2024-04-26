@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthService from '../../service/AuthService';
 import { Router } from '@angular/router';
 import AuthResponse from '../../model/AuthResponse';
+import {
+  NavigationService,
+  UPDATE_NAV_BAR_AFTER_LOGIN,
+} from '../../service/NavigationService';
+import SnackBarService from '../../service/SnackBarService';
 
 @Component({
   selector: 'app-registration-form',
@@ -19,7 +24,9 @@ export class RegistrationFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService,
+    private snackBarService: SnackBarService
   ) {}
 
   async submitForm() {
@@ -32,12 +39,25 @@ export class RegistrationFormComponent {
         )
         .subscribe({
           next: (authResponse: AuthResponse) => {
-            console.log(authResponse);
             localStorage.setItem('token', authResponse.token);
-            this.router.navigate(['/home']);
+            this.authService.me().subscribe({
+              next: (me) => {
+                const user = JSON.stringify(me);
+                localStorage.setItem('user', user);
+                this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
+                this.router.navigate(['/home']);
+              },
+              error: () => {
+                this.snackBarService.showErrorWithMessage(
+                  'Something went wrong when trying to authenticate :('
+                );
+              },
+            });
           },
-          error: (e) => {
-            console.error(e);
+          error: () => {
+            this.snackBarService.showErrorWithMessage(
+              'Something went wrong when trying to register :('
+            );
             localStorage.removeItem('token');
           },
         });
