@@ -50,10 +50,8 @@ export class FileInfoComponent implements OnInit {
             this.qrCodeService
               .retrieveDownloadLink(fsi.id!)
               .subscribe((binaryImage) => {
-                console.log(binaryImage);
                 this.base64DownloadQRCode =
                   this._arrayBufferToBase64(binaryImage);
-                console.log(this.base64DownloadQRCode, binaryImage);
               });
           },
         });
