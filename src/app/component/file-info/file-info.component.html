@@ -11,14 +11,20 @@
           <td>
             <table>
               <tr>
-                <td><img [src]="bookInfo.imageUrl" /></td>
-              </tr>
-              <tr>
                 <td>
-                  <img
-                    *ngIf="base64DownloadQRCode"
-                    [src]="'data:image/png;base64,' + base64DownloadQRCode"
-                  />
+                  <div class="vstack">
+                    <img [src]="bookInfo.imageUrl" />
+                    <img
+                      *ngIf="base64DownloadQRCode"
+                      [src]="'data:image/png;base64,' + base64DownloadQRCode"
+                    />
+                    <button
+                      class="pointer-cursor btn btn-primary"
+                      (click)="download()"
+                    >
+                      Download
+                    </button>
+                  </div>
                 </td>
               </tr>
               <tr *ngIf="bookInfo.averageRating">
@@ -157,14 +163,7 @@
               </tr>
               <tr>
                 <td></td>
-                <td class="p-3">
-                  <button
-                    class="pointer-cursor btn btn-primary"
-                    (click)="download()"
-                  >
-                    Click here to Download the e-book
-                  </button>
-                </td>
+                <td></td>
                 <td class="p-3" *ngIf="isAdminAuthenticated()">
                   <button class="btn btn-warning" (click)="edit()">Edit</button>
                 </td>
