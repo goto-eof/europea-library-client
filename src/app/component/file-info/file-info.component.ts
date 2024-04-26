@@ -46,7 +46,6 @@ export class FileInfoComponent implements OnInit {
           },
           next: (fsi: FileSystemItem) => {
             this.fileSystemItem = fsi;
-
             this.qrCodeService
               .retrieveDownloadLink(fsi.id!)
               .subscribe((binaryImage) => {

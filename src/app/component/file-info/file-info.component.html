@@ -14,6 +14,10 @@
                 <td>
                   <div class="vstack">
                     <img [src]="bookInfo.imageUrl" />
+                    <app-rating
+                      *ngIf="bookInfo.averageRating"
+                      [bookInfo]="bookInfo"
+                    />
                     <img
                       *ngIf="base64DownloadQRCode"
                       [src]="'data:image/png;base64,' + base64DownloadQRCode"
@@ -25,11 +29,6 @@
                       Download
                     </button>
                   </div>
-                </td>
-              </tr>
-              <tr *ngIf="bookInfo.averageRating">
-                <td>
-                  <app-rating [bookInfo]="bookInfo" />
                 </td>
               </tr>
             </table>
