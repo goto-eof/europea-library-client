@@ -43,6 +43,7 @@ export default class CursoredFileSystemService {
       headers: header,
     });
   }
+
   getExtensions() {
     return this.httpClient.get<Array<FileExtension>>(`${baseUrl}/extension`);
   }

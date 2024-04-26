@@ -13,6 +13,14 @@
               <tr>
                 <td><img [src]="bookInfo.imageUrl" /></td>
               </tr>
+              <tr>
+                <td>
+                  <img
+                    *ngIf="base64DownloadQRCode"
+                    [src]="'data:image/png;base64,' + base64DownloadQRCode"
+                  />
+                </td>
+              </tr>
               <tr *ngIf="bookInfo.averageRating">
                 <td>
                   <app-rating [bookInfo]="bookInfo" />

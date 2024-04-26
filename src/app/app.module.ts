@@ -43,6 +43,7 @@ import { RegistrationFormComponent } from './component/registration-form/registr
 import AuthService from './service/AuthService';
 import RequestInterceptor from './interceptor/RequestInterceptor';
 import SnackBarService from './service/SnackBarService';
+import QRCodeService from './service/QRCodeService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +92,7 @@ import SnackBarService from './service/SnackBarService';
     CursoredTagService,
     AuthService,
     SnackBarService,
+    QRCodeService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

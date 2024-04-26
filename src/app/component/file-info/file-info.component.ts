@@ -12,6 +12,7 @@ import { SearchService } from '../../service/SearchService';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
 import AuthService from '../../service/AuthService';
 import User from '../../model/User';
+import QRCodeService from '../../service/QRCodeService';
 
 @Component({
   selector: 'app-file-info',
@@ -21,6 +22,7 @@ import User from '../../model/User';
 export class FileInfoComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
+  base64DownloadQRCode?: string;
 
   constructor(
     private modalService: NgbModal,
@@ -30,7 +32,8 @@ export class FileInfoComponent implements OnInit {
     private bookInfoService: BookInfoService,
     private cursoredFileSystemService: CursoredFileSystemService,
     private searchService: SearchService,
-    private authService: AuthService
+    private authService: AuthService,
+    private qrCodeService: QRCodeService
   ) {}
 
   ngOnInit(): void {
@@ -43,12 +46,31 @@ export class FileInfoComponent implements OnInit {
           },
           next: (fsi: FileSystemItem) => {
             this.fileSystemItem = fsi;
+
+            this.qrCodeService
+              .retrieveDownloadLink(fsi.id!)
+              .subscribe((binaryImage) => {
+                console.log(binaryImage);
+                this.base64DownloadQRCode =
+                  this._arrayBufferToBase64(binaryImage);
+                console.log(this.base64DownloadQRCode, binaryImage);
+              });
           },
         });
         this.loadBookInfo(fileSystemItemId);
       }
     });
     window.scrollTo(0, 0);
+  }
+
+  private _arrayBufferToBase64(buffer: ArrayBuffer) {
+    var binary = '';
+    var bytes = new Uint8Array(buffer);
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
   private loadBookInfo(fileSystemItemId: string) {
