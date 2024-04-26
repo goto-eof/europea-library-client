@@ -17,10 +17,7 @@ multithreading), search and download ebooks. The back-end project can be found [
 
 ## Technologies
 
-- CSS
-- TypeScript
-- Angular 17
-- Bootstrap UI
+CSS • TypeScript • Angular 17 • Bootstrap UI
 
 ## Run the project
 
@@ -28,7 +25,7 @@ Execute `npm install && ng serve`.
 
 ## Screenshots
 
-![screenshot](/images/screenshot.png)
+![screenshot](/images/screenshot1.png)
 
 ## More
 
