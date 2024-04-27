@@ -11,20 +11,23 @@
       <div class="col-sm-10 vstack gap-3">
         <h1>Register</h1>
 
-        <div class="input-group">
+        <div class="input-group vstack">
           <input
             type="text"
-            class="form-control"
+            class="form-control w-100"
             placeholder="username"
             aria-label="username"
             aria-describedby="basic-addon2"
             formControlName="username"
             name="username"
           />
+          <small id="usernameHelp" class="form-text text-muted"
+            >allowed characters: a-z, A-Z and _.</small
+          >
         </div>
         <div class="input-group">
           <input
-            type="text"
+            type="email"
             class="form-control"
             placeholder="email"
             aria-label="email"
@@ -33,18 +36,37 @@
             name="email"
           />
         </div>
-        <div class="input-group">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="password"
-            aria-label="password"
-            aria-describedby="basic-addon2"
-            formControlName="password"
-            name="password"
-          />
+        <div class="vstack">
+          <div class="input-group">
+            <input
+              [type]="isShowPasswordEnabled ? 'text' : 'password'"
+              class="form-control"
+              placeholder="password"
+              aria-label="password"
+              aria-describedby="basic-addon2"
+              formControlName="password"
+              name="password"
+            />
+            <div
+              class="input-group-append"
+              (click)="toggleIsShowPasswordEnabled()"
+            >
+              <span class="input-group-text">
+                <i
+                  [class]="
+                    isShowPasswordEnabled ? 'bi bi-eye-slash' : 'bi bi-eye'
+                  "
+                ></i>
+              </span>
+            </div>
+          </div>
+          <small id="passwordHelp" class="form-text text-muted"
+            >allowed characters: a-z, A-Z, numbers and $!%*?&"\'.,:;. It shall
+            contain at least 1 character of every group. The minimum password
+            length allowed if 5 characters.</small
+          >
         </div>
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit">Register</button>
       </div>
     </div>
   </div>

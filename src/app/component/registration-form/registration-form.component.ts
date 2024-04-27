@@ -8,6 +8,7 @@ import {
   UPDATE_NAV_BAR_AFTER_LOGIN,
 } from '../../service/NavigationService';
 import SnackBarService from '../../service/SnackBarService';
+import FormValidatorService from '../../service/FormValidatorService';
 
 @Component({
   selector: 'app-registration-form',
@@ -16,10 +17,11 @@ import SnackBarService from '../../service/SnackBarService';
 })
 export class RegistrationFormComponent {
   registrationForm: FormGroup<any> = this.formBuilder.group({
-    username: ['', Validators.maxLength(100)],
+    username: ['', FormValidatorService.getUsernameValidator()],
+    password: ['', FormValidatorService.getPasswordValidator()],
     email: ['', Validators.maxLength(100)],
-    password: ['', Validators.maxLength(100)],
   });
+  isShowPasswordEnabled = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +30,10 @@ export class RegistrationFormComponent {
     private navigationService: NavigationService,
     private snackBarService: SnackBarService
   ) {}
+
+  toggleIsShowPasswordEnabled() {
+    this.isShowPasswordEnabled = !this.isShowPasswordEnabled;
+  }
 
   async submitForm() {
     if (this.registrationForm.valid) {
@@ -61,6 +67,10 @@ export class RegistrationFormComponent {
             localStorage.removeItem('token');
           },
         });
+    } else {
+      this.snackBarService.showErrorWithMessage(
+        'Malformed username or password'
+      );
     }
   }
 }

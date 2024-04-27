@@ -9,6 +9,7 @@ import {
   UPDATE_NAV_BAR_AFTER_LOGIN,
 } from '../../service/NavigationService';
 import SnackBarService from '../../service/SnackBarService';
+import FormValidatorService from '../../service/FormValidatorService';
 
 @Component({
   selector: 'app-login-form',
@@ -17,9 +18,10 @@ import SnackBarService from '../../service/SnackBarService';
 })
 export class LoginFormComponent {
   loginForm: FormGroup<any> = this.formBuilder.group({
-    username: ['', Validators.maxLength(100)],
-    password: ['', Validators.maxLength(100)],
+    username: ['', FormValidatorService.getUsernameValidator()],
+    password: ['', FormValidatorService.getPasswordValidator()],
   });
+  isShowPasswordEnabled = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,13 +31,19 @@ export class LoginFormComponent {
     private snackBarService: SnackBarService
   ) {}
 
+  toggleIsShowPasswordEnabled() {
+    this.isShowPasswordEnabled = !this.isShowPasswordEnabled;
+  }
+
   async submitForm() {
     if (this.loginForm.valid) {
+      const username = this.loginForm.value.username.trim().toLowerCase();
+      if (!username) {
+        this.snackBarService.showErrorWithMessage('Invalid username');
+        return;
+      }
       await this.authService
-        .login(
-          this.loginForm.value.username.trim().toLowerCase(),
-          this.loginForm.value.password
-        )
+        .login(username, this.loginForm.value.password)
         .subscribe({
           next: (authResponse: AuthResponse) => {
             localStorage.setItem('token', authResponse.token);
@@ -58,6 +66,8 @@ export class LoginFormComponent {
             localStorage.removeItem('token');
           },
         });
+    } else {
+      this.snackBarService.showErrorWithMessage('Invalid username or password');
     }
   }
 }
