@@ -37,7 +37,7 @@ Execute `npm install && ng serve`.
 
 ## Screenshots
 
-![screenshot](/images/screenshot1.png)
+![screenshot](/images/screenshot.png)
 
 ## More
 

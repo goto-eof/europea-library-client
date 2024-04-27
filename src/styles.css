@@ -58,6 +58,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   cursor: pointer;
 }
 
+.link {
+  color: royalblue;
+  text-decoration: underline;
+}
+
 
 /*Material SnackBar*/
 .cdk-overlay-container {

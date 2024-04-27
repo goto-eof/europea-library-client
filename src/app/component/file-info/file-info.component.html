@@ -45,7 +45,7 @@
               <tr>
                 <td>Title</td>
                 <td *ngIf="bookInfo.title">
-                  <span class="cursor-pointer"
+                  <span class="cursor-pointer link"
                     ><a (click)="searchByTitle()">
                       {{ bookInfo.title }}
                     </a>
@@ -56,7 +56,7 @@
               <tr>
                 <td>Authors</td>
                 <td *ngIf="bookInfo.authors">
-                  <span class="cursor-pointer">
+                  <span class="cursor-pointer link">
                     <a (click)="searchByAuthor()">{{ bookInfo.authors }}</a>
                   </span>
                 </td>
@@ -65,7 +65,7 @@
               <tr>
                 <td>ISBN 10:</td>
                 <td *ngIf="bookInfo.isbn10">
-                  <span class="cursor-pointer"
+                  <span class="cursor-pointer link"
                     ><a (click)="searchByIsbn10()">{{
                       bookInfo.isbn10
                     }}</a></span
@@ -76,7 +76,7 @@
               <tr>
                 <td>ISBN 13:</td>
                 <td *ngIf="bookInfo.isbn13">
-                  <span class="cursor-pointer"
+                  <span class="cursor-pointer link"
                     ><a (click)="searchByIsbn13()">{{
                       bookInfo.isbn13
                     }}</a></span
@@ -104,7 +104,7 @@
               <tr>
                 <td>Publisher</td>
                 <td>
-                  <span *ngIf="bookInfo.publisher" class="cursor-pointer">
+                  <span *ngIf="bookInfo.publisher" class="cursor-pointer link">
                     <a (click)="searchByPublisher()">{{
                       bookInfo.publisher
                     }}</a></span
@@ -112,7 +112,7 @@
                   <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
                     >,
                   </span>
-                  <span *ngIf="bookInfo.publishedDate" class="cursor-pointer">
+                  <span *ngIf="bookInfo.publishedDate" class="cursor-pointer link">
                     <a (click)="searchByPublishedDate()">
                       {{ bookInfo.publishedDate }}
                     </a>
