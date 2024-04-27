@@ -19,7 +19,7 @@ export class RegistrationFormComponent {
   registrationForm: FormGroup<any> = this.formBuilder.group({
     username: ['', FormValidatorService.getUsernameValidator()],
     password: ['', FormValidatorService.getPasswordValidator()],
-    email: ['', Validators.maxLength(100)],
+    email: ['', Validators.maxLength(320)],
   });
   isShowPasswordEnabled = false;
 
