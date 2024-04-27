@@ -41,4 +41,4 @@ Execute `npm install && ng serve`.
 
 ## More
 
-- if you have any suggestions or found a bug please contact me [here](https://andre-i.eu/#contactme)
+- if you have any suggestions or found a bug please [contact me](https://andre-i.eu/#contactme)
