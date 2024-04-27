@@ -52,10 +52,15 @@ export class LoginFormComponent {
                 const user = JSON.stringify(me);
                 localStorage.setItem('user', user);
                 this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
+                this.snackBarService.showInfoWithTitleAndMessage(
+                  'Logged in successfully :)'
+                );
                 this.router.navigate(['/home']);
               },
               error: () => {
-                this.router.navigate(['/error']);
+                this.snackBarService.showInfoWithTitleAndMessage(
+                  'Application Error'
+                );
               },
             });
           },

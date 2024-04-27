@@ -61,3 +61,33 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: rgb(70, 114, 246);
   cursor: pointer;
 }
+
+
+/*Material SnackBar*/
+.cdk-overlay-container {
+  z-index: 10001;
+}
+simple-snack-bar {
+  color: #155724 !important;
+  background-color: #292b2a !important;
+  border-color: #101110 !important;
+}
+.success .mat-mdc-snack-bar-label {
+  color: rgb(3, 175, 54)!important;
+  font-weight: 800!important;
+}
+
+.success .mat-mdc-snack-bar-action span {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(6, 67, 180);
+}
+
+.error .mat-mdc-snack-bar-label {
+  color: rgb(175, 9, 3)!important;
+  font-weight: 800!important;
+}
+
+.error .mat-mdc-snack-bar-action span {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(6, 67, 180);
+}
