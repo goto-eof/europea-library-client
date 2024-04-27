@@ -32,9 +32,9 @@ export class RegistrationFormComponent {
   async submitForm() {
     if (this.registrationForm.valid) {
       await this.authService
-        .registration(
-          this.registrationForm.value.username,
-          this.registrationForm.value.email,
+        .register(
+          this.registrationForm.value.username.trim().toLowerCase(),
+          this.registrationForm.value.email.trim().toLowerCase(),
           this.registrationForm.value.password
         )
         .subscribe({

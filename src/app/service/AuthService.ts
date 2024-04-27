@@ -21,7 +21,7 @@ export default class AuthService {
     });
   }
 
-  registration(
+  register(
     username: string,
     email: string,
     password: string

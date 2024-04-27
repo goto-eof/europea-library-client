@@ -32,7 +32,10 @@ export class LoginFormComponent {
   async submitForm() {
     if (this.loginForm.valid) {
       await this.authService
-        .login(this.loginForm.value.username, this.loginForm.value.password)
+        .login(
+          this.loginForm.value.username.trim().toLowerCase(),
+          this.loginForm.value.password
+        )
         .subscribe({
           next: (authResponse: AuthResponse) => {
             localStorage.setItem('token', authResponse.token);
