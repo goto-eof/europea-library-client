@@ -1,32 +1,39 @@
-<mat-card class="my-2" *ngIf="cursoredCategory?.category">
-  <mat-card-content
-    ><a routerLink="/categories">Categories</a> »
-    {{ cursoredCategory?.category?.name }}</mat-card-content
-  >
-</mat-card>
-<mat-card class="p-2 my-2" *ngIf="cursoredCategory">
-  <ul class="mx-3">
-    <li
-      *ngFor="let item of cursoredCategory?.childrenList"
-      class="cursor-pointer"
-    >
-      <a
-        (click)="listDirectory(item)"
-        [ngClass]="item.isDirectory ? 'directory' : 'file'"
+<div class="my-1 mx-1" *ngIf="cursoredCategory?.category">
+  <div class="card">
+    <div class="card-body">
+      <a routerLink="/categories">Categories</a> »
+      {{ cursoredCategory?.category?.name }}
+    </div>
+  </div>
+</div>
+
+<div class="container mt-1 mb-5" *ngIf="cursoredCategory">
+  <div class="card">
+    <div class="card-body">
+      <ul class="mx-3">
+        <li
+          *ngFor="let item of cursoredCategory?.childrenList"
+          class="cursor-pointer"
+        >
+          <a
+            (click)="listDirectory(item)"
+            [ngClass]="item.isDirectory ? 'directory' : 'file'"
+          >
+            <i
+              class="bi px-1"
+              [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
+            ></i
+            >{{ item.name }}
+          </a>
+        </li>
+      </ul>
+      <button
+        *ngIf="cursoredCategory?.nextCursor"
+        class="btn btn-primary"
+        (click)="loadMore()"
       >
-        <i
-          class="bi px-1"
-          [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
-        ></i
-        >{{ item.name }}
-      </a>
-    </li>
-  </ul>
-  <button
-    *ngIf="cursoredCategory?.nextCursor"
-    class="btn btn-primary"
-    (click)="loadMore()"
-  >
-    More
-  </button>
-</mat-card>
+        More
+      </button>
+    </div>
+  </div>
+</div>

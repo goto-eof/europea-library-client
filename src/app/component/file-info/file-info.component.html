@@ -3,9 +3,9 @@
   [fileSystemItem]="fileSystemItem"
   (navigate)="goToExplorer($event)"
 />
-<div class="px-4">
-  <mat-card *ngIf="bookInfo">
-    <mat-card-content>
+<div class="container mt-1 mb-5" *ngIf="bookInfo">
+  <div class="card">
+    <div class="card-body">
       <table>
         <tr>
           <td>
@@ -150,7 +150,9 @@
               </tr>
               <tr>
                 <td>Description</td>
-                <td *ngIf="bookInfo.description">{{ bookInfo.description }}</td>
+                <td *ngIf="bookInfo.description">
+                  {{ bookInfo.description }}
+                </td>
                 <td *ngIf="!bookInfo.description">-</td>
               </tr>
               <tr *ngIf="fileSystemItem && fileSystemItem.size">
@@ -171,6 +173,6 @@
           </td>
         </tr>
       </table>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
 </div>

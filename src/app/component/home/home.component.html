@@ -1,26 +1,30 @@
-<div class="p-3">
-  <h1>What is Europea Library?</h1>
-  <p>
-    A library web application that allows to index, retrieve information about
-    books from file metadata/web (by using multithreading), search and download
-    ebooks.
-  </p>
-  <h1>How it works?</h1>
-  <p>
-    The core of the application is the indexer job. It retrieves all the
-    information about files and saves them on the DB. The indexing process
-    consists of file metadata extraction and web metadata retrievement (in
-    particular from Google Books API). On the first run the job it will take
-    some time to index and extract information from files or retrieve them from
-    web. This happens because the file metadata extraction and the web metadata
-    retrievement is expensive in terms of resources even if I implemented a
-    multithreading job. The next job run will take less time, because the
-    metadata extraction was done for all the files (except the cases when the
-    directory contains new e-books). After the job completed all steps, the API
-    becomes available for queries, so that the client application can interact
-    with the API ( otherwise an HTTP 404 status is returned). Moreover, the
-    indexer job starts every night at 11:00 PM (configurable). If the job is
-    already running then it will continue to process files and no other job will
-    run.
-  </p>
+<div class="container mt-2 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>What is Europea Library?</h1>
+      <p>
+        A library web application that allows to index, retrieve information
+        about books from file metadata/web (by using multithreading), search and
+        download ebooks.
+      </p>
+      <h1>How it works?</h1>
+      <p>
+        The core of the application is the indexer job. It retrieves all the
+        information about files and saves them on the DB. The indexing process
+        consists of file metadata extraction and web metadata retrievement (in
+        particular from Google Books API). On the first run the job it will take
+        some time to index and extract information from files or retrieve them
+        from web. This happens because the file metadata extraction and the web
+        metadata retrievement is expensive in terms of resources even if I
+        implemented a multithreading job. The next job run will take less time,
+        because the metadata extraction was done for all the files (except the
+        cases when the directory contains new e-books). After the job completed
+        all steps, the API becomes available for queries, so that the client
+        application can interact with the API ( otherwise an HTTP 404 status is
+        returned). Moreover, the indexer job starts every night at 11:00 PM
+        (configurable). If the job is already running then it will continue to
+        process files and no other job will run.
+      </p>
+    </div>
+  </div>
 </div>

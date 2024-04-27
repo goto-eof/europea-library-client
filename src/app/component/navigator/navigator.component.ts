@@ -19,7 +19,7 @@ export class NavigatorComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.navigationService.getObservable().subscribe({
-      next: (value) => {
+      next: () => {
         this.role = this.getRole() || '';
         this.username = this.getUsername() || '';
       },

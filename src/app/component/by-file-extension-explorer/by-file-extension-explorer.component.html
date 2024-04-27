@@ -1,19 +1,26 @@
-<mat-card class="p-3">
-  <mat-card-title>
-    Extension: {{ cursoredExtension?.extension }}</mat-card-title
-  >
+<div class="my-1 mx-1" *ngIf="cursoredExtension?.extension">
+  <div class="card">
+    <div class="card-body">
+      <a routerLink="/extension">Extension</a> »
+      {{ cursoredExtension?.extension }}
+    </div>
+  </div>
+</div>
 
-  <mat-card-content>
-    <ul>
-      <li
-        *ngFor="let fsi of cursoredExtension?.childrenList"
-        class="cursor-pointer"
-      >
-        <a (click)="goToFile(fsi)"> {{ fsi.name }}</a>
-      </li>
-    </ul>
-  </mat-card-content>
-  <mat-card-footer class="d-flex justify-content-center">
-    <button (click)="more()" class="btn btn-primary">More</button>
-  </mat-card-footer>
-</mat-card>
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <ul>
+        <li
+          *ngFor="let fsi of cursoredExtension?.childrenList"
+          class="cursor-pointer"
+        >
+          <a class="link" (click)="goToFile(fsi)"> {{ fsi.name }}</a>
+        </li>
+      </ul>
+      <div class="d-flex justify-content-center">
+        <button (click)="more()" class="btn btn-primary">More</button>
+      </div>
+    </div>
+  </div>
+</div>

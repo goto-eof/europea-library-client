@@ -1,20 +1,26 @@
-<mat-card class="p-2 m-2">
-  <mat-card-title>Tags</mat-card-title>
-  <mat-card-content>
-    <mat-chip
-      color="primary"
-      class="m-1"
-      *ngFor="let tag of tags.items"
-      (click)="goToTag(tag)"
-      ><span class="cursor-pointer">{{ tag.name }}</span></mat-chip
-    >
-
-    <button
-      *ngIf="tags.nextCursor"
-      (click)="loadMore(this)"
-      class="btn btn-primary"
-    >
-      More
-    </button>
-  </mat-card-content></mat-card
->
+<div class="container mt-2 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Tags</h1>
+      <span
+        class="badge bg-primary text-light p-2 m-1 cursor-pointer"
+        *ngFor="let tag of tags.items"
+        (click)="goToTag(tag)"
+      >
+        <span>{{ tag.name }}</span>
+      </span>
+      <button
+        *ngIf="tags.nextCursor"
+        (click)="loadMore(this)"
+        class="btn btn-primary"
+      >
+        More
+      </button>
+      <span
+        class="text-secondary"
+        *ngIf="!tags.items || tags.items.length === 0"
+        >no data</span
+      >
+    </div>
+  </div>
+</div>

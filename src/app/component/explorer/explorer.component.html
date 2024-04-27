@@ -1,18 +1,22 @@
 <app-breadcrumb [fileSystemItem]="file" (navigate)="listDirectory($event)" />
-<div class="px-1">
-  <ul class="mx-3">
-    <li *ngFor="let item of file.childrenList">
-      <a
-        class="link"
-        (click)="listDirectory(item)"
-        [ngClass]="item.isDirectory ? 'directory' : 'file'"
-      >
-        <i
-          class="bi px-1"
-          [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
-        ></i
-        >{{ item.name }}
-      </a>
-    </li>
-  </ul>
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <ul class="mx-3">
+        <li *ngFor="let item of file.childrenList">
+          <a
+            class="link"
+            (click)="listDirectory(item)"
+            [ngClass]="item.isDirectory ? 'directory' : 'file'"
+          >
+            <i
+              class="bi px-1"
+              [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
+            ></i
+            >{{ item.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

@@ -51,14 +51,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .cursor-pointer {
-  text-decoration: underline;
-  color: royalblue;
  cursor: auto;   
 }
 
 .cursor-pointer:hover {
-  text-decoration: underline;
-  color: rgb(70, 114, 246);
   cursor: pointer;
 }
 

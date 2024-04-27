@@ -1,14 +1,20 @@
-<mat-card class="p-3">
-  <mat-card-title> Extensions</mat-card-title>
-  <mat-card-content>
-    <mat-chip
-      color="primary"
-      class="primary m-1"
-      *ngFor="let extension of extensions"
-    >
-      <span class="cursor-pointer" (click)="exploreExtension(extension)"
-        >{{ extension.extension }} ({{ extension.occurrence }})</span
+<div class="container mt-2 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Extensions</h1>
+
+      <span
+        class="badge bg-primary text-light p-2 m-1 cursor-pointer"
+        *ngFor="let extension of extensions"
+        (click)="exploreExtension(extension)"
       >
-    </mat-chip>
-  </mat-card-content>
-</mat-card>
+        <span>{{ extension.extension }} ({{ extension.occurrence }})</span>
+      </span>
+      <span
+        class="text-secondary"
+        *ngIf="!extensions || extensions.length === 0"
+        >no data</span
+      >
+    </div>
+  </div>
+</div>
