@@ -22,7 +22,8 @@
             name="username"
           />
           <small id="usernameHelp" class="form-text text-muted"
-            >allowed characters: a-z, A-Z and _.</small
+            >allowed characters: a-z, A-Z and _. The minimum username length
+            allowed is 5 characters.</small
           >
         </div>
         <div class="vstack">
@@ -49,8 +50,25 @@
               </span>
             </div>
           </div>
-          <small id="emailHelp" class="form-text text-muted"
-            >allowed characters: a-z, A-Z, numbers and $!%*?&"\'.,:;</small
+          <small id="passwordHelp" class="form-text text-muted"
+            >allowed characters groups:
+            <span class="badge bg-light text-dark mx-1">a-z</span>,
+            <span class="badge bg-light text-dark mx-1">A-Z</span>,
+            <span class="badge bg-light text-dark mx-1">0-9</span> and
+            <span class="badge bg-light text-dark mx-1">!</span
+            ><span class="badge bg-light text-dark mx-1">#</span
+            ><span class="badge bg-light text-dark mx-1">$</span
+            ><span class="badge bg-light text-dark mx-1">%</span
+            ><span class="badge bg-light text-dark mx-1">^</span
+            ><span class="badge bg-light text-dark mx-1">&</span
+            ><span class="badge bg-light text-dark mx-1">*</span>
+            <span class="badge bg-light text-dark mx-1">_</span>
+            <span class="badge bg-light text-dark mx-1">:</span>
+            <span class="badge bg-light text-dark mx-1">;</span>
+            <span class="badge bg-light text-dark mx-1">,</span>
+            <span class="badge bg-light text-dark mx-1">.</span>. It shall
+            contain at least 1 character of each group. The minimum password
+            length allowed if 5 characters.</small
           >
         </div>
         <button class="btn btn-primary" type="submit">Login</button>

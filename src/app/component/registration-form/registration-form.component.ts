@@ -68,8 +68,9 @@ export class RegistrationFormComponent {
           },
         });
     } else {
+      console.log(this.registrationForm.errors, this.registrationForm);
       this.snackBarService.showErrorWithMessage(
-        'Malformed username or password'
+        'Malformed username or password. Please check the text helper.'
       );
     }
   }
