@@ -23,10 +23,17 @@
                       [src]="'data:image/png;base64,' + base64DownloadQRCode"
                     />
                     <button
-                      class="pointer-cursor btn btn-primary"
+                      class="pointer-cursor btn btn-primary mb-1"
                       (click)="download()"
                     >
-                      Download
+                      <i class="bi bi-cloud-download-fill px-2"></i> Download
+                    </button>
+                    <button
+                      *ngIf="isAdminAuthenticated()"
+                      class="btn btn-warning mb-1"
+                      (click)="edit()"
+                    >
+                      <i class="bi bi-pen-fill px-2"></i> <span>Edit</span>
                     </button>
                   </div>
                 </td>
@@ -159,13 +166,6 @@
                   {{ fileSystemItem!.extension }}
                 </td>
                 <td *ngIf="!fileSystemItem.extension">-</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td class="p-3" *ngIf="isAdminAuthenticated()">
-                  <button class="btn btn-warning" (click)="edit()">Edit</button>
-                </td>
               </tr>
             </table>
           </td>
