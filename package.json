@@ -1,6 +1,6 @@
 {
   "name": "europea-library-client",
-  "version": "6.0.0",
+  "version": "6.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
