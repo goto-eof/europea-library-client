@@ -12,6 +12,9 @@ import CursoredTag from '../model/CursoredTag';
 import SearchFileSystemItemRequest from '../model/SearchFileSystemItemRequest';
 import SearchResult from '../model/SearchResult';
 import FileSystemItem from '../model/FileSystemItem';
+import ItemAndFrequency from '../model/ItemAndFrequency';
+import GenericCursoredRequest from '../model/GenericCursoredRequest';
+import GenericCursoredResponse from '../model/GenericCursoredResponse';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v2/file';
 
@@ -77,5 +80,23 @@ export default class CursoredFileSystemService {
     return this.httpClient.post<
       SearchResult<SearchFileSystemItemRequest, FileSystemItem>
     >(`${baseUrl}/cursored/search`, cursorRequest);
+  }
+
+  listByLanguage(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string>> {
+    return this.httpClient.post<GenericCursoredResponse<string>>(
+      `${baseUrl}/cursored/language`,
+      cursorRequest
+    );
+  }
+
+  listByPublisher(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string>> {
+    return this.httpClient.post<GenericCursoredResponse<string>>(
+      `${baseUrl}/cursored/publisher`,
+      cursorRequest
+    );
   }
 }

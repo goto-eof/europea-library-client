@@ -44,6 +44,14 @@ import AuthService from './service/AuthService';
 import RequestInterceptor from './interceptor/RequestInterceptor';
 import SnackBarService from './service/SnackBarService';
 import QRCodeService from './service/QRCodeService';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { CursoredLanguagesExplorerComponent } from './component/cursored-languages-explorer/cursored-languages-explorer.component';
+import { CursoredPublishersExplorerComponent } from './component/cursored-publishers-explorer/cursored-publishers-explorer.component';
+import { CursoredLanguagesFileExplorerComponent } from './component/cursored-languages-file-explorer/cursored-languages-file-explorer.component';
+import { CursoredPublishersFileExplorerComponent } from './component/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
+import PublisherService from './service/PublisherService';
+import LanguageService from './service/LanguageService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +78,10 @@ import QRCodeService from './service/QRCodeService';
     CursoredSearchExplorerComponent,
     LoginFormComponent,
     RegistrationFormComponent,
+    CursoredLanguagesExplorerComponent,
+    CursoredPublishersExplorerComponent,
+    CursoredLanguagesFileExplorerComponent,
+    CursoredPublishersFileExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +94,9 @@ import QRCodeService from './service/QRCodeService';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
   ],
   providers: [
     FileSystemService,
@@ -93,6 +108,8 @@ import QRCodeService from './service/QRCodeService';
     AuthService,
     SnackBarService,
     QRCodeService,
+    PublisherService,
+    LanguageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

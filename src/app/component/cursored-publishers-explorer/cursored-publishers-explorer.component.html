@@ -1,0 +1,18 @@
+<div class="container mt-2 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Publishers</h1>
+
+      <span
+        class="badge bg-primary text-light p-2 m-1 cursor-pointer"
+        *ngFor="let item of items"
+        (click)="exploreItem(item)"
+      >
+        <span>{{ item.name }} ({{ item.frequency }})</span>
+      </span>
+      <span class="text-secondary" *ngIf="!items || items.length === 0"
+        >no data</span
+      >
+    </div>
+  </div>
+</div>

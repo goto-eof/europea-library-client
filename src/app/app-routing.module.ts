@@ -16,6 +16,10 @@ import { CursoredSearchExplorerComponent } from './component/cursored-search-exp
 import { FileInfoEditorComponent } from './component/file-info-editor/file-info-editor.component';
 import { LoginFormComponent } from './component/login-form/login-form.component';
 import { RegistrationFormComponent } from './component/registration-form/registration-form.component';
+import { CursoredLanguagesExplorerComponent } from './component/cursored-languages-explorer/cursored-languages-explorer.component';
+import { CursoredPublishersExplorerComponent } from './component/cursored-publishers-explorer/cursored-publishers-explorer.component';
+import { CursoredLanguagesFileExplorerComponent } from './component/cursored-languages-file-explorer/cursored-languages-file-explorer.component';
+import { CursoredPublishersFileExplorerComponent } from './component/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,7 +30,17 @@ const routes: Routes = [
   { path: 'explorer', component: CursoredExplorerComponent },
   { path: 'search', component: CursoredSearchExplorerComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
+  {
+    path: 'explore/language/:parent',
+    component: CursoredLanguagesFileExplorerComponent,
+  },
+  {
+    path: 'explore/publisher/:parent',
+    component: CursoredPublishersFileExplorerComponent,
+  },
   { path: 'extension', component: ExtensionsComponent },
+  { path: 'language', component: CursoredLanguagesExplorerComponent },
+  { path: 'publisher', component: CursoredPublishersExplorerComponent },
   {
     path: 'explore/extension/:extension',
     component: ByFileExtensionExplorerComponent,
