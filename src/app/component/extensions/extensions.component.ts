@@ -13,7 +13,6 @@ export class ExtensionsComponent implements OnInit {
 
   constructor(
     private fileSystemItemService: CursoredFileSystemService,
-    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
   ngOnInit(): void {

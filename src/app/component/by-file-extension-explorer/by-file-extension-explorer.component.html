@@ -18,7 +18,10 @@
           <a class="link" (click)="goToFile(fsi)"> {{ fsi.name }}</a>
         </li>
       </ul>
-      <div class="d-flex justify-content-center">
+      <div
+        class="d-flex justify-content-center"
+        *ngIf="cursoredExtension?.nextCursor"
+      >
         <button (click)="more()" class="btn btn-primary">More</button>
       </div>
     </div>
