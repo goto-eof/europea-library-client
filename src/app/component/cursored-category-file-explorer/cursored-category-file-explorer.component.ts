@@ -5,6 +5,7 @@ import CursoredCategory from '../../model/CursoredCategory';
 import CursoredRequest from '../../model/CursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-cursored-category-file-explorer',
@@ -17,7 +18,6 @@ export class CursoredCategoryFileExplorerComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fileSystemService: FileSystemService,
     private cursoredFileSystemService: CursoredFileSystemService
   ) {}
 
@@ -31,8 +31,13 @@ export class CursoredCategoryFileExplorerComponent implements OnInit {
             nextCursor: null,
             parentId: +categoryId,
           })
-          .subscribe((cursoredCategory) => {
-            this.cursoredCategory = cursoredCategory;
+          .subscribe({
+            next: (cursoredCategory) => {
+              this.cursoredCategory = cursoredCategory;
+            },
+            error: (e) => {
+              ErrorHandlerUtil.handleError(e, this.router);
+            },
           });
       }
     });
@@ -44,15 +49,18 @@ export class CursoredCategoryFileExplorerComponent implements OnInit {
       nextCursor: this.cursoredCategory?.nextCursor!,
       parentId: this.cursoredCategory?.category.id!,
     };
-    this.cursoredFileSystemService
-      .listByCategory(cursoredRequest)
-      .subscribe((cursoredCategory) => {
+    this.cursoredFileSystemService.listByCategory(cursoredRequest).subscribe({
+      next: (cursoredCategory) => {
         this.cursoredCategory!.childrenList = [
           ...this.cursoredCategory!.childrenList,
           ...cursoredCategory.childrenList,
         ];
         this.cursoredCategory!.nextCursor = cursoredCategory.nextCursor;
-      });
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
+    });
   }
 
   listDirectory(file: FileSystemItem) {

@@ -5,6 +5,7 @@ import CursoredTagService from '../../service/CursoredTagService';
 import CommonCursoredRequest from '../../model/CommonCursoredRequest';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-cursored-tag-explorer',
@@ -30,19 +31,24 @@ export class CursoredTagExplorerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.cursoredTaxService.list().subscribe((data) => {
-      this.tags = data;
-      const loadMore = this.loadMore;
-      const that = this;
-      if (this.isAutoLoadEnabled) {
-        this.intervalId = window.setInterval(function () {
-          if (data.nextCursor) {
-            loadMore(that);
-          } else {
-            clearInterval(that.intervalId);
-          }
-        }, this.autoLoadTime);
-      }
+    this.cursoredTaxService.list().subscribe({
+      next: (data) => {
+        this.tags = data;
+        const loadMore = this.loadMore;
+        const that = this;
+        if (this.isAutoLoadEnabled) {
+          this.intervalId = window.setInterval(function () {
+            if (data.nextCursor) {
+              loadMore(that);
+            } else {
+              clearInterval(that.intervalId);
+            }
+          }, this.autoLoadTime);
+        }
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
     });
   }
 
@@ -51,9 +57,14 @@ export class CursoredTagExplorerComponent implements OnInit, OnDestroy {
       limit: environment.tagsPerRequest,
       nextCursor: that.tags.nextCursor,
     };
-    that.cursoredTaxService.list(request).subscribe((data: Cursor<Tag>) => {
-      that.tags.items = [...that.tags.items, ...data.items];
-      that.tags.nextCursor = data.nextCursor;
+    that.cursoredTaxService.list(request).subscribe({
+      next: (data: Cursor<Tag>) => {
+        that.tags.items = [...that.tags.items, ...data.items];
+        that.tags.nextCursor = data.nextCursor;
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
     });
   }
 

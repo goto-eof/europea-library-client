@@ -5,6 +5,7 @@ import FileSystemService from '../../service/FileSystemService';
 import CursoredRequest from '../../model/CursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-cursored-tag-file-explorer',
@@ -31,8 +32,13 @@ export class CursoredTagFileExplorerComponent {
             nextCursor: null,
             parentId: +tagId,
           })
-          .subscribe((cursoredTag) => {
-            this.cursoredTag = cursoredTag;
+          .subscribe({
+            next: (cursoredTag) => {
+              this.cursoredTag = cursoredTag;
+            },
+            error: (e) => {
+              ErrorHandlerUtil.handleError(e, this.router);
+            },
           });
       }
     });
@@ -44,15 +50,18 @@ export class CursoredTagFileExplorerComponent {
       nextCursor: this.cursoredTag?.nextCursor!,
       parentId: this.cursoredTag?.tag.id!,
     };
-    this.cursoredFileSystemService
-      .listByTag(cursoredRequest)
-      .subscribe((cursoredTag) => {
+    this.cursoredFileSystemService.listByTag(cursoredRequest).subscribe({
+      next: (cursoredTag) => {
         this.cursoredTag!.childrenList = [
           ...this.cursoredTag!.childrenList,
           ...cursoredTag.childrenList,
         ];
         this.cursoredTag!.nextCursor = cursoredTag.nextCursor;
-      });
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
+    });
   }
 
   listDirectory(file: FileSystemItem) {

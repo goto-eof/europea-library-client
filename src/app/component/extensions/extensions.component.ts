@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import FileExtension from '../../model/FileExtension';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-extensions',
@@ -16,8 +17,13 @@ export class ExtensionsComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.fileSystemItemService.getExtensions().subscribe((data) => {
-      this.extensions = data;
+    this.fileSystemItemService.getExtensions().subscribe({
+      next: (data) => {
+        this.extensions = data;
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
     });
   }
   exploreExtension(fileExtension: FileExtension) {

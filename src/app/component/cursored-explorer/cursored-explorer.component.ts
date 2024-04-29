@@ -4,6 +4,7 @@ import FileSystemItem from '../../model/FileSystemItem';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import CursoredRequest from '../../model/CursoredRequest';
 import CursoredFileSystemItem from '../../model/CursoredFileSystemItem';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 const NEW_CURSORED_FILE_SYSTEM_ITEM = {
   basePath: '/',
@@ -43,13 +44,7 @@ export class CursoredExplorerComponent implements OnInit {
               this.children = cursoredFileSystemResponse.childrenList || [];
             },
             error: (e) => {
-              if (e.error.code === 503) {
-                this.router.navigate(['/work-in-progress']);
-                return;
-              }
-              if (e.error.code >= 500) {
-                this.router.navigate(['/internal-server-error']);
-              }
+              ErrorHandlerUtil.handleError(e, this.router);
             },
           });
         } else {
@@ -89,8 +84,8 @@ export class CursoredExplorerComponent implements OnInit {
           this.children.push(child)
         );
       },
-      error: () => {
-        this.router.navigate(['/explorer']);
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
       },
     });
   }

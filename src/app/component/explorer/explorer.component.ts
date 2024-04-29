@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import FileSystemService from '../../service/FileSystemService';
 import FileSystemItem from '../../model/FileSystemItem';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-explorer',
@@ -28,13 +29,7 @@ export class ExplorerComponent implements OnInit {
           this.fileSystemService.list().subscribe({
             next: (file) => (this.file = file),
             error: (e) => {
-              if (e.error.code === 503) {
-                this.router.navigate(['/work-in-progress']);
-                return;
-              }
-              if (e.error.code >= 500) {
-                this.router.navigate(['/internal-server-error']);
-              }
+              ErrorHandlerUtil.handleError(e, this.router);
             },
           });
         } else {

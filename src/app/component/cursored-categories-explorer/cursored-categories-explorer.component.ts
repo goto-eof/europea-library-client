@@ -5,6 +5,7 @@ import Category from '../../model/Category';
 import CommonCursoredRequest from '../../model/CommonCursoredRequest';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-cursored-categories-explorer',
@@ -27,18 +28,23 @@ export class CategoriesExplorerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.cursoredCategoriesService.list().subscribe((data) => {
-      this.categories = data;
-      const that = this;
-      if (this.isAutoLoadEnabled) {
-        this.intervalId = window.setInterval(function () {
-          if (data.nextCursor) {
-            that.loadMore(that);
-          } else {
-            clearInterval(that.intervalId);
-          }
-        }, this.autoLoadTime);
-      }
+    this.cursoredCategoriesService.list().subscribe({
+      next: (data) => {
+        this.categories = data;
+        const that = this;
+        if (this.isAutoLoadEnabled) {
+          this.intervalId = window.setInterval(function () {
+            if (data.nextCursor) {
+              that.loadMore(that);
+            } else {
+              clearInterval(that.intervalId);
+            }
+          }, this.autoLoadTime);
+        }
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
     });
   }
 
@@ -47,12 +53,15 @@ export class CategoriesExplorerComponent implements OnInit, OnDestroy {
       limit: environment.categoriesPerRequest,
       nextCursor: that.categories.nextCursor,
     };
-    that.cursoredCategoriesService
-      .list(request)
-      .subscribe((data: Cursor<Category>) => {
+    that.cursoredCategoriesService.list(request).subscribe({
+      next: (data: Cursor<Category>) => {
         that.categories.items = [...that.categories.items, ...data.items];
         that.categories.nextCursor = data.nextCursor;
-      });
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
+    });
   }
 
   goToCategory(category: Category) {

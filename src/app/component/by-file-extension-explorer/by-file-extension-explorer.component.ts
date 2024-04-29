@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import CursoredFileSystemItemByExtension from '../../model/CursoredFileExtensionRequest';
 import CursoredExtension from '../../model/CursoredExtension';
 import FileSystemItem from '../../model/FileSystemItem';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-by-file-extension-explorer',
@@ -38,7 +39,9 @@ export class ByFileExtensionExplorerComponent implements OnInit {
             next: (data) => {
               this.cursoredExtension = data;
             },
-            error: () => {},
+            error: (e) => {
+              ErrorHandlerUtil.handleError(e, this.router);
+            },
           });
       },
     });
@@ -69,7 +72,9 @@ export class ByFileExtensionExplorerComponent implements OnInit {
           ];
           this.cursoredExtension!.nextCursor = data.nextCursor;
         },
-        error: () => {},
+        error: (e) => {
+          ErrorHandlerUtil.handleError(e, this.router);
+        },
       });
   }
 }

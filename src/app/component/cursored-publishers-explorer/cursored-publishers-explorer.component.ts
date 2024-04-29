@@ -3,6 +3,7 @@ import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import ItemAndFrequency from '../../model/ItemAndFrequency';
 import { Router } from '@angular/router';
 import PublisherService from '../../service/PublisherService';
+import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 
 @Component({
   selector: 'app-cursored-publishers-explorer',
@@ -17,8 +18,13 @@ export class CursoredPublishersExplorerComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.publisherService.getPublishers().subscribe((data) => {
-      this.items = data;
+    this.publisherService.getPublishers().subscribe({
+      next: (data) => {
+        this.items = data;
+      },
+      error: (e) => {
+        ErrorHandlerUtil.handleError(e, this.router);
+      },
     });
   }
   exploreItem(item: ItemAndFrequency) {
