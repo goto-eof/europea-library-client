@@ -27,13 +27,15 @@
           </a>
         </li>
       </ul>
-      <button
-        *ngIf="cursoredCategory?.nextCursor"
-        class="btn btn-primary"
-        (click)="loadMore()"
-      >
-        More
-      </button>
+      <div class="d-flex justify-content-center">
+        <button
+          *ngIf="cursoredCategory?.nextCursor"
+          class="btn btn-primary"
+          (click)="loadMore()"
+        >
+          More
+        </button>
+      </div>
     </div>
   </div>
 </div>
