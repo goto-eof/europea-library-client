@@ -22,6 +22,7 @@ export class FileInfoComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
   base64DownloadQRCode?: string;
+  isDownloading: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -112,6 +113,7 @@ export class FileInfoComponent implements OnInit {
     if (!this.fileSystemItem || this.fileSystemItem.isDirectory) {
       return;
     }
+    this.isDownloading = true;
     this.cursoredFileSystemService
       .download(this.fileSystemItem!.id!)
       .subscribe({
@@ -126,11 +128,13 @@ export class FileInfoComponent implements OnInit {
           a.download = this.fileSystemItem!.name!;
           a.click();
           window.URL.revokeObjectURL(url);
+          this.isDownloading = false;
         },
         error: (e: any) => {
           if (e.status !== 401) {
             this.router.navigate(['/page-not-found']);
           }
+          this.isDownloading = false;
         },
       });
   }

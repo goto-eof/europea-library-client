@@ -23,6 +23,7 @@
                       [src]="'data:image/png;base64,' + base64DownloadQRCode"
                     />
                     <button
+                      [disabled]="isDownloading"
                       class="pointer-cursor btn btn-primary mb-1"
                       (click)="download()"
                     >
