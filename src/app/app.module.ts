@@ -59,6 +59,7 @@ import { EntityButtonComponent } from './component/entity-button/entity-button.c
 import PublishedDateService from './service/PublishedDateService';
 import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
 import { PublishedDateExplorerComponent } from './component/published-date-explorer/published-date-explorer.component';
+import CacheLoaderService from './service/CacheLoaderService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +127,7 @@ import { PublishedDateExplorerComponent } from './component/published-date-explo
     LanguageService,
     JobService,
     PublishedDateService,
+    CacheLoaderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

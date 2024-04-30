@@ -99,6 +99,10 @@ simple-snack-bar {
   background-color: rgb(6, 67, 180);
 }
 
+ul {
+  list-style-type: none;
+}
+
 
 
 .modal-custom {

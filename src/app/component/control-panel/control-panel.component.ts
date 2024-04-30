@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import User from '../../model/User';
 import OperationStatus from '../../model/OperationStatus';
 import { environment } from '../../../environments/environment';
+import CacheLoaderService from '../../service/CacheLoaderService';
 
 @Component({
   selector: 'app-control-panel',
@@ -20,12 +21,14 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
   isStopRequestMade: boolean = false;
   isStartRequestMade: boolean = false;
   private checkIsJobRunningTime: number = environment.checkIsJobRunningTime;
+  isReloadCacheRequestMade: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private jobService: JobService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private reloadCacheService: CacheLoaderService
   ) {}
   ngOnDestroy(): void {
     clearInterval(this.intervalId);
@@ -106,5 +109,28 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 
   gotoChangePassword() {
     this.router.navigate(['/change-password']);
+  }
+
+  reloadCache() {
+    this.isReloadCacheRequestMade = true;
+    this.reloadCacheService.reload().subscribe({
+      next: (status) => {
+        this.isReloadCacheRequestMade = false;
+
+        if (status.status) {
+          this.snackBarService.showInfoWithMessage(
+            'Cache reloaded successfully'
+          );
+          return;
+        }
+        this.snackBarService.showInfoWithMessage('Cache not reloaded');
+      },
+      error: () => {
+        this.isReloadCacheRequestMade = false;
+        this.snackBarService.showErrorWithMessage(
+          'Something went wrong when trying to reload cache.'
+        );
+      },
+    });
   }
 }
