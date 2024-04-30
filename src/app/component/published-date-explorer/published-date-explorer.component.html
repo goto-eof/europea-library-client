@@ -1,0 +1,102 @@
+<div class="container mt-2 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Published dates</h1>
+      <hr />
+      <div class="input-group vstack p-3">
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="filter"
+          aria-label="filter"
+          aria-describedby="basic-addon2"
+          [(ngModel)]="filter"
+          (ngModelChange)="filterItems()"
+        />
+        <small id="usernameHelp" class="form-text text-muted"
+          >filters page data</small
+        >
+      </div>
+      <div
+        class="d-inline-block text-light p-2 m-1 cursor-pointer"
+        *ngFor="let item of items; index as i"
+      >
+        <app-entity-button
+          [goToParentLink]="exploreItem"
+          [item]="item"
+          [that]="this"
+          [openParentModal]="openModal"
+          [isEditButtonEnabled]="true"
+        />
+      </div>
+      <span class="text-secondary" *ngIf="!items || items.length === 0"
+        >no data</span
+      >
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal modal-custom"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayRenameModal }"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-custom">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Bulk published date rename
+        </h5>
+      </div>
+      <form (submit)="rename($event)">
+        <div class="modal-body vstack">
+          <div class="row">
+            <div class="col-3">
+              <label>Old name</label>
+            </div>
+            <div class="col-9">
+              <input
+                type="text"
+                class="form-control w-100"
+                placeholder="old published date"
+                aria-label="newName"
+                aria-describedby="basic-addon2"
+                [value]="renameSelectedItem?.name"
+                [readOnly]="true"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label>New name</label>
+            </div>
+            <div class="col-9">
+              <input
+                #modalNewValueInput
+                type="text"
+                class="form-control w-100 my-1"
+                placeholder="new published date"
+                aria-label="newName"
+                aria-describedby="basic-addon2"
+                name="newName"
+                [(ngModel)]="newName"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              (click)="onCloseHandled()"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

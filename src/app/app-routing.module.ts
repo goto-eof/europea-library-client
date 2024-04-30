@@ -22,6 +22,8 @@ import { CursoredLanguagesFileExplorerComponent } from './component/cursored-lan
 import { CursoredPublishersFileExplorerComponent } from './component/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
 import { ChangePasswordFormComponent } from './component/change-password-form/change-password-form.component';
 import { ControlPanelComponent } from './component/control-panel/control-panel.component';
+import { PublishedDateExplorerComponent } from './component/published-date-explorer/published-date-explorer.component';
+import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -42,9 +44,14 @@ const routes: Routes = [
     path: 'explore/publisher/:parent',
     component: CursoredPublishersFileExplorerComponent,
   },
+  {
+    path: 'explore/published-date/:parent',
+    component: CursoredPublishedDateFileExplorerComponent,
+  },
   { path: 'extension', component: ExtensionsComponent },
   { path: 'language', component: CursoredLanguagesExplorerComponent },
   { path: 'publisher', component: CursoredPublishersExplorerComponent },
+  { path: 'published-date', component: PublishedDateExplorerComponent },
   {
     path: 'explore/extension/:extension',
     component: ByFileExtensionExplorerComponent,

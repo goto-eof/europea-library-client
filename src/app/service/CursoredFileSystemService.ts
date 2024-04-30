@@ -91,6 +91,15 @@ export default class CursoredFileSystemService {
     );
   }
 
+  listByPublishedDate(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string>> {
+    return this.httpClient.post<GenericCursoredResponse<string>>(
+      `${baseUrl}/cursored/publishedDate`,
+      cursorRequest
+    );
+  }
+
   listByPublisher(
     cursorRequest: GenericCursoredRequest<string>
   ): Observable<GenericCursoredResponse<string>> {

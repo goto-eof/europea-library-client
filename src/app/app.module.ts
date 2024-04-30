@@ -56,6 +56,9 @@ import { ChangePasswordFormComponent } from './component/change-password-form/ch
 import { ControlPanelComponent } from './component/control-panel/control-panel.component';
 import JobService from './service/JobService';
 import { EntityButtonComponent } from './component/entity-button/entity-button.component';
+import PublishedDateService from './service/PublishedDateService';
+import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
+import { PublishedDateExplorerComponent } from './component/published-date-explorer/published-date-explorer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +92,9 @@ import { EntityButtonComponent } from './component/entity-button/entity-button.c
     ChangePasswordFormComponent,
     ControlPanelComponent,
     EntityButtonComponent,
+    CursoredPublishedDateFileExplorerComponent,
+    EntityButtonComponent,
+    PublishedDateExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,6 +125,7 @@ import { EntityButtonComponent } from './component/entity-button/entity-button.c
     PublisherService,
     LanguageService,
     JobService,
+    PublishedDateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
