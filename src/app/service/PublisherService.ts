@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import ApplicationConst from '../constants/ApplicationConst';
 import ItemAndFrequency from '../model/ItemAndFrequency';
+import Rename from '../model/Rename';
+import { Observable } from 'rxjs';
+import OperationStatus from '../model/OperationStatus';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/publisher';
 
@@ -11,5 +14,13 @@ export default class PublisherService {
 
   getPublishers() {
     return this.httpClient.get<Array<ItemAndFrequency>>(`${baseUrl}`);
+  }
+
+  rename(oldName: string, newName: string): Observable<OperationStatus> {
+    const payload: Rename = {
+      oldName,
+      newName,
+    };
+    return this.httpClient.post<OperationStatus>(`${baseUrl}/rename`, payload);
   }
 }

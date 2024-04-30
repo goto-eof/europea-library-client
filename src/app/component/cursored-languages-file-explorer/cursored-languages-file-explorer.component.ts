@@ -5,6 +5,7 @@ import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import GenericCursoredRequest from '../../model/GenericCursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
 import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cursored-languages-file-explorer',
@@ -26,7 +27,7 @@ export class CursoredLanguagesFileExplorerComponent implements OnInit {
       if (parent) {
         this.cursoredFileSystemService
           .listByLanguage({
-            limit: 10,
+            limit: environment.LIMIT_EXPLORER_BY_LANGUAGE,
             nextCursor: null,
             parent: parent,
           })
@@ -44,7 +45,7 @@ export class CursoredLanguagesFileExplorerComponent implements OnInit {
 
   loadMore() {
     const cursoredRequest: GenericCursoredRequest<string> = {
-      limit: 10,
+      limit: environment.LIMIT_EXPLORER_BY_LANGUAGE,
       nextCursor: this.cursoredItem?.nextCursor!,
       parent: this.cursoredItem?.parent!,
     };

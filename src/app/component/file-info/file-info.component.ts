@@ -11,7 +11,6 @@ import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { SearchService } from '../../service/SearchService';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
 import AuthService from '../../service/AuthService';
-import User from '../../model/User';
 import QRCodeService from '../../service/QRCodeService';
 
 @Component({
@@ -35,6 +34,10 @@ export class FileInfoComponent implements OnInit {
     private authService: AuthService,
     private qrCodeService: QRCodeService
   ) {}
+
+  isAdminAuthenticated(): any {
+    return this.authService.isAdminAuthenticated();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((map) => {
@@ -189,15 +192,5 @@ export class FileInfoComponent implements OnInit {
   }
   edit() {
     this.router.navigate([`/file-info/edit/${this.fileSystemItem!.id}`]);
-  }
-
-  isAdminAuthenticated() {
-    const userStr: string = localStorage.getItem('user') || '{}';
-    const user: User = JSON.parse(userStr);
-    const isAdmin =
-      user.authorityList &&
-      user.authorityList.length > 0 &&
-      user.authorityList[0].name === 'ADMINISTRATOR';
-    return this.authService.isLoggedIn() && isAdmin;
   }
 }

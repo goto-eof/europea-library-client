@@ -6,6 +6,7 @@ import CursoredRequest from '../../model/CursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cursored-tag-file-explorer',
@@ -28,7 +29,7 @@ export class CursoredTagFileExplorerComponent {
       if (tagId) {
         this.cursoredFileSystemService
           .listByTag({
-            limit: 10,
+            limit: environment.LIMIT_EXPLORER_BY_TAG,
             nextCursor: null,
             parentId: +tagId,
           })
@@ -46,7 +47,7 @@ export class CursoredTagFileExplorerComponent {
 
   loadMore() {
     const cursoredRequest: CursoredRequest = {
-      limit: 10,
+      limit: environment.LIMIT_EXPLORER_BY_TAG,
       nextCursor: this.cursoredTag?.nextCursor!,
       parentId: this.cursoredTag?.tag.id!,
     };

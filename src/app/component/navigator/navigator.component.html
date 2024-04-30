@@ -47,38 +47,38 @@
             [routerLink]="['/explorer']"
             type="button"
           >
-            by Directory
+            <i class="bi bi-folder-check"></i> by Directory
           </button>
           <button
             class="dropdown-item"
             [routerLink]="['/categories']"
             type="button"
           >
-            by Category
+            <i class="bi bi-boxes"></i> by Category
           </button>
           <button class="dropdown-item" [routerLink]="['/tags']" type="button">
-            by Tags
+            <i class="bi bi-tag"></i> by Tags
           </button>
           <button
             class="dropdown-item"
             [routerLink]="['/extension']"
             type="button"
           >
-            by File Extension
+            <i class="bi bi-file-binary"></i> by File Extension
           </button>
           <button
             class="dropdown-item"
             [routerLink]="['/language']"
             type="button"
           >
-            by Language
+            <i class="bi bi-globe-americas"></i> by Language
           </button>
           <button
             class="dropdown-item"
             [routerLink]="['/publisher']"
             type="button"
           >
-            by Publisher
+            <i class="bi bi-book"></i> by Publisher
           </button>
         </div>
       </div>
@@ -100,16 +100,37 @@
       >
         Register
       </button>
-      <button
-        *ngIf="isLoggedIn()"
-        class="btn btn-link menu-item"
-        (click)="logout()"
-        type="button"
-      >
-        Logout ({{ username }}, {{ role | lowercase }})
-      </button>
+    </div>
+    <div *ngIf="isLoggedIn()">
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle hstack rounded-0"
+          type="button"
+          id="dropdownMenuUser"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img [src]="gravatarImage" class="rounded-0" width="32" height="32" />
+          <div class="mx-2">{{ username }}</div>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
+          <button
+            class="dropdown-item"
+            [routerLink]="['/control-panel']"
+            type="button"
+          >
+            <i class="bi bi-controller"></i> Control panel
+          </button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="logout()" type="button">
+            <i class="bi bi-arrow-bar-right"></i> Logout
+          </button>
+        </div>
+      </div>
     </div>
   </div>
+
   <div>
     <app-search-form />
   </div>

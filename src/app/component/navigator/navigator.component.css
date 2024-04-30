@@ -1,3 +1,7 @@
 .menu-item {
     text-decoration: none; font-weight: bold; color: royalblue;
 }
+
+.small {
+    font-size: 0.8em;
+}

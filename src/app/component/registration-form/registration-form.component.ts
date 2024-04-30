@@ -51,19 +51,26 @@ export class RegistrationFormComponent {
                 const user = JSON.stringify(me);
                 localStorage.setItem('user', user);
                 this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
-                this.snackBarService.showInfoWithTitleAndMessage(
+                this.snackBarService.showInfoWithMessage(
                   'Logged in successfully :)'
                 );
                 this.router.navigate(['/home']);
               },
-              error: () => {
+              error: (e) => {
                 this.snackBarService.showErrorWithMessage(
                   'Something went wrong when trying to authenticate :('
                 );
               },
             });
           },
-          error: () => {
+          error: (e) => {
+            if (e.error.code == 400) {
+              this.snackBarService.showErrorWithMessage(
+                'Something went wrong when trying to register: ' +
+                  e.error.message
+              );
+              return;
+            }
             this.snackBarService.showErrorWithMessage(
               'Something went wrong when trying to register :('
             );
@@ -71,9 +78,8 @@ export class RegistrationFormComponent {
           },
         });
     } else {
-      console.log(this.registrationForm.errors, this.registrationForm);
       this.snackBarService.showErrorWithMessage(
-        'Malformed username or password. Please check the text helper.'
+        'Malformed username, email or password. Please check the text helper.'
       );
     }
   }

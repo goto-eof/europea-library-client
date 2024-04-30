@@ -52,19 +52,29 @@ export class LoginFormComponent {
                 const user = JSON.stringify(me);
                 localStorage.setItem('user', user);
                 this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
-                this.snackBarService.showInfoWithTitleAndMessage(
+                this.snackBarService.showInfoWithMessage(
                   'Logged in successfully :)'
                 );
                 this.router.navigate(['/home']);
               },
               error: () => {
-                this.snackBarService.showInfoWithTitleAndMessage(
-                  'Application Error'
-                );
+                this.snackBarService.showInfoWithMessage('Application Error');
               },
             });
           },
-          error: () => {
+          error: (e) => {
+            if (e.error.code === 401) {
+              this.snackBarService.showErrorWithMessage(
+                'Incorrect username or password'
+              );
+              return;
+            }
+            if (e.name === 'HttpErrorResponse') {
+              this.snackBarService.showErrorWithMessage(
+                'Are you connected to internet?'
+              );
+              return;
+            }
             this.snackBarService.showErrorWithMessage(
               'Wrong username or password'
             );

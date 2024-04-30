@@ -7,6 +7,9 @@
     <div class="form-group row py-1 mx-auto">
       <div class="col-sm-10">
         <div class="input-group">
+          <div class="input-group-prepend">
+            <button type="reset" class="btn btn-danger rounded-0">Clear</button>
+          </div>
           <input
             type="text"
             class="form-control"
@@ -17,17 +20,14 @@
             name="title"
           />
           <div class="input-group-append">
-            <button class="btn btn-outline-danger mx-1" type="reset">
-              Clear
-            </button>
             <button
-              class="btn btn-outline-success mx-1"
+              class="btn btn-success rounded-0"
               type="button"
               (click)="toggleAdvanceSearch()"
             >
-              ⋮
+              <i class="bi bi-list"></i>
             </button>
-            <button class="btn btn-outline-primary mx-1" type="submit">
+            <button class="btn btn-primary rounded-0" type="submit">
               Search
             </button>
           </div>

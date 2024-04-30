@@ -32,7 +32,7 @@ import { ByFileExtensionExplorerComponent } from './component/by-file-extension-
 import { ExtensionsComponent } from './component/extensions/extensions.component';
 import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
 import { SearchFormComponent } from './component/search-form/search-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
 import { FileInfoEditorComponent } from './component/file-info-editor/file-info-editor.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -52,6 +52,10 @@ import { CursoredLanguagesFileExplorerComponent } from './component/cursored-lan
 import { CursoredPublishersFileExplorerComponent } from './component/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
 import PublisherService from './service/PublisherService';
 import LanguageService from './service/LanguageService';
+import { ChangePasswordFormComponent } from './component/change-password-form/change-password-form.component';
+import { ControlPanelComponent } from './component/control-panel/control-panel.component';
+import JobService from './service/JobService';
+import { EntityButtonComponent } from './component/entity-button/entity-button.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +86,9 @@ import LanguageService from './service/LanguageService';
     CursoredPublishersExplorerComponent,
     CursoredLanguagesFileExplorerComponent,
     CursoredPublishersFileExplorerComponent,
+    ChangePasswordFormComponent,
+    ControlPanelComponent,
+    EntityButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +104,7 @@ import LanguageService from './service/LanguageService';
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
   ],
   providers: [
     FileSystemService,
@@ -110,6 +118,7 @@ import LanguageService from './service/LanguageService';
     QRCodeService,
     PublisherService,
     LanguageService,
+    JobService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

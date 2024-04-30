@@ -1,0 +1,31 @@
+<div class="btn-group">
+  <button
+    type="button"
+    (click)="goToParentLinkCallback()"
+    class="btn btn-primary"
+  >
+    {{ name }}
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+    data-bs-toggle="dropdown"
+    aria-bs-haspopup="true"
+    aria-bs-expanded="false"
+    data-bs-target="#ciao-mondo"
+  >
+    <span class="sr-only"></span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" (click)="goToParentLinkCallback()">
+      <i class="bi bi-file-earmark-font-fill"></i> View
+    </a>
+    <a
+      *ngIf="isAdminAuthenticated() && isEditButtonEnabled"
+      class="dropdown-item"
+      (click)="openParentModalCallback()"
+    >
+      <i class="bi bi-pen-fill"></i> Rename
+    </a>
+  </div>
+</div>

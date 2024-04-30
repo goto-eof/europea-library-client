@@ -1,56 +1,60 @@
-<mat-card class="p-2 m-2">
-  <mat-card-title
-    >Search results (
-    <span *ngIf="searchResult.query.author">
-      • author: {{ searchResult.query.author }}
-    </span>
-    <span *ngIf="searchResult.query.description">
-      • description: {{ searchResult.query.description }}</span
-    >
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>
+        Search results (
+        <span *ngIf="searchResult.query.author">
+          • author: {{ searchResult.query.author }}
+        </span>
+        <span *ngIf="searchResult.query.description">
+          • description: {{ searchResult.query.description }}</span
+        >
 
-    <span *ngIf="searchResult.query.isbn">
-      • isbn: {{ searchResult.query.isbn }}</span
-    >
+        <span *ngIf="searchResult.query.isbn">
+          • isbn: {{ searchResult.query.isbn }}</span
+        >
 
-    <span *ngIf="searchResult.query.publisher">
-      • publisher: {{ searchResult.query.publisher }}</span
-    >
+        <span *ngIf="searchResult.query.publisher">
+          • publisher: {{ searchResult.query.publisher }}</span
+        >
 
-    <span *ngIf="searchResult.query.title">
-      • title: {{ searchResult.query.title }}</span
-    >
+        <span *ngIf="searchResult.query.title">
+          • title: {{ searchResult.query.title }}</span
+        >
 
-    <span *ngIf="searchResult.query.year">
-      • year: {{ searchResult.query.year }}</span
-    >
+        <span *ngIf="searchResult.query.year">
+          • year: {{ searchResult.query.year }}</span
+        >
 
-    )</mat-card-title
-  >
-  <mat-card-content>
-    <div class="px-1">
-      <ul class="mx-3">
-        <li *ngFor="let item of searchResult.childrenList">
-          <a
-            class="link cursor-pointer"
-            (click)="goToChildren(item)"
-            [ngClass]="item.isDirectory ? 'directory' : 'file'"
-          >
-            <i
-              class="bi px-1"
-              [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
-            ></i
-            >{{ item.name }}
-          </a>
-        </li>
-      </ul>
+        )
+      </h1>
+      <hr />
+      <div class="px-1">
+        <ul class="mx-3">
+          <li *ngFor="let item of searchResult.childrenList">
+            <a
+              class="link cursor-pointer"
+              (click)="goToChildren(item)"
+              [ngClass]="item.isDirectory ? 'directory' : 'file'"
+            >
+              <i
+                class="bi px-1"
+                [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
+              ></i
+              >{{ item.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          *ngIf="searchResult.query.nextCursor"
+          (click)="loadMore()"
+          class="btn btn-primary"
+        >
+          More
+        </button>
+      </div>
     </div>
-
-    <button
-      *ngIf="searchResult.query.nextCursor"
-      (click)="loadMore()"
-      class="btn btn-primary"
-    >
-      More
-    </button>
-  </mat-card-content></mat-card
->
+  </div>
+</div>

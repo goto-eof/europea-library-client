@@ -2,13 +2,31 @@
   <div class="card">
     <div class="card-body">
       <h1 class="card-title">Extensions</h1>
-
+      <hr />
+      <div class="input-group vstack p-3">
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="filter"
+          aria-label="filter"
+          aria-describedby="basic-addon2"
+          [(ngModel)]="filter"
+          (ngModelChange)="filterItems()"
+        />
+        <small id="usernameHelp" class="form-text text-muted"
+          >filters page data</small
+        >
+      </div>
       <span
-        class="badge bg-primary text-light p-2 m-1 cursor-pointer"
+        class="d-inline-block text-light p-2 m-1 cursor-pointer"
         *ngFor="let extension of extensions"
-        (click)="exploreExtension(extension)"
       >
-        <span>{{ extension.extension }} ({{ extension.occurrence }})</span>
+        <!-- <span>{{ extension.extension }} ({{ extension.occurrence }})</span> -->
+        <app-entity-button
+          [goToParentLink]="exploreExtension"
+          [item]="extension"
+          [that]="this"
+        />
       </span>
       <span
         class="text-secondary"

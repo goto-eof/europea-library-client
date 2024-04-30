@@ -20,10 +20,14 @@ import { CursoredLanguagesExplorerComponent } from './component/cursored-languag
 import { CursoredPublishersExplorerComponent } from './component/cursored-publishers-explorer/cursored-publishers-explorer.component';
 import { CursoredLanguagesFileExplorerComponent } from './component/cursored-languages-file-explorer/cursored-languages-file-explorer.component';
 import { CursoredPublishersFileExplorerComponent } from './component/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
+import { ChangePasswordFormComponent } from './component/change-password-form/change-password-form.component';
+import { ControlPanelComponent } from './component/control-panel/control-panel.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'control-panel', component: ControlPanelComponent },
   { path: 'login', component: LoginFormComponent },
+  { path: 'change-password', component: ChangePasswordFormComponent },
   { path: 'register', component: RegistrationFormComponent },
   { path: 'categories', component: CursoredCategoriesExplorerComponent },
   { path: 'tags', component: CursoredTagExplorerComponent },

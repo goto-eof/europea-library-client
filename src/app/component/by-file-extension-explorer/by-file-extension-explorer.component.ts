@@ -5,6 +5,7 @@ import CursoredFileSystemItemByExtension from '../../model/CursoredFileExtension
 import CursoredExtension from '../../model/CursoredExtension';
 import FileSystemItem from '../../model/FileSystemItem';
 import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-by-file-extension-explorer',
@@ -30,7 +31,7 @@ export class ByFileExtensionExplorerComponent implements OnInit {
         }
         const payload: CursoredFileSystemItemByExtension = {
           extension,
-          limit: 10,
+          limit: environment.LIMIT_EXPLORER_BY_EXTENSION,
           nextCursor: null,
         };
         this.fileSystemItemService
@@ -59,7 +60,7 @@ export class ByFileExtensionExplorerComponent implements OnInit {
   more() {
     const payload: CursoredFileSystemItemByExtension = {
       extension: this.cursoredExtension!.extension,
-      limit: 10,
+      limit: environment.LIMIT_EXPLORER_BY_EXTENSION,
       nextCursor: this.cursoredExtension!.nextCursor,
     };
     this.fileSystemItemService

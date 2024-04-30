@@ -1,0 +1,142 @@
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex align-items-start">
+        <div
+          class="nav flex-column nav-pills me-3"
+          id="v-pills-tab"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <button
+            *ngIf="isAdministrator()"
+            class="nav-link active rounded-0"
+            id="v-pills-home-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-home"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-home"
+            aria-selected="true"
+          >
+            <div class="d-flex flex-row">
+              <i class="bi bi-toggles me-2 d-inline-block"></i>
+              <span>Administration</span>
+            </div>
+          </button>
+          <button
+            class="nav-link rounded-0"
+            [class]="!isAdministrator() ? 'active' : ''"
+            id="v-pills-profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-profile"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-profile"
+            aria-selected="false"
+          >
+            <div class="d-flex flex-row">
+              <i class="bi bi-toggles me-2 d-inline-block"></i>
+              <span>Profile</span>
+            </div>
+          </button>
+          <button
+            class="nav-link rounded-0"
+            id="v-pills-messages-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-messages"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-messages"
+            aria-selected="false"
+          >
+            <div class="d-flex flex-row">
+              <i class="bi bi-toggles me-2 d-inline-block"></i>
+              <span>Security</span>
+            </div>
+          </button>
+        </div>
+        <div class="tab-content w-100" id="v-pills-tabContent">
+          <div
+            *ngIf="isAdministrator()"
+            class="tab-pane fade show active pb-5"
+            id="v-pills-home"
+            role="tabpanel"
+            aria-labelledby="v-pills-home-tab"
+          >
+            <h1 class="pb-3 pt-3 text-start">
+              <i class="bi bi-tools"></i> Site administration
+            </h1>
+            <hr />
+            <div class="row">
+              <div class="col-7">Run the indexing and cataloguing job</div>
+              <div class="col-5 d-flex align-items-end flex-column">
+                <button
+                  class="btn btn-primary"
+                  *ngIf="!isJobRunning"
+                  (click)="runTheJob()"
+                  [disabled]="isStartRequestMade"
+                >
+                  Run the job
+                </button>
+                <button
+                  class="btn btn-danger"
+                  *ngIf="isJobRunning"
+                  [disabled]="isStopRequestMade"
+                  (click)="stopTheJob()"
+                >
+                  Stop the job
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade pb-5"
+            [class]="!isAdministrator() ? 'show active' : ''"
+            id="v-pills-profile"
+            role="tabpanel"
+            aria-labelledby="v-pills-profile-tab"
+          >
+            <h1 class="pb-3 pt-3 text-start">
+              <i class="bi bi-tools"></i> Profile
+            </h1>
+            <hr />
+            <div class="row">
+              <div class="col-4">Username</div>
+              <div class="col-8">{{ user?.username }}</div>
+            </div>
+            <div class="row">
+              <div class="col-4">E-mail</div>
+              <div class="col-8">{{ user?.email }}</div>
+            </div>
+            <div class="row">
+              <div class="col-4">Role</div>
+              <div class="col-8">
+                {{ roles }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade pb-5"
+            id="v-pills-messages"
+            role="tabpanel"
+            aria-labelledby="v-pills-messages-tab"
+          >
+            <h1 class="pb-3 pt-3 text-start">
+              <i class="bi bi-tools"></i> Security
+            </h1>
+            <hr />
+            <div class="row">
+              <div class="col-7">Change your password</div>
+              <div class="col-5 d-flex align-items-end flex-column">
+                <button class="btn btn-primary" (click)="gotoChangePassword()">
+                  Change
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

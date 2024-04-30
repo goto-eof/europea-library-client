@@ -27,6 +27,7 @@
                   aria-describedby="basic-addon2"
                   formControlName="username"
                   name="username"
+                  [required]="true"
                 />
                 <small id="usernameHelp" class="form-text text-muted"
                   >allowed characters:
@@ -46,6 +47,7 @@
                   aria-describedby="basic-addon2"
                   formControlName="email"
                   name="email"
+                  [required]="true"
                 />
               </div>
               <div class="vstack">
@@ -58,6 +60,7 @@
                     aria-describedby="basic-addon2"
                     formControlName="password"
                     name="password"
+                    [required]="true"
                   />
                   <div
                     class="input-group-append"
@@ -95,7 +98,9 @@
                   password length allowed if 5 characters.</small
                 >
               </div>
-              <button class="btn btn-primary" type="submit">Register</button>
+              <button class="btn btn-primary mt-4" type="submit">
+                Register
+              </button>
             </div>
           </div>
         </div>

@@ -112,7 +112,10 @@
                   <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
                     >,
                   </span>
-                  <span *ngIf="bookInfo.publishedDate" class="cursor-pointer link">
+                  <span
+                    *ngIf="bookInfo.publishedDate"
+                    class="cursor-pointer link"
+                  >
                     <a (click)="searchByPublishedDate()">
                       {{ bookInfo.publishedDate }}
                     </a>

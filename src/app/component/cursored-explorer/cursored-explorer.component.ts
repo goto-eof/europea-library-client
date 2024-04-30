@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import CursoredRequest from '../../model/CursoredRequest';
 import CursoredFileSystemItem from '../../model/CursoredFileSystemItem';
 import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
+import { environment } from '../../../environments/environment';
 
 const NEW_CURSORED_FILE_SYSTEM_ITEM = {
   basePath: '/',
@@ -74,7 +75,7 @@ export class CursoredExplorerComponent implements OnInit {
   next() {
     const cursoredRequest: CursoredRequest = {
       parentId: this.parentId!,
-      limit: 10,
+      limit: environment.LIMIT_EXPLORER_BY_EXPLORER,
       nextCursor: this.cursoredFileSystemItem.nextCursor,
     };
     this.cursoredFileSystemService.listCursored(cursoredRequest).subscribe({

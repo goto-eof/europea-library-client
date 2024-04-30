@@ -2,13 +2,55 @@
   <div class="card">
     <div class="card-body">
       <h1 class="card-title">Tags</h1>
-      <span
-        class="badge bg-primary text-light p-2 m-1 cursor-pointer"
+      <hr />
+      <div class="input-group vstack p-3">
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="filter"
+          aria-label="filter"
+          aria-describedby="basic-addon2"
+          [(ngModel)]="filter"
+          (ngModelChange)="filterItems()"
+        />
+        <small id="usernameHelp" class="form-text text-muted"
+          >filters page data</small
+        >
+      </div>
+      <!-- <div
+        class="d-inline-block text-light p-2 m-1 cursor-pointer"
         *ngFor="let tag of tags.items"
-        (click)="goToTag(tag)"
       >
-        <span>{{ tag.name }}</span>
-      </span>
+        <button
+          type="button"
+          class="btn btn-primary m-1"
+          (click)="goToTag(tag)"
+        >
+          {{ tag.name }}
+        </button>
+        <button
+          *ngIf="isAdminAuthenticated()"
+          type="button"
+          class="btn btn-danger"
+          (click)="openModal(tag)"
+        >
+          <i class="bi bi-pen-fill"></i>
+        </button>
+      </div> -->
+
+      <div
+        class="d-inline-block text-light p-2 m-1 cursor-pointer"
+        *ngFor="let tag of tags.items"
+      >
+        <app-entity-button
+          [goToParentLink]="goToTag"
+          [item]="tag"
+          [that]="this"
+          [openParentModal]="openModal"
+          [isEditButtonEnabled]="true"
+        />
+      </div>
+
       <button
         *ngIf="tags.nextCursor"
         (click)="loadMore(this)"
@@ -21,6 +63,69 @@
         *ngIf="!tags.items || tags.items.length === 0"
         >no data</span
       >
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal modal-custom"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayRenameModal }"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-custom">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bulk tag rename</h5>
+      </div>
+      <form (submit)="rename($event)">
+        <div class="modal-body vstack">
+          <div class="row">
+            <div class="col-3">
+              <label>Old name</label>
+            </div>
+            <div class="col-9">
+              <input
+                type="text"
+                class="form-control w-100"
+                placeholder="old tag name"
+                aria-label="newName"
+                aria-describedby="basic-addon2"
+                [value]="renameSelectedTag?.name"
+                [readOnly]="true"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label>New name</label>
+            </div>
+            <div class="col-9">
+              <input
+                #modalNewValueInput
+                type="text"
+                class="form-control w-100 my-1"
+                placeholder="new tag name"
+                aria-label="newName"
+                aria-describedby="basic-addon2"
+                name="newName"
+                [(ngModel)]="newName"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              (click)="onCloseHandled()"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

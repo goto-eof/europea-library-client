@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 const snackBarErrorConfiguration: MatSnackBarConfig<any> = {
-  horizontalPosition: 'end',
-  verticalPosition: 'top',
+  horizontalPosition: 'center',
+  verticalPosition: 'bottom',
   duration: 2500,
   panelClass: ['error'],
 };
 
 const snackBarSuccessConfiguration: MatSnackBarConfig<any> = {
-  horizontalPosition: 'end',
-  verticalPosition: 'top',
+  horizontalPosition: 'center',
+  verticalPosition: 'bottom',
   duration: 2500,
   panelClass: ['success'],
 };
@@ -23,7 +23,7 @@ export default class SnackBarService {
     this.snackBar.open(message, 'Close', snackBarErrorConfiguration);
   }
 
-  showInfoWithTitleAndMessage(message: string) {
+  showInfoWithMessage(message: string) {
     this.snackBar.open(message, 'Close', snackBarSuccessConfiguration);
   }
 }

@@ -2,14 +2,33 @@
   <div class="card">
     <div class="card-body">
       <h1 class="card-title">Categories</h1>
-
-      <span
-        class="badge bg-primary text-light p-2 m-1 cursor-pointer"
+      <hr />
+      <div class="input-group vstack p-3">
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="filter"
+          aria-label="filter"
+          aria-describedby="basic-addon2"
+          [(ngModel)]="filter"
+          (ngModelChange)="filterItems()"
+        />
+        <small id="usernameHelp" class="form-text text-muted"
+          >filters page data</small
+        >
+      </div>
+      <div
+        class="d-inline-block text-light p-2 m-1 cursor-pointer"
         *ngFor="let category of categories.items"
-        (click)="goToCategory(category)"
       >
-        <span>{{ category.name }}</span>
-      </span>
+        <app-entity-button
+          [goToParentLink]="goToCategory"
+          [item]="category"
+          [that]="this"
+          [openParentModal]="openModal"
+          [isEditButtonEnabled]="true"
+        />
+      </div>
 
       <button
         *ngIf="categories.nextCursor"
@@ -23,6 +42,69 @@
         *ngIf="!categories.items || categories.items.length === 0"
         >no data</span
       >
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal modal-custom"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayRenameModal }"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content modal-custom">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bulk tag rename</h5>
+      </div>
+      <form (submit)="rename($event)">
+        <div class="modal-body vstack">
+          <div class="row">
+            <div class="col-3">
+              <label>Old name</label>
+            </div>
+            <div class="col-9">
+              <input
+                type="text"
+                class="form-control w-100"
+                placeholder="old tag name"
+                aria-label="newName"
+                aria-describedby="basic-addon2"
+                [value]="renameSelectedCategory?.name"
+                [readOnly]="true"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <label>New name</label>
+            </div>
+            <div class="col-9">
+              <input
+                #modalNewValueInput
+                type="text"
+                class="form-control w-100 my-1"
+                placeholder="new tag name"
+                aria-label="newName"
+                aria-describedby="basic-addon2"
+                name="newName"
+                [(ngModel)]="newName"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              (click)="onCloseHandled()"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

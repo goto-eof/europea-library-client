@@ -11,6 +11,8 @@ import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 })
 export class ExtensionsComponent implements OnInit {
   extensions?: Array<FileExtension>;
+  allItems?: Array<FileExtension>;
+  filter: string = '';
 
   constructor(
     private fileSystemItemService: CursoredFileSystemService,
@@ -20,13 +22,25 @@ export class ExtensionsComponent implements OnInit {
     this.fileSystemItemService.getExtensions().subscribe({
       next: (data) => {
         this.extensions = data;
+        this.allItems = data;
       },
       error: (e) => {
         ErrorHandlerUtil.handleError(e, this.router);
       },
     });
   }
-  exploreExtension(fileExtension: FileExtension) {
-    this.router.navigate([`/explore/extension/${fileExtension.extension}`]);
+  exploreExtension(fileExtension: FileExtension, that: ExtensionsComponent) {
+    that.router.navigate([`/explore/extension/${fileExtension.name}`]);
+  }
+
+  filterItems() {
+    const filterString = this.filter.trim().toLocaleLowerCase();
+    if (!filterString) {
+      this.extensions = this.allItems;
+      return;
+    }
+    this.extensions = this.allItems?.filter(
+      (item) => item.name.trim().toLocaleLowerCase().indexOf(filterString) > -1
+    );
   }
 }

@@ -4,5 +4,12 @@ export const environment = {
   autoLoadTime: 1000,
   categoriesPerRequest: 100,
   tagsPerRequest: 100,
-  resultsPerSearch: 10,
+  resultsPerSearch: 100,
+  checkIsJobRunningTime: 1000,
+  LIMIT_EXPLORER_BY_TAG: 100,
+  LIMIT_EXPLORER_BY_CATEGORY: 100,
+  LIMIT_EXPLORER_BY_EXTENSION: 100,
+  LIMIT_EXPLORER_BY_EXPLORER: 100,
+  LIMIT_EXPLORER_BY_PUBLISHER: 100,
+  LIMIT_EXPLORER_BY_LANGUAGE: 100,
 };

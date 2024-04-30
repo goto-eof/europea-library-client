@@ -1,5 +1,5 @@
 export default interface FileExtension {
-  extension: string;
+  name: string;
   occurrence: number;
   nextCursor?: number;
 }

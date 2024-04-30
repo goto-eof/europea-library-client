@@ -6,6 +6,8 @@ import CommonCursoredRequest from '../model/CommonCursoredRequest';
 import Cursor from '../model/Cursor';
 import Category from '../model/Category';
 import { environment } from '../../environments/environment';
+import OperationStatus from '../model/OperationStatus';
+import Rename from '../model/Rename';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/category';
 
@@ -24,5 +26,13 @@ export default class CursoredCategoriesService {
       `${baseUrl}`,
       cursoredRequest
     );
+  }
+
+  rename(oldName: string, newName: string): Observable<OperationStatus> {
+    const payload: Rename = {
+      oldName,
+      newName,
+    };
+    return this.httpClient.post<OperationStatus>(`${baseUrl}/rename`, payload);
   }
 }
