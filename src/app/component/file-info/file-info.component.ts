@@ -166,11 +166,16 @@ export class FileInfoComponent implements OnInit {
     };
     this.search(searchFileSystemItemRequest);
   }
+
   searchByTitle() {
     const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
       title: this.bookInfo?.title,
     };
     this.search(searchFileSystemItemRequest);
+  }
+
+  searchByLanguage() {
+    this.router.navigate([`/explore/language/${this.bookInfo?.language}`]);
   }
 
   searchByPublishedDate() {

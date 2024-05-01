@@ -94,7 +94,13 @@
               </tr>
               <tr>
                 <td>Language:</td>
-                <td *ngIf="bookInfo.language">{{ bookInfo.language }}</td>
+                <td *ngIf="bookInfo.language">
+                  <span class="cursor-pointer link"
+                    ><a (click)="searchByLanguage()">{{
+                      bookInfo.language
+                    }}</a></span
+                  >
+                </td>
                 <td *ngIf="!bookInfo.language">-</td>
               </tr>
               <tr>
