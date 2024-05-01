@@ -81,8 +81,15 @@
               </div>
               <div class="col-3 d-flex align-items-end flex-column">
                 <button
+                  class="btn btn-secondary w-100"
+                  *ngIf="isJobRunning === 'checking'"
+                  [disabled]="true"
+                >
+                  Checking...
+                </button>
+                <button
                   class="btn btn-primary w-100"
-                  *ngIf="!isJobRunning"
+                  *ngIf="isJobRunning === 'no'"
                   (click)="runTheJob()"
                   [disabled]="isStartRequestMade"
                 >
@@ -90,7 +97,7 @@
                 </button>
                 <button
                   class="btn btn-danger w-100"
-                  *ngIf="isJobRunning"
+                  *ngIf="isJobRunning === 'yes'"
                   [disabled]="isStopRequestMade"
                   (click)="stopTheJob()"
                 >

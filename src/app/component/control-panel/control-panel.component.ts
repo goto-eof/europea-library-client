@@ -17,11 +17,12 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
   user?: User;
   roles: Array<string> = [];
   intervalId?: any;
-  isJobRunning: boolean = false;
+  isJobRunning: 'yes' | 'no' | 'checking' = 'checking';
   isStopRequestMade: boolean = false;
   isStartRequestMade: boolean = false;
   private checkIsJobRunningTime: number = environment.checkIsJobRunningTime;
   isReloadCacheRequestMade: boolean = false;
+  isLoadingJobStatus: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -46,12 +47,12 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
     this.intervalId = window.setInterval(function () {
       that.jobService.isJobRunning().subscribe({
         next: (operationStatus: OperationStatus) => {
-          that.isJobRunning = operationStatus.status;
+          that.isJobRunning = operationStatus.status ? 'yes' : 'no';
         },
         error: (e) => {
           console.log(e);
           if (e.error.code === 503) {
-            that.isJobRunning = true;
+            that.isJobRunning = 'yes';
             console.log(that.isJobRunning);
             return;
           }
