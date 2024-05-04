@@ -46,6 +46,8 @@ export class FileInfoEditorComponent implements OnInit {
         data?.tagList.map((tag) => tag.name.trim()).join(','),
         Validators.maxLength(1000),
       ],
+      averageRating: [data?.averageRating],
+      ratingsCount: [data?.ratingsCount],
     });
   }
 
@@ -157,6 +159,8 @@ export class FileInfoEditorComponent implements OnInit {
                   name: category,
                 };
               }),
+        averageRating: this.editForm.value.averageRating,
+        ratingsCount: this.editForm.value.ratingsCount,
       };
       this.fileMetaInfoService
         .update(this.bookInfo!.id!, fileMetaInfoBook)

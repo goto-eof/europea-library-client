@@ -1,0 +1,40 @@
+<div class="my-1 mx-1" *ngIf="cursoredItem?.parent">
+  <div class="card">
+    <div class="card-body">
+      <a routerLink="/categories">Rating</a>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-1 mb-5" *ngIf="cursoredItem">
+  <div class="card">
+    <div class="card-body">
+      <ul class="mx-3">
+        <li
+          *ngFor="let item of cursoredItem?.childrenList"
+          class="cursor-pointer"
+        >
+          <a
+            (click)="listDirectory(item)"
+            [ngClass]="item.isDirectory ? 'directory' : 'file'"
+          >
+            <i
+              class="bi px-1"
+              [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
+            ></i
+            >{{ item.name }}
+          </a>
+        </li>
+      </ul>
+      <div class="d-flex justify-content-center">
+        <button
+          *ngIf="cursoredItem?.nextCursor"
+          class="btn btn-primary"
+          (click)="loadMore()"
+        >
+          More
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

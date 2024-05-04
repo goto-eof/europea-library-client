@@ -108,4 +108,13 @@ export default class CursoredFileSystemService {
       cursorRequest
     );
   }
+
+  listByRating(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string>> {
+    return this.httpClient.post<GenericCursoredResponse<string>>(
+      `${baseUrl}/cursored/rating`,
+      cursorRequest
+    );
+  }
 }

@@ -26,6 +26,7 @@ import { PublishedDateExplorerComponent } from './component/published-date-explo
 import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
 import { ResetPasswordFormComponent } from './component/reset-password-form/reset-password-form.component';
 import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
+import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'categories', component: CursoredCategoriesExplorerComponent },
   { path: 'tags', component: CursoredTagExplorerComponent },
   { path: 'explorer', component: CursoredExplorerComponent },
+  { path: 'rating', component: CursoredByRatingFileExplorerComponent },
   { path: 'search', component: CursoredSearchExplorerComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
   {
