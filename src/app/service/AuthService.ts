@@ -78,4 +78,9 @@ export default class AuthService {
     const user: User = JSON.parse(userStr ? userStr : '{}');
     return user;
   }
+
+  removeUserData() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
 }
