@@ -29,7 +29,7 @@ multithreading), search and download e-books. The back-end project can be cloned
 
 # Configure the application
 
-- in order to run the application it necessary to duplicate the `environment.development.ts` and rename it to `environment.production.ts`, otherwise an error will be thrown when you will try to start the application.
+In order to run the application it necessary to duplicate the `environment.development.ts` and rename it to `environment.production.ts`, otherwise an error will be thrown when you will try to start the application.
 
 ## Run the project
 
