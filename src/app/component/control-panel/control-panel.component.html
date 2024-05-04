@@ -77,6 +77,12 @@
                     them to the database and retrieve information for
                     them.</small
                   >
+                  <small
+                    [class]="
+                      isJobRunning === 'yes' ? 'text-danger' : 'text-secondary'
+                    "
+                    >{{ jobStepStatus }}</small
+                  >
                 </div>
               </div>
               <div class="col-3 d-flex align-items-end flex-column">

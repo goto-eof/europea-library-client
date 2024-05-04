@@ -5,7 +5,7 @@ export const environment = {
   categoriesPerRequest: 100,
   tagsPerRequest: 100,
   resultsPerSearch: 100,
-  checkIsJobRunningTime: 1000,
+  checkIsJobRunningTime: 5000,
   LIMIT_EXPLORER_BY_TAG: 100,
   LIMIT_EXPLORER_BY_CATEGORY: 100,
   LIMIT_EXPLORER_BY_EXTENSION: 100,

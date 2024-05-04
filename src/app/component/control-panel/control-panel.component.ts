@@ -23,6 +23,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
   private checkIsJobRunningTime: number = environment.checkIsJobRunningTime;
   isReloadCacheRequestMade: boolean = false;
   isLoadingJobStatus: boolean = false;
+  jobStepStatus: string = '';
 
   constructor(
     private authService: AuthService,
@@ -31,6 +32,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
     private snackBarService: SnackBarService,
     private reloadCacheService: CacheLoaderService
   ) {}
+
   ngOnDestroy(): void {
     clearInterval(this.intervalId);
   }
@@ -48,12 +50,13 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
       that.jobService.isJobRunning().subscribe({
         next: (operationStatus: OperationStatus) => {
           that.isJobRunning = operationStatus.status ? 'yes' : 'no';
+          that.jobStepStatus = operationStatus.message;
         },
         error: (e) => {
           console.log(e);
           if (e.error.code === 503) {
             that.isJobRunning = 'yes';
-            console.log(that.isJobRunning);
+            that.jobStepStatus = '';
             return;
           }
         },
