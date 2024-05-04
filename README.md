@@ -22,7 +22,7 @@
                                                                          CLIENT
 ```
 
-# Europea Library (client - Work In Progress)
+# Europea Library (client)
 
 A library web application that allows to index, edit, explore, retrieve information about books from file metadata/web (by using
 multithreading), search and download e-books. The back-end project can be cloned [here](https://github.com/goto-eof/europea-library-server).
@@ -33,7 +33,7 @@ CSS • TypeScript • Angular 17 • Bootstrap UI
 
 ## Run the project
 
-Execute `npm install && ng serve` to run the project.
+Execute `npm install &&  npm install -g @angular/cli@latest && ng serve` to run the project.
 
 ## Screenshots
 
