@@ -85,4 +85,8 @@ export class LoginFormComponent {
       this.snackBarService.showErrorWithMessage('Invalid username or password');
     }
   }
+
+  goToPasswordResetEmailForm() {
+    this.router.navigate(['/password/reset']);
+  }
 }

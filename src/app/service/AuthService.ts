@@ -13,7 +13,7 @@ export default class AuthService {
     oldPassword: string,
     newPassword: string
   ): Observable<OperationStatus> {
-    return this.httpClient.post<OperationStatus>(`${baseUrl}/changePassword`, {
+    return this.httpClient.post<OperationStatus>(`${baseUrl}/password/change`, {
       oldPassword,
       newPassword,
     });
@@ -39,6 +39,22 @@ export default class AuthService {
     return this.httpClient.post<AuthResponse>(`${baseUrl}/register`, {
       username,
       email,
+      password,
+    });
+  }
+
+  resetPasswordRequest(email: string): Observable<OperationStatus> {
+    return this.httpClient.post<OperationStatus>(
+      `${baseUrl}/password/reset/sendEmail`,
+      {
+        email,
+      }
+    );
+  }
+
+  resetPassword(token: string, password: string): Observable<OperationStatus> {
+    return this.httpClient.post<OperationStatus>(`${baseUrl}/password/reset`, {
+      resetToken: token,
       password,
     });
   }

@@ -24,12 +24,16 @@ import { ChangePasswordFormComponent } from './component/change-password-form/ch
 import { ControlPanelComponent } from './component/control-panel/control-panel.component';
 import { PublishedDateExplorerComponent } from './component/published-date-explorer/published-date-explorer.component';
 import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
+import { ResetPasswordFormComponent } from './component/reset-password-form/reset-password-form.component';
+import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'control-panel', component: ControlPanelComponent },
   { path: 'login', component: LoginFormComponent },
-  { path: 'change-password', component: ChangePasswordFormComponent },
+  { path: 'password/change', component: ChangePasswordFormComponent },
+  { path: 'password/reset/:token', component: ResetPasswordFormComponent },
+  { path: 'password/reset', component: PasswordResetEmailFormComponent },
   { path: 'register', component: RegistrationFormComponent },
   { path: 'categories', component: CursoredCategoriesExplorerComponent },
   { path: 'tags', component: CursoredTagExplorerComponent },

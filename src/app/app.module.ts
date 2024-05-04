@@ -60,6 +60,8 @@ import PublishedDateService from './service/PublishedDateService';
 import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
 import { PublishedDateExplorerComponent } from './component/published-date-explorer/published-date-explorer.component';
 import CacheLoaderService from './service/CacheLoaderService';
+import { ResetPasswordFormComponent } from './component/reset-password-form/reset-password-form.component';
+import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +98,8 @@ import CacheLoaderService from './service/CacheLoaderService';
     CursoredPublishedDateFileExplorerComponent,
     EntityButtonComponent,
     PublishedDateExplorerComponent,
+    ResetPasswordFormComponent,
+    PasswordResetEmailFormComponent,
   ],
   imports: [
     BrowserModule,

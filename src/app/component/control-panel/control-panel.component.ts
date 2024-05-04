@@ -109,7 +109,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
   }
 
   gotoChangePassword() {
-    this.router.navigate(['/change-password']);
+    this.router.navigate(['/password/change']);
   }
 
   reloadCache() {
