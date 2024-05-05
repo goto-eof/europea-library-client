@@ -9,6 +9,14 @@ const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/bookInfo';
 export default class BookInfoService {
   constructor(private httpClient: HttpClient) {}
 
+  lock(fileMetaInfoId: number) {
+    return this.httpClient.put(`${baseUrl}/lock/${fileMetaInfoId}`, {});
+  }
+
+  unlock(fileMetaInfoId: number) {
+    return this.httpClient.put(`${baseUrl}/unlock/${fileMetaInfoId}`, {});
+  }
+
   retrieveByFileSystemId(
     fileSystemItemId: number
   ): Observable<FileMetaInfoBook> {

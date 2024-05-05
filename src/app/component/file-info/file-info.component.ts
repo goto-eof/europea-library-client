@@ -13,6 +13,7 @@ import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest
 import AuthService from '../../service/AuthService';
 import QRCodeService from '../../service/QRCodeService';
 import FeaturedService from '../../service/FeaturedService';
+import BookInfoConst from '../../constants/BookInfoConst';
 
 @Component({
   selector: 'app-file-info',
@@ -25,6 +26,7 @@ export class FileInfoComponent implements OnInit {
   base64DownloadQRCode?: string;
   isDownloading: boolean = false;
   isFeatured: boolean = false;
+  isLocked: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -88,6 +90,8 @@ export class FileInfoComponent implements OnInit {
     this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
       next: (data) => {
         this.bookInfo = data;
+        this.isLocked =
+          data.manualLock === BookInfoConst.MANUAL_LOCK_LOCKED || false;
       },
       error: () => {
         this.router.navigate(['/page-not-found']);
@@ -237,5 +241,20 @@ export class FileInfoComponent implements OnInit {
           return;
         }
       });
+  }
+
+  lockUnlock() {
+    if (!this.isAdminAuthenticated()) {
+      return;
+    }
+    if (this.isLocked) {
+      this.bookInfoService.unlock(this.bookInfo!.id!).subscribe(() => {
+        this.isLocked = false;
+      });
+      return;
+    }
+    this.bookInfoService.lock(this.bookInfo!.id!).subscribe(() => {
+      this.isLocked = true;
+    });
   }
 }

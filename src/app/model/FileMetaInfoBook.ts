@@ -17,4 +17,5 @@ export default interface FileMetaInfoBook extends FileMetaInfo {
   categoryList: Array<Category>;
   averageRating?: number;
   ratingsCount?: number;
+  manualLock?: number;
 }

@@ -34,20 +34,31 @@
                     <div class="hstack">
                       <button
                         *ngIf="isAdminAuthenticated()"
-                        class="btn btn-warning mb-1 w-75 me-2"
+                        class="btn btn-warning mb-1 w-50 me-2"
                         (click)="edit()"
                       >
                         <i class="bi bi-pen-fill px-2"></i> <span>Edit</span>
                       </button>
                       <button
                         *ngIf="isAdminAuthenticated()"
-                        class="btn w-25 mb-1"
+                        class="btn w-25 mb-1 me-2"
                         [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
                         (click)="addRemoveFeatured()"
                       >
                         <i
                           class="bi px-2"
                           [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
+                        ></i>
+                      </button>
+                      <button
+                        *ngIf="isAdminAuthenticated()"
+                        class="btn w-25 mb-1"
+                        [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
+                        (click)="lockUnlock()"
+                      >
+                        <i
+                          class="bi px-2"
+                          [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
                         ></i>
                       </button>
                     </div>
