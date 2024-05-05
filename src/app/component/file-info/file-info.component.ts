@@ -12,6 +12,7 @@ import { SearchService } from '../../service/SearchService';
 import SearchFileSystemItemRequest from '../../model/SearchFileSystemItemRequest';
 import AuthService from '../../service/AuthService';
 import QRCodeService from '../../service/QRCodeService';
+import FeaturedService from '../../service/FeaturedService';
 
 @Component({
   selector: 'app-file-info',
@@ -23,6 +24,7 @@ export class FileInfoComponent implements OnInit {
   fileSystemItem?: FileSystemItem;
   base64DownloadQRCode?: string;
   isDownloading: boolean = false;
+  isFeatured: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -33,7 +35,8 @@ export class FileInfoComponent implements OnInit {
     private cursoredFileSystemService: CursoredFileSystemService,
     private searchService: SearchService,
     private authService: AuthService,
-    private qrCodeService: QRCodeService
+    private qrCodeService: QRCodeService,
+    private featuredService: FeaturedService
   ) {}
 
   isAdminAuthenticated(): any {
@@ -44,6 +47,11 @@ export class FileInfoComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((map) => {
       const fileSystemItemId: string | null = map.get('fileSystemItemId');
       if (fileSystemItemId) {
+        this.featuredService
+          .isFeatured(+fileSystemItemId)
+          .subscribe((operationStatus) => {
+            this.isFeatured = operationStatus.status;
+          });
         this.cursoredFileSystemService.get(+fileSystemItemId).subscribe({
           error: () => {
             this.loadFileSystemItem();
@@ -201,5 +209,27 @@ export class FileInfoComponent implements OnInit {
   }
   edit() {
     this.router.navigate([`/file-info/edit/${this.fileSystemItem!.id}`]);
+  }
+
+  addRemoveFeatured() {
+    if (this.isFeatured) {
+      this.featuredService
+        .remove(this.fileSystemItem!.id!)
+        .subscribe((operationStatus) => {
+          if (operationStatus.status) {
+            this.isFeatured = false;
+            return;
+          }
+        });
+      return;
+    }
+    this.featuredService
+      .add(this.fileSystemItem!.id!)
+      .subscribe((operationStatus) => {
+        if (operationStatus.status) {
+          this.isFeatured = true;
+          return;
+        }
+      });
   }
 }

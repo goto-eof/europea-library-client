@@ -63,6 +63,7 @@ import CacheLoaderService from './service/CacheLoaderService';
 import { ResetPasswordFormComponent } from './component/reset-password-form/reset-password-form.component';
 import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
 import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
+import FeaturedService from './service/FeaturedService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +135,7 @@ import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-r
     JobService,
     PublishedDateService,
     CacheLoaderService,
+    FeaturedService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
