@@ -35,9 +35,9 @@ export class FeaturedBooksComponent implements OnInit {
           this.genericCursoredResponse = data;
         },
         error: () => {
-          this.snackBarService.showErrorWithMessage(
-            'Unable to load featured books'
-          );
+          // this.snackBarService.showErrorWithMessage(
+          //   'Unable to load featured books'
+          // );
         },
       });
   }
