@@ -8,12 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RatingComponent implements OnInit {
   @Input('averageRating') averageRating!: number;
   @Input('ratingsCount') ratingsCount!: number;
-  stars: Array<string>;
-  constructor() {
-    this.stars = Array(5).map((x, i) =>
-      i <= this.averageRating! % 5 ? '★' : '☆'
+  stars: Array<string> = ['☆', '☆', '☆', '☆', '☆'];
+  constructor() {}
+
+  ngOnInit(): void {
+    if (this.averageRating > 5) {
+      this.averageRating = 5;
+    }
+    this.stars = this.stars.map((_, i) =>
+      i + 1 <= this.averageRating ? '★' : '☆'
     );
   }
-
-  ngOnInit(): void {}
 }
