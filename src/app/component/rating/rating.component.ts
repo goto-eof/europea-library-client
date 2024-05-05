@@ -10,7 +10,9 @@ export class RatingComponent implements OnInit {
   @Input('ratingsCount') ratingsCount!: number;
   stars: Array<string>;
   constructor() {
-    this.stars = Array(5).map((x, i) => (i <= this.averageRating! ? '★' : '☆'));
+    this.stars = Array(5).map((x, i) =>
+      i <= this.averageRating! % 5 ? '★' : '☆'
+    );
   }
 
   ngOnInit(): void {}
