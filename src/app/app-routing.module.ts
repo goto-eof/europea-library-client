@@ -33,6 +33,7 @@ import { CustomHomePageComponent } from './component/custom-home-page/custom-hom
 
 const routes: Routes = [
   { path: 'home', component: CustomHomePageComponent },
+  { path: 'about', component: HomeComponent },
   { path: 'control-panel', component: ControlPanelComponent },
   { path: 'login', component: LoginFormComponent },
   { path: 'password/change', component: ChangePasswordFormComponent },
