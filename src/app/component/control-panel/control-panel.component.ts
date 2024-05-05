@@ -70,6 +70,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.isStartRequestMade = false;
         if (response.status) {
+          this.isJobRunning = response.status ? 'yes' : 'no';
           this.snackBarService.showInfoWithMessage('Job started');
           return;
         }
@@ -94,6 +95,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.isStopRequestMade = false;
         if (response.status) {
+          this.isJobRunning = response.status ? 'yes' : 'no';
           this.snackBarService.showInfoWithMessage('Job stopped');
           return;
         }
