@@ -33,7 +33,7 @@ export class CpHomePageEditorComponent implements OnInit {
           this.postToForm(post);
         },
         error: () => {
-          this.snackBarService.showErrorWithMessage('Unable to retrieve data');
+          // this.snackBarService.showErrorWithMessage('Unable to retrieve data');
         },
       });
   }
