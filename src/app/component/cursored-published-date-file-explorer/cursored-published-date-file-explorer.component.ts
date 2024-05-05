@@ -13,7 +13,7 @@ import FileSystemItem from '../../model/FileSystemItem';
   styleUrl: './cursored-published-date-file-explorer.component.css',
 })
 export class CursoredPublishedDateFileExplorerComponent {
-  cursoredItem?: GenericCursoredResponse<string>;
+  cursoredItem?: GenericCursoredResponse<string, FileSystemItem>;
 
   constructor(
     private router: Router,

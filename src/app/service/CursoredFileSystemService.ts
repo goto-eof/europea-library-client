@@ -22,11 +22,10 @@ const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v2/file';
 export default class CursoredFileSystemService {
   retrieveCursoredByDownloadCount(
     cursorRequest: GenericCursoredRequest<string>
-  ): Observable<GenericCursoredResponse<string>> {
-    return this.httpClient.post<GenericCursoredResponse<string>>(
-      `${baseUrl}/cursored/downloadCount`,
-      cursorRequest
-    );
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored/downloadCount`, cursorRequest);
   }
   get(fileSystemItemId: number) {
     return this.httpClient.get<CursoredFileSystemItem>(
@@ -92,37 +91,33 @@ export default class CursoredFileSystemService {
 
   listByLanguage(
     cursorRequest: GenericCursoredRequest<string>
-  ): Observable<GenericCursoredResponse<string>> {
-    return this.httpClient.post<GenericCursoredResponse<string>>(
-      `${baseUrl}/cursored/language`,
-      cursorRequest
-    );
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored/language`, cursorRequest);
   }
 
   listByPublishedDate(
     cursorRequest: GenericCursoredRequest<string>
-  ): Observable<GenericCursoredResponse<string>> {
-    return this.httpClient.post<GenericCursoredResponse<string>>(
-      `${baseUrl}/cursored/publishedDate`,
-      cursorRequest
-    );
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored/publishedDate`, cursorRequest);
   }
 
   listByPublisher(
     cursorRequest: GenericCursoredRequest<string>
-  ): Observable<GenericCursoredResponse<string>> {
-    return this.httpClient.post<GenericCursoredResponse<string>>(
-      `${baseUrl}/cursored/publisher`,
-      cursorRequest
-    );
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored/publisher`, cursorRequest);
   }
 
   listByRating(
     cursorRequest: GenericCursoredRequest<string>
-  ): Observable<GenericCursoredResponse<string>> {
-    return this.httpClient.post<GenericCursoredResponse<string>>(
-      `${baseUrl}/cursored/rating`,
-      cursorRequest
-    );
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored/rating`, cursorRequest);
   }
 }

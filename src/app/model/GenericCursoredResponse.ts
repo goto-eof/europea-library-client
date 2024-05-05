@@ -1,7 +1,5 @@
-import FileSystemItem from './FileSystemItem';
-
-export default interface GenericCursoredResponse<T> {
+export default interface GenericCursoredResponse<T, U> {
   parent: T;
-  childrenList: Array<FileSystemItem>;
+  childrenList: Array<U>;
   nextCursor: number;
 }

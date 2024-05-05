@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
   styleUrl: './cursored-publishers-file-explorer.component.css',
 })
 export class CursoredPublishersFileExplorerComponent implements OnInit {
-  cursoredItem?: GenericCursoredResponse<string>;
+  cursoredItem?: GenericCursoredResponse<string, FileSystemItem>;
 
   constructor(
     private router: Router,

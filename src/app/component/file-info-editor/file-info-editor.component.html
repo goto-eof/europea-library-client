@@ -23,7 +23,10 @@
                   </tr>
                   <tr *ngIf="bookInfo.averageRating">
                     <td>
-                      <app-rating [bookInfo]="bookInfo" />
+                      <app-rating
+                        [averageRating]="bookInfo.averageRating || 0"
+                        [ratingsCount]="bookInfo.ratingsCount || 0"
+                      />
                     </td>
                   </tr>
                 </table>

@@ -14,7 +14,7 @@ import FeaturedService from '../../service/FeaturedService';
   styleUrl: './cursored-by-featured-file-explorer.component.css',
 })
 export class CursoredByFeaturedFileExplorerComponent implements OnInit {
-  cursoredItem?: GenericCursoredResponse<string>;
+  cursoredItem?: GenericCursoredResponse<string, FileSystemItem>;
 
   constructor(
     private router: Router,

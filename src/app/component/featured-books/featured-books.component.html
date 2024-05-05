@@ -1,0 +1,31 @@
+<div
+  class="m-3"
+  *ngIf="
+    genericCursoredResponse &&
+    genericCursoredResponse!.childrenList &&
+    genericCursoredResponse!.childrenList.length > 0
+  "
+>
+  <h1>Featured e-Books</h1>
+  <div class="d-flex justify-content-between">
+    <div
+      class="card mx-0"
+      style="width: 18rem"
+      *ngFor="let item of genericCursoredResponse!.childrenList"
+    >
+      <div class="card-body">
+        <img *ngIf="item.imageUrl" [src]="item.imageUrl" />
+        <h3 class="card-title">{{ item.title }}</h3>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <app-rating
+            *ngIf="item.averageRating"
+            [averageRating]="item.averageRating || 0"
+            [ratingsCount]="item.ratingsCount || 0"
+          />
+        </h6>
+        <!-- <p class="card-text"></p> -->
+        <a (click)="goToItem(item.id)" class="card-link">View</a>
+      </div>
+    </div>
+  </div>
+</div>

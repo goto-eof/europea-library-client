@@ -69,6 +69,7 @@ import { CursoredByDownloadCountFileExplorerComponent } from './component/cursor
 import { CpHomePageEditorComponent } from './component/cp-home-page-editor/cp-home-page-editor.component';
 import PostService from './service/PostService';
 import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
+import { FeaturedBooksComponent } from './component/featured-books/featured-books.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,6 +113,7 @@ import { CustomHomePageComponent } from './component/custom-home-page/custom-hom
     CursoredByDownloadCountFileExplorerComponent,
     CpHomePageEditorComponent,
     CustomHomePageComponent,
+    FeaturedBooksComponent,
   ],
   imports: [
     BrowserModule,

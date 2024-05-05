@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import GenericCursoredResponse from '../../model/GenericCursoredResponse';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
-import FeaturedService from '../../service/FeaturedService';
 import { environment } from '../../../environments/environment';
 import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
 import GenericCursoredRequest from '../../model/GenericCursoredRequest';
@@ -14,7 +13,7 @@ import FileSystemItem from '../../model/FileSystemItem';
   styleUrl: './cursored-by-download-count-file-explorer.component.css',
 })
 export class CursoredByDownloadCountFileExplorerComponent implements OnInit {
-  cursoredItem?: GenericCursoredResponse<string>;
+  cursoredItem?: GenericCursoredResponse<string, FileSystemItem>;
 
   constructor(
     private router: Router,

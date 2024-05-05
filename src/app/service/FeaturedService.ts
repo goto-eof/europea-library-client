@@ -5,11 +5,20 @@ import { Observable } from 'rxjs';
 import OperationStatus from '../model/OperationStatus';
 import GenericCursoredRequest from '../model/GenericCursoredRequest';
 import GenericCursoredResponse from '../model/GenericCursoredResponse';
+import FileSystemItemHighlight from '../model/FileSystemItemHighlight';
+import FileSystemItem from '../model/FileSystemItem';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/featured';
 
 @Injectable()
 export default class FeaturedService {
+  retrieveCursoredHighlight(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string, FileSystemItemHighlight>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItemHighlight>
+    >(`${baseUrl}/cursored/highlight`, cursorRequest);
+  }
   constructor(private httpClient: HttpClient) {}
 
   isFeatured(fileSystemItemId: number) {
@@ -34,10 +43,9 @@ export default class FeaturedService {
 
   retrieveCursored(
     cursorRequest: GenericCursoredRequest<string>
-  ): Observable<GenericCursoredResponse<string>> {
-    return this.httpClient.post<GenericCursoredResponse<string>>(
-      `${baseUrl}/cursored`,
-      cursorRequest
-    );
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored`, cursorRequest);
   }
 }

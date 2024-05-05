@@ -16,7 +16,8 @@
                     <img [src]="bookInfo.imageUrl" />
                     <app-rating
                       *ngIf="bookInfo.averageRating"
-                      [bookInfo]="bookInfo"
+                      [averageRating]="bookInfo.averageRating || 0"
+                      [ratingsCount]="bookInfo.ratingsCount || 0"
                     />
                     <img
                       *ngIf="base64DownloadQRCode"

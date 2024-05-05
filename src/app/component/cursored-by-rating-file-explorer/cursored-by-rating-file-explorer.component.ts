@@ -13,7 +13,7 @@ import FileSystemItem from '../../model/FileSystemItem';
   styleUrl: './cursored-by-rating-file-explorer.component.css',
 })
 export class CursoredByRatingFileExplorerComponent implements OnInit {
-  cursoredItem?: GenericCursoredResponse<string>;
+  cursoredItem?: GenericCursoredResponse<string, FileSystemItem>;
 
   constructor(
     private router: Router,
