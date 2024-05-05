@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import ApplicationConst from '../constants/ApplicationConst';
 import { Observable } from 'rxjs';
 import OperationStatus from '../model/OperationStatus';
+import GenericCursoredRequest from '../model/GenericCursoredRequest';
+import GenericCursoredResponse from '../model/GenericCursoredResponse';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/featured';
 
@@ -27,6 +29,15 @@ export default class FeaturedService {
     return this.httpClient.post<OperationStatus>(
       `${baseUrl}/remove/${fileSystemItemId}`,
       {}
+    );
+  }
+
+  retrieveCursored(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string>> {
+    return this.httpClient.post<GenericCursoredResponse<string>>(
+      `${baseUrl}/cursored`,
+      cursorRequest
     );
   }
 }

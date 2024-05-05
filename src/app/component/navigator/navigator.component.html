@@ -56,6 +56,14 @@
           >
             <i class="bi bi-star"></i> by Top Rated
           </button>
+
+          <button
+            class="dropdown-item"
+            [routerLink]="['/featured']"
+            type="button"
+          >
+            <i class="bi bi-heart"></i> by Featured
+          </button>
           <button
             class="dropdown-item"
             [routerLink]="['/categories']"
@@ -118,7 +126,7 @@
     <div *ngIf="isLoggedIn()">
       <div class="dropdown">
         <button
-          class="btn btn-secondary dropdown-toggle hstack rounded-0"
+          class="btn btn-dark dropdown-toggle hstack rounded-0"
           type="button"
           id="dropdownMenuUser"
           data-bs-toggle="dropdown"

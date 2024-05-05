@@ -64,6 +64,7 @@ import { ResetPasswordFormComponent } from './component/reset-password-form/rese
 import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
 import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
 import FeaturedService from './service/FeaturedService';
+import { CursoredByFeaturedFileExplorerComponent } from './component/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,6 +104,7 @@ import FeaturedService from './service/FeaturedService';
     ResetPasswordFormComponent,
     PasswordResetEmailFormComponent,
     CursoredByRatingFileExplorerComponent,
+    CursoredByFeaturedFileExplorerComponent,
   ],
   imports: [
     BrowserModule,

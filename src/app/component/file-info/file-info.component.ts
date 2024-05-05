@@ -47,11 +47,13 @@ export class FileInfoComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((map) => {
       const fileSystemItemId: string | null = map.get('fileSystemItemId');
       if (fileSystemItemId) {
-        this.featuredService
-          .isFeatured(+fileSystemItemId)
-          .subscribe((operationStatus) => {
-            this.isFeatured = operationStatus.status;
-          });
+        if (this.isAdminAuthenticated()) {
+          this.featuredService
+            .isFeatured(+fileSystemItemId)
+            .subscribe((operationStatus) => {
+              this.isFeatured = operationStatus.status;
+            });
+        }
         this.cursoredFileSystemService.get(+fileSystemItemId).subscribe({
           error: () => {
             this.loadFileSystemItem();
@@ -212,6 +214,9 @@ export class FileInfoComponent implements OnInit {
   }
 
   addRemoveFeatured() {
+    if (!this.isAdminAuthenticated()) {
+      return;
+    }
     if (this.isFeatured) {
       this.featuredService
         .remove(this.fileSystemItem!.id!)
