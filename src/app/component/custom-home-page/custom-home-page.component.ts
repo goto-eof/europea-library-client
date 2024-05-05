@@ -3,6 +3,8 @@ import PostService from '../../service/PostService';
 import Post from '../../model/Post';
 import { environment } from '../../../environments/environment';
 import SnackBarService from '../../service/SnackBarService';
+import AuthService from '../../service/AuthService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-custom-home-page',
@@ -14,7 +16,9 @@ export class CustomHomePageComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private snackBarService: SnackBarService
+    private authService: AuthService,
+    private snackBarService: SnackBarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -24,7 +28,15 @@ export class CustomHomePageComponent implements OnInit {
         next: (post) => {
           this.post = post;
         },
-        error: () => {},
+        error: () => {
+          if (!this.isAdministrator()) {
+            this.router.navigate(['/about']);
+          }
+        },
       });
+  }
+
+  isAdministrator() {
+    return this.authService.isAdminAuthenticated();
   }
 }
