@@ -29,3 +29,11 @@ tr td {
 }
 
 
+
+.book-cover{
+    max-width: 250px;
+}
+
+.file-input {
+    display: none;
+  }

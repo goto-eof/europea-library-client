@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import SnackBarService from '../../service/SnackBarService';
 
 @Component({
   selector: 'app-file-info-editor',
@@ -17,9 +18,12 @@ export class FileInfoEditorComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
   editForm: FormGroup<any> = this.generateForm(undefined);
+  filename = '';
+
   goToExplorer(fileSystemItem: FileSystemItem) {
     this.router.navigate([`/explorer/${fileSystemItem.id}`]);
   }
+
   generateForm(data: FileMetaInfoBook | undefined) {
     return this.formBuilder.group({
       title: [data?.title?.trim(), Validators.maxLength(512)],
@@ -59,7 +63,8 @@ export class FileInfoEditorComponent implements OnInit {
     private location: Location,
     private bookInfoService: BookInfoService,
     private cursoredFileSystemService: CursoredFileSystemService,
-    private fileMetaInfoService: BookInfoService
+    private fileMetaInfoService: BookInfoService,
+    private snackBarService: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -180,5 +185,45 @@ export class FileInfoEditorComponent implements OnInit {
       }
     }
     return invalid;
+  }
+
+  onFileSelected(event: any) {
+    event.preventDefault();
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.filename = file.name;
+
+      const formData = new FormData();
+
+      formData.append('image', file);
+
+      this.fileMetaInfoService
+        .uploadBookCover(this.bookInfo!.id!, formData)
+        .subscribe({
+          next: (response) => {
+            this.snackBarService.showInfoWithMessage(
+              response.status ? 'Image uploaded successfully' : 'Server error'
+            );
+            this.loadBookInfoImageUrl(this.fileSystemItem!.id!);
+          },
+          error: () => {
+            this.snackBarService.showErrorWithMessage(
+              'failed to upload the book cover'
+            );
+          },
+        });
+    }
+  }
+
+  loadBookInfoImageUrl(fileSystemItemId: number) {
+    this.bookInfoService.retrieveByFileSystemId(fileSystemItemId).subscribe({
+      next: (data) => {
+        this.bookInfo!.imageUrl = data.imageUrl;
+      },
+      error: () => {
+        this.router.navigate(['/page-not-found']);
+      },
+    });
   }
 }

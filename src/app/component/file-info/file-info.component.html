@@ -13,7 +13,7 @@
               <tr>
                 <td>
                   <div class="vstack">
-                    <img [src]="bookInfo.imageUrl" />
+                    <img class="book-cover" [src]="bookInfo.imageUrl" />
                     <app-rating
                       *ngIf="bookInfo.averageRating"
                       [averageRating]="bookInfo.averageRating || 0"

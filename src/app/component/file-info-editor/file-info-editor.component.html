@@ -6,244 +6,279 @@
 <div class="container mt-1 mb-5" *ngIf="bookInfo">
   <div class="card">
     <div class="card-body">
-      <form
-        [formGroup]="editForm"
-        (submit)="submitForm()"
-        style="width: 100%"
-        class=""
-      >
-        <div class="px-4" style="color: red">Edit mode</div>
-        <div class="px-4">
-          <table class="w-100">
-            <tr class="w-100">
-              <td>
+      <table>
+        <tr class="row">
+          <td class="col-3 p-2">
+            <table class="w-100">
+              <tr>
+                <td>
+                  <img class="book-cover" [src]="bookInfo.imageUrl" />
+                </td>
+              </tr>
+              <tr>
+                <td class="">
+                  <input
+                    type="file"
+                    class="file-input"
+                    (change)="onFileSelected($event)"
+                    #fileUpload
+                  />
+
+                  <div class="file-upload pt-3">
+                    {{ filename }}
+
+                    <button
+                      mat-mini-fab
+                      class="btn btn-primary w-100"
+                      (click)="fileUpload.click()"
+                    >
+                      Upload
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="bookInfo.averageRating">
+                <td>
+                  <app-rating
+                    [averageRating]="bookInfo.averageRating || 0"
+                    [ratingsCount]="bookInfo.ratingsCount || 0"
+                  />
+                </td>
+              </tr>
+            </table>
+          </td>
+
+          <td class="col-9 p-2">
+            <form
+              [formGroup]="editForm"
+              (submit)="submitForm()"
+              style="width: 100%"
+              class=""
+            >
+              <div class="px-4">
                 <table class="w-100">
-                  <tr>
-                    <td><img [src]="bookInfo.imageUrl" /></td>
-                  </tr>
-                  <tr *ngIf="bookInfo.averageRating">
-                    <td>
-                      <app-rating
-                        [averageRating]="bookInfo.averageRating || 0"
-                        [ratingsCount]="bookInfo.ratingsCount || 0"
-                      />
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td class="w-100">
-                <table class="w-100">
-                  <tr>
-                    <td>Title</td>
+                  <tr class="w-100">
                     <td class="w-100">
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Title"
-                          formControlName="title"
-                        />
-                        <mat-hint>Book title</mat-hint>
-                      </mat-form-field>
+                      <table class="w-100">
+                        <tr>
+                          <td>Title</td>
+                          <td class="w-100">
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Title"
+                                formControlName="title"
+                              />
+                              <mat-hint>Book title</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Authors</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Authors"
+                                formControlName="authors"
+                              />
+                              <mat-hint>Book authors</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>ISBN 10:</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="ISBN 10"
+                                formControlName="isbn10"
+                              />
+                              <mat-hint>Book ISBN-10</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>ISBN 13:</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="ISBN 13"
+                                formControlName="isbn13"
+                              />
+                              <mat-hint>Book ISBN-13</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Number of pages:</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Number of pages"
+                                formControlName="numberOfPages"
+                                type="number"
+                              />
+                              <mat-hint>Number of pages</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Average rating:</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Average rating"
+                                formControlName="averageRating"
+                                type="number"
+                              />
+                              <mat-hint>Average rating</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Ratings count:</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Ratings count"
+                                formControlName="ratingsCount"
+                                type="number"
+                              />
+                              <mat-hint>Ratings count</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Language:</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Language"
+                                formControlName="language"
+                              />
+                              <mat-hint>Book language</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Note</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Note"
+                                formControlName="note"
+                              />
+                              <mat-hint>Book notes</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Publisher</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Publisher"
+                                formControlName="publisher"
+                              />
+                              <mat-hint>Book publisher</mat-hint>
+                            </mat-form-field>
+                            <span class="p-3"> </span>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Published date"
+                                formControlName="publishedDate"
+                              />
+                              <mat-hint>Book published date</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Categories</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Categories separated by comma"
+                                formControlName="categoryList"
+                              />
+                              <mat-hint
+                                >Book categories separated by commas</mat-hint
+                              >
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Tags</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Tags"
+                                formControlName="tagList"
+                              />
+                              <mat-hint>Book tags separated by commas</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Description</td>
+                          <td>
+                            <mat-form-field class="w-100" appearance="fill">
+                              <input
+                                matInput
+                                placeholder="Description"
+                                formControlName="description"
+                              />
+                              <mat-hint>Book description</mat-hint>
+                            </mat-form-field>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Size</td>
+                          <td *ngIf="fileSystemItem && fileSystemItem.size">
+                            {{ fileSystemItem!.size | bytesToMegabytes }}
+                            Megabytes
+                          </td>
+                          <td *ngIf="!fileSystemItem || !fileSystemItem.size">
+                            -
+                          </td>
+                        </tr>
+                        <tr *ngIf="fileSystemItem && fileSystemItem.extension">
+                          <td>Format</td>
+                          <td *ngIf="fileSystemItem.extension">
+                            {{ fileSystemItem!.extension }}
+                          </td>
+                          <td *ngIf="!fileSystemItem.extension">-</td>
+                        </tr>
+                        <tr></tr>
+                      </table>
                     </td>
                   </tr>
                   <tr>
-                    <td>Authors</td>
                     <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Authors"
-                          formControlName="authors"
-                        />
-                        <mat-hint>Book authors</mat-hint>
-                      </mat-form-field>
+                      <div>
+                        <button class="btn btn-danger w-100 mt-3" type="submit">
+                          Update
+                        </button>
+                      </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td>ISBN 10:</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="ISBN 10"
-                          formControlName="isbn10"
-                        />
-                        <mat-hint>Book ISBN-10</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>ISBN 13:</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="ISBN 13"
-                          formControlName="isbn13"
-                        />
-                        <mat-hint>Book ISBN-13</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Number of pages:</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Number of pages"
-                          formControlName="numberOfPages"
-                          type="number"
-                        />
-                        <mat-hint>Number of pages</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Average rating:</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Average rating"
-                          formControlName="averageRating"
-                          type="number"
-                        />
-                        <mat-hint>Average rating</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Ratings count:</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Ratings count"
-                          formControlName="ratingsCount"
-                          type="number"
-                        />
-                        <mat-hint>Ratings count</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Language:</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Language"
-                          formControlName="language"
-                        />
-                        <mat-hint>Book language</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Note</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Note"
-                          formControlName="note"
-                        />
-                        <mat-hint>Book notes</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Publisher</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Publisher"
-                          formControlName="publisher"
-                        />
-                        <mat-hint>Book publisher</mat-hint>
-                      </mat-form-field>
-                      <span class="p-3"> </span>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Published date"
-                          formControlName="publishedDate"
-                        />
-                        <mat-hint>Book published date</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Categories</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Categories separated by comma"
-                          formControlName="categoryList"
-                        />
-                        <mat-hint>Book categories separated by commas</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Tags</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Tags"
-                          formControlName="tagList"
-                        />
-                        <mat-hint>Book tags separated by commas</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Description</td>
-                    <td>
-                      <mat-form-field class="w-100" appearance="fill">
-                        <input
-                          matInput
-                          placeholder="Description"
-                          formControlName="description"
-                        />
-                        <mat-hint>Book description</mat-hint>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Size</td>
-                    <td *ngIf="fileSystemItem && fileSystemItem.size">
-                      {{ fileSystemItem!.size | bytesToMegabytes }} Megabytes
-                    </td>
-                    <td *ngIf="!fileSystemItem || !fileSystemItem.size">-</td>
-                  </tr>
-                  <tr *ngIf="fileSystemItem && fileSystemItem.extension">
-                    <td>Format</td>
-                    <td *ngIf="fileSystemItem.extension">
-                      {{ fileSystemItem!.extension }}
-                    </td>
-                    <td *ngIf="!fileSystemItem.extension">-</td>
-                  </tr>
-                  <tr></tr>
                 </table>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>
-                <div>
-                  <button class="btn btn-danger" type="submit">Update</button>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </form>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

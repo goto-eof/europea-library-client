@@ -7,10 +7,10 @@
   "
 >
   <h1>Featured e-Books</h1>
-  <div class="d-flex justify-content-between flex-wrap">
+  <div class="d-flex justify-content-center flex-wrap">
     <div
       class="card m-2"
-      style="width: 13rem"
+      style="width: 285px"
       *ngFor="let item of genericCursoredResponse!.childrenList"
     >
       <div class="card-body">
@@ -24,7 +24,11 @@
           />
         </h6>
         <!-- <p class="card-text"></p> -->
-        <a (click)="goToItem(item.id)" class="card-link cursor-pointer">View</a>
+        <div class="d-flex justify-content-center">
+          <a (click)="goToItem(item.id)" class="card-link cursor-pointer"
+            >View</a
+          >
+        </div>
       </div>
     </div>
   </div>

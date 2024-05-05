@@ -3,10 +3,20 @@ import { Injectable } from '@angular/core';
 import FileMetaInfoBook from '../model/FileMetaInfoBook';
 import { Observable } from 'rxjs';
 import ApplicationConst from '../constants/ApplicationConst';
+import OperationStatus from '../model/OperationStatus';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/bookInfo';
 @Injectable()
 export default class BookInfoService {
+  uploadBookCover(
+    fileMetaInfoId: number,
+    formData: FormData
+  ): Observable<OperationStatus> {
+    return this.httpClient.post<OperationStatus>(
+      `${baseUrl}/upload/cover/fileMetaInfoId/${fileMetaInfoId}`,
+      formData
+    );
+  }
   constructor(private httpClient: HttpClient) {}
 
   lock(fileMetaInfoId: number) {
