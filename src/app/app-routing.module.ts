@@ -29,9 +29,10 @@ import { PasswordResetEmailFormComponent } from './component/password-reset-emai
 import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
 import { CursoredByFeaturedFileExplorerComponent } from './component/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
 import { CursoredByDownloadCountFileExplorerComponent } from './component/cursored-by-download-count-file-explorer/cursored-by-download-count-file-explorer.component';
+import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: CustomHomePageComponent },
   { path: 'control-panel', component: ControlPanelComponent },
   { path: 'login', component: LoginFormComponent },
   { path: 'password/change', component: ChangePasswordFormComponent },

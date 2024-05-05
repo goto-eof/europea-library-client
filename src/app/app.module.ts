@@ -66,6 +66,9 @@ import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-r
 import FeaturedService from './service/FeaturedService';
 import { CursoredByFeaturedFileExplorerComponent } from './component/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
 import { CursoredByDownloadCountFileExplorerComponent } from './component/cursored-by-download-count-file-explorer/cursored-by-download-count-file-explorer.component';
+import { CpHomePageEditorComponent } from './component/cp-home-page-editor/cp-home-page-editor.component';
+import PostService from './service/PostService';
+import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,6 +110,8 @@ import { CursoredByDownloadCountFileExplorerComponent } from './component/cursor
     CursoredByRatingFileExplorerComponent,
     CursoredByFeaturedFileExplorerComponent,
     CursoredByDownloadCountFileExplorerComponent,
+    CpHomePageEditorComponent,
+    CustomHomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -140,6 +145,7 @@ import { CursoredByDownloadCountFileExplorerComponent } from './component/cursor
     PublishedDateService,
     CacheLoaderService,
     FeaturedService,
+    PostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

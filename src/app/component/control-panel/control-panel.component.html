@@ -11,13 +11,29 @@
           <button
             *ngIf="isAdministrator()"
             class="nav-link active rounded-0"
+            id="v-pills-home-page-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-home-page"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-home-page"
+            aria-selected="true"
+          >
+            <div class="d-flex flex-row">
+              <i class="bi bi-toggles me-2 d-inline-block"></i>
+              <span>Home Page</span>
+            </div>
+          </button>
+          <button
+            *ngIf="isAdministrator()"
+            class="nav-link rounded-0"
             id="v-pills-home-tab"
             data-bs-toggle="pill"
             data-bs-target="#v-pills-home"
             type="button"
             role="tab"
             aria-controls="v-pills-home"
-            aria-selected="true"
+            aria-selected="false"
           >
             <div class="d-flex flex-row">
               <i class="bi bi-toggles me-2 d-inline-block"></i>
@@ -60,6 +76,21 @@
           <div
             *ngIf="isAdministrator()"
             class="tab-pane fade show active pb-5"
+            id="v-pills-home-page"
+            role="tabpanel"
+            aria-labelledby="v-pills-home-tab"
+          >
+            <h1 class="pb-3 pt-3 text-start">
+              <i class="bi bi-tools"></i> Home Page
+            </h1>
+            <hr />
+            <div class="vstack">
+              <app-cp-home-page-editor />
+            </div>
+          </div>
+          <div
+            *ngIf="isAdministrator()"
+            class="tab-pane fade show pb-5"
             id="v-pills-home"
             role="tabpanel"
             aria-labelledby="v-pills-home-tab"
