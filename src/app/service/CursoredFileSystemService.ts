@@ -20,6 +20,14 @@ const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v2/file';
 
 @Injectable()
 export default class CursoredFileSystemService {
+  retrieveCursoredByDownloadCount(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string>> {
+    return this.httpClient.post<GenericCursoredResponse<string>>(
+      `${baseUrl}/cursored/downloadCount`,
+      cursorRequest
+    );
+  }
   get(fileSystemItemId: number) {
     return this.httpClient.get<CursoredFileSystemItem>(
       `${baseUrl}/${fileSystemItemId}`

@@ -28,6 +28,7 @@ import { ResetPasswordFormComponent } from './component/reset-password-form/rese
 import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
 import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
 import { CursoredByFeaturedFileExplorerComponent } from './component/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
+import { CursoredByDownloadCountFileExplorerComponent } from './component/cursored-by-download-count-file-explorer/cursored-by-download-count-file-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'explore/language/:parent',
     component: CursoredLanguagesFileExplorerComponent,
+  },
+  {
+    path: 'explore/downloadCount',
+    component: CursoredByDownloadCountFileExplorerComponent,
   },
   {
     path: 'explore/publisher/:parent',

@@ -128,6 +128,7 @@ export class FileInfoComponent implements OnInit {
       .download(this.fileSystemItem!.id!)
       .subscribe({
         next: (data: any) => {
+          this.fileSystemItem!.downloadCount++;
           const a = document.createElement('a');
           document.body.appendChild(a);
           const blob: any = new Blob([data], {

@@ -13,6 +13,7 @@ export class ExplorerComponent implements OnInit {
   file: FileSystemItem = {
     basePath: '/',
     isDirectory: true,
+    downloadCount: 0,
   };
 
   constructor(

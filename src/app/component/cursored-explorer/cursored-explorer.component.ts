@@ -11,6 +11,7 @@ const NEW_CURSORED_FILE_SYSTEM_ITEM = {
   basePath: '/',
   isDirectory: true,
   nextCursor: null,
+  downloadCount: 0,
 };
 
 @Component({

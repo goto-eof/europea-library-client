@@ -10,4 +10,5 @@ export default interface FileSystemItem extends ModelCommon {
   isDirectory: boolean;
   parent?: FileSystemItem;
   childrenList?: Array<FileSystemItem>;
+  downloadCount: number;
 }
