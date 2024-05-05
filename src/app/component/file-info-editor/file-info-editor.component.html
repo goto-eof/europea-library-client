@@ -39,10 +39,12 @@
               </tr>
               <tr *ngIf="bookInfo.averageRating">
                 <td>
-                  <app-rating
-                    [averageRating]="bookInfo.averageRating || 0"
-                    [ratingsCount]="bookInfo.ratingsCount || 0"
-                  />
+                  <div class="d-flex justify-content-center p-2">
+                    <app-rating
+                      [averageRating]="bookInfo.averageRating || 0"
+                      [ratingsCount]="bookInfo.ratingsCount || 0"
+                    />
+                  </div>
                 </td>
               </tr>
             </table>

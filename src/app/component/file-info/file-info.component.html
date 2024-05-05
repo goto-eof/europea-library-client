@@ -14,11 +14,13 @@
                 <td>
                   <div class="vstack">
                     <img class="book-cover" [src]="bookInfo.imageUrl" />
-                    <app-rating
-                      *ngIf="bookInfo.averageRating"
-                      [averageRating]="bookInfo.averageRating || 0"
-                      [ratingsCount]="bookInfo.ratingsCount || 0"
-                    />
+                    <div class="d-flex justify-content-center p-2">
+                      <app-rating
+                        *ngIf="bookInfo.averageRating"
+                        [averageRating]="bookInfo.averageRating || 0"
+                        [ratingsCount]="bookInfo.ratingsCount || 0"
+                      />
+                    </div>
                     <img
                       *ngIf="base64DownloadQRCode"
                       [src]="'data:image/png;base64,' + base64DownloadQRCode"
