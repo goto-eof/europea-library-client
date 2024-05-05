@@ -24,11 +24,7 @@ export class CustomHomePageComponent implements OnInit {
         next: (post) => {
           this.post = post;
         },
-        error: () => {
-          this.snackBarService.showErrorWithMessage(
-            'Unable to load the Home Page'
-          );
-        },
+        error: () => {},
       });
   }
 }
