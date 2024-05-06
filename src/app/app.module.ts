@@ -70,6 +70,7 @@ import { CpHomePageEditorComponent } from './component/cp-home-page-editor/cp-ho
 import PostService from './service/PostService';
 import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
 import { FeaturedBooksComponent } from './component/featured-books/featured-books.component';
+import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,6 +115,7 @@ import { FeaturedBooksComponent } from './component/featured-books/featured-book
     CpHomePageEditorComponent,
     CustomHomePageComponent,
     FeaturedBooksComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

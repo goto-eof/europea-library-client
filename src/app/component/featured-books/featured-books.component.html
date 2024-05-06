@@ -1,5 +1,5 @@
 <div
-  class="m-3"
+  class=""
   *ngIf="
     genericCursoredResponse &&
     genericCursoredResponse!.childrenList &&
@@ -7,27 +7,48 @@
   "
 >
   <h1>Featured e-Books</h1>
-  <div class="d-flex justify-content-center flex-wrap">
+  <div class="row d-flex justify-content-between">
     <div
-      class="card m-2"
-      style="width: 285px"
+      class="my-2 col-md-6"
       *ngFor="let item of genericCursoredResponse!.childrenList"
     >
-      <div class="card-body">
-        <img *ngIf="item.imageUrl" [src]="item.imageUrl" />
-        <h3 class="card-title">{{ item.title }}</h3>
-        <h6 class="card-subtitle mb-2 text-muted">
-          <app-rating
-            *ngIf="item.averageRating"
-            [averageRating]="item.averageRating || 0"
-            [ratingsCount]="item.ratingsCount || 0"
-          />
-        </h6>
-        <!-- <p class="card-text"></p> -->
-        <div class="d-flex justify-content-center">
-          <a (click)="goToItem(item.id)" class="card-link cursor-pointer"
-            >View</a
-          >
+      <div class="card" (click)="goToItem(item.id)">
+        <div class="row no-gutters">
+          <div class="col-md-4 text-center text-md-left p-2">
+            <!-- <img
+              *ngIf="item.imageUrl"
+              [src]="item.imageUrl"
+              [alt]="item.title"
+            /> -->
+            <div
+              *ngIf="item.imageUrl"
+              style="
+                width: 98%;
+                height: 200px;
+                display: inline-block;
+                background-size: cover;
+                overflow: hidden;
+              "
+              [style.background-image]="'url(' + item.imageUrl + ')'"
+            ></div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="card-title text-center">{{ item.title }}</h3>
+              <p class="card-text">
+                {{ item.description }}
+              </p>
+              <p class="card-text">
+                <small class="text-muted">
+                  <app-rating
+                    *ngIf="item.averageRating"
+                    [averageRating]="item.averageRating || 0"
+                    [ratingsCount]="item.ratingsCount || 0"
+                  />
+                </small>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

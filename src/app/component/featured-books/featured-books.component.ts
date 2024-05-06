@@ -26,7 +26,7 @@ export class FeaturedBooksComponent implements OnInit {
   ngOnInit(): void {
     this.featuredService
       .retrieveCursoredHighlight({
-        limit: 8,
+        limit: 4,
         parent: 'featured',
         nextCursor: null,
       })

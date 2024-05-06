@@ -62,4 +62,24 @@ export class SearchFormComponent implements OnInit {
   toggleAdvanceSearch() {
     this.isAdvanceSearchEnable = !this.isAdvanceSearchEnable;
   }
+
+  resetAuthor() {
+    this.searchForm.patchValue({ author: '' });
+  }
+
+  resetPublisher() {
+    this.searchForm.patchValue({ publisher: '' });
+  }
+
+  resetDescription() {
+    this.searchForm.patchValue({ description: '' });
+  }
+
+  resetYear() {
+    this.searchForm.patchValue({ year: '' });
+  }
+
+  resetIsbn() {
+    this.searchForm.patchValue({ isbn: '' });
+  }
 }

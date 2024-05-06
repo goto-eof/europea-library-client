@@ -1,0 +1,220 @@
+<nav
+  class="navbar bg-light navbar-expand-lg navbar-light sticky-top shadow-sm"
+  id="mainNav"
+>
+  <div class="container-fluid px-2">
+    <a class="navbar-brand hstack" routerLink="/about">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="d-block mx-auto"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+        <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+        <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+        <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+        <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+        <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+      </svg>
+
+      <span class="ms-1">Europea Library</span></a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="bi-list"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto me-0 my-3 my-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link me-lg-3"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive"
+            [routerLink]="['/home']"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <div class="dropdown">
+            <a
+              class="nav-link me-lg-3 dropdown-toggle"
+              type="button"
+              id="dropdownExplore"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Explore
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownExplore">
+              <button
+                class="dropdown-item"
+                [routerLink]="['/explorer']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-folder-check"></i> by Directory
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/rating']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-star"></i> by Top Rated
+              </button>
+
+              <button
+                class="dropdown-item"
+                [routerLink]="['/featured']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-heart"></i> by Featured
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/explore/downloadCount']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-cloud-download"></i> by Downloads
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/categories']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-boxes"></i> by Category
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/tags']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-tag"></i> by Tags
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/extension']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-file-binary"></i> by File Extension
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/language']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-globe-americas"></i> by Language
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/publisher']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-book"></i> by Publisher
+              </button>
+              <button
+                class="dropdown-item"
+                [routerLink]="['/published-date']"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive"
+              >
+                <i class="bi bi-clock"></i> by Published Date
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="w-100">
+        <app-search-form />
+      </div>
+      <div *ngIf="isLoggedIn()">
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle hstack rounded-0"
+            type="button"
+            id="dropdownMenuUser"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <img
+              [src]="gravatarImage"
+              class="rounded-0"
+              width="32"
+              height="32"
+            />
+            <div class="mx-2">{{ username }}</div>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
+            <button
+              class="dropdown-item"
+              [routerLink]="['/control-panel']"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarResponsive"
+            >
+              <i class="bi bi-controller"></i> Control panel
+            </button>
+            <div class="dropdown-divider"></div>
+            <button
+              class="dropdown-item"
+              (click)="logout()"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarResponsive"
+              type="button"
+            >
+              <i class="bi bi-arrow-bar-right"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-group p-2">
+        <button
+          *ngIf="!isLoggedIn()"
+          class="btn btn-outline-secondary text-nowrap rounded-5 px-3 mb-2 mb-lg-0"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          [routerLink]="['/login']"
+          type="button"
+        >
+          User area
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

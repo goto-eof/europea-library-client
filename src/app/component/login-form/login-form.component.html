@@ -80,11 +80,30 @@
                   contain at least 1 character of each group. The minimum
                   password length allowed if 5 characters.</small
                 >
-                <a class="link" (click)="goToPasswordResetEmailForm()"
-                  >Password reset</a
-                >
               </div>
-              <button class="btn btn-primary mt-4" type="submit">Login</button>
+              <div class="d-flex justify-content-between">
+                <button
+                  class="btn btn-primary mt-4 w-25 me-2"
+                  (click)="goToPasswordResetEmailForm()"
+                  type="button"
+                >
+                  Password reset
+                </button>
+                <button class="btn btn-primary mt-4 w-75" type="submit">
+                  Login
+                </button>
+              </div>
+
+              <div class="d-flex justify-content-center p-3">- or -</div>
+              <button
+                class="btn btn-primary px-3 mb-2 mb-lg-0 w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#register"
+                [routerLink]="['/register']"
+                type="button"
+              >
+                Register
+              </button>
             </div>
           </div>
         </div>

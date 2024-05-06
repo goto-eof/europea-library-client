@@ -1,15 +1,13 @@
-<form
-  [formGroup]="searchForm"
-  (ngSubmit)="submitForm()"
-  class="d-flex justify-content-center"
->
-  <div class="col-sm-10">
+<form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+  <div>
     <div class="form-group row py-1 mx-auto">
-      <div class="col-sm-10">
+      <div class="">
         <div class="input-group">
-          <div class="input-group-prepend">
-            <button type="reset" class="btn btn-danger rounded-0">Clear</button>
-          </div>
+          <!-- <div class="input-group-prepend">
+            <button type="reset" class="btn btn-secondary rounded-0">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div> -->
           <input
             type="text"
             class="form-control"
@@ -19,16 +17,19 @@
             formControlName="title"
             name="title"
           />
-          <div class="input-group-append">
+          <div class="btn-group">
+            <button class="btn btn-outline-secondary btn-sm" type="submit">
+              Search
+            </button>
             <button
-              class="btn btn-success rounded-0"
               type="button"
+              class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
               (click)="toggleAdvanceSearch()"
             >
-              <i class="bi bi-list"></i>
-            </button>
-            <button class="btn btn-primary rounded-0" type="submit">
-              Search
+              <span class="sr-only"></span>
             </button>
           </div>
         </div>
@@ -48,7 +49,7 @@
         <!-- <label for="title" class="col-sm-2 col-form-label form-title"
           >Author</label
         > -->
-        <div class="col-sm-10">
+        <div class="col-sm-10 input-group input-group-sm">
           <input
             type="text"
             class="form-control"
@@ -65,6 +66,9 @@
           >
             Error
           </div>
+          <button class="btn btn-link" type="button" (click)="resetAuthor()">
+            <i class="bi bi-x-circle"></i>
+          </button>
         </div>
       </div>
 
@@ -72,7 +76,7 @@
         <!-- <label for="publisher" class="col-sm-2 col-form-label form-title"
           >Publisher</label
         > -->
-        <div class="col-sm-10">
+        <div class="col-sm-10 input-group input-group-sm">
           <input
             type="text"
             placeholder="Book publisher"
@@ -89,6 +93,9 @@
           >
             Error
           </div>
+          <button class="btn btn-link" type="button" (click)="resetPublisher()">
+            <i class="bi bi-x-circle"></i>
+          </button>
         </div>
       </div>
 
@@ -96,7 +103,7 @@
         <!-- <label for="description" class="col-sm-2 col-form-label form-title"
           >Description</label
         > -->
-        <div class="col-sm-10">
+        <div class="col-sm-10 input-group input-group-sm">
           <input
             type="text"
             placeholder="Book description"
@@ -113,6 +120,13 @@
           >
             Error
           </div>
+          <button
+            class="btn btn-link"
+            type="button"
+            (click)="resetDescription()"
+          >
+            <i class="bi bi-x-circle"></i>
+          </button>
         </div>
       </div>
 
@@ -120,7 +134,7 @@
         <!-- <label for="year" class="col-sm-2 col-form-label form-title"
           >Year</label
         > -->
-        <div class="col-sm-10">
+        <div class="col-sm-10 input-group input-group-sm">
           <input
             type="text"
             placeholder="Book year"
@@ -137,13 +151,16 @@
           >
             Error
           </div>
+          <button class="btn btn-link" type="button" (click)="resetYear()">
+            <i class="bi bi-x-circle"></i>
+          </button>
         </div>
       </div>
       <div class="form-group row py-1 mx-auto">
         <!-- <label for="isbn" class="col-sm-2 col-form-label form-title"
           >ISBN</label
         > -->
-        <div class="col-sm-10">
+        <div class="col-sm-10 input-group input-group-sm">
           <input
             type="text"
             class="form-control"
@@ -160,6 +177,9 @@
           >
             Error
           </div>
+          <button class="btn btn-link" type="button" (click)="resetIsbn()">
+            <i class="bi bi-x-circle"></i>
+          </button>
         </div>
       </div>
     </div>

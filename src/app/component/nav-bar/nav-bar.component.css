@@ -1,0 +1,14 @@
+.auth-group{
+    /* background-color: rgb(233, 236, 236); */
+}
+.collapsing {
+    transition: none !important;
+  }
+
+  @media (max-width: 990px){
+    nav.navbar{
+     max-height: 100vh;
+     overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    }
+  }  
