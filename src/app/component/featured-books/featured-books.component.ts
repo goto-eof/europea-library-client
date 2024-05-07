@@ -32,6 +32,14 @@ export class FeaturedBooksComponent implements OnInit {
       })
       .subscribe({
         next: (data) => {
+          data.childrenList.map((item) => {
+            item.description = item.description
+              ? item.description.length > 200
+                ? item.description.substring(0, 200) + '...'
+                : item.description
+              : '';
+            return item;
+          });
           this.genericCursoredResponse = data;
         },
         error: () => {
