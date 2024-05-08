@@ -12,19 +12,18 @@
       class="my-2 col-md-6"
       *ngFor="let item of genericCursoredResponse!.childrenList"
     >
-      <div class="card" style="height: 240px" (click)="goToItem(item.id)">
+      <div
+        class="card cursor-pointer"
+        style="height: 280px"
+        (click)="goToItem(item.id)"
+      >
         <div class="row no-gutters">
-          <div class="col-md-4 text-center text-md-left p-2">
-            <!-- <img
-              *ngIf="item.imageUrl"
-              [src]="item.imageUrl"
-              [alt]="item.title"
-            /> -->
+          <div class="col-md-5 text-center text-md-left px-3 py-2">
             <div
               *ngIf="item.imageUrl"
               style="
                 width: 98%;
-                height: 200px;
+                height: 265px;
                 display: inline-block;
                 background-size: cover;
                 overflow: hidden;
@@ -32,7 +31,7 @@
               [style.background-image]="'url(' + item.imageUrl + ')'"
             ></div>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-7">
             <div class="card-body">
               <h3 class="card-title text-center">{{ item.title }}</h3>
               <p class="card-text">
