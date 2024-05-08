@@ -1,33 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import FeaturedService from '../../service/FeaturedService';
-import SnackBarService from '../../service/SnackBarService';
+import { Component, Input, OnInit } from '@angular/core';
 import GenericCursoredResponse from '../../model/GenericCursoredResponse';
 import FileSystemItemHighlight from '../../model/FileSystemItemHighlight';
+import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-featured-books',
-  templateUrl: './featured-books.component.html',
-  styleUrl: './featured-books.component.css',
+  selector: 'app-popular-downloads',
+  templateUrl: './popular-downloads.component.html',
+  styleUrl: './popular-downloads.component.css',
 })
-export class FeaturedBooksComponent implements OnInit {
+export class PopularDownloadsComponent implements OnInit {
+  @Input()
+  extension?: string;
+
   genericCursoredResponse?: GenericCursoredResponse<
     string,
     FileSystemItemHighlight
   >;
 
   constructor(
-    private featuredService: FeaturedService,
-    private snackBarService: SnackBarService,
+    private cursoredFileSystemService: CursoredFileSystemService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.featuredService
-      .retrieveCursoredHighlight({
+    this.cursoredFileSystemService
+      .retrieveCursoredByDownloadCounHighlighted({
         limit: 4,
         parent: 'featured',
         nextCursor: null,
+        fileType: this.extension!,
       })
       .subscribe({
         next: (data) => {

@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import FeaturedService from '../../service/FeaturedService';
-import SnackBarService from '../../service/SnackBarService';
 import GenericCursoredResponse from '../../model/GenericCursoredResponse';
+import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import FileSystemItemHighlight from '../../model/FileSystemItemHighlight';
+import SnackBarService from '../../service/SnackBarService';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-featured-books',
-  templateUrl: './featured-books.component.html',
-  styleUrl: './featured-books.component.css',
+  selector: 'app-latest-books',
+  templateUrl: './latest-books.component.html',
+  styleUrl: './latest-books.component.css',
 })
-export class FeaturedBooksComponent implements OnInit {
+export class LatestBooksComponent implements OnInit {
   genericCursoredResponse?: GenericCursoredResponse<
     string,
     FileSystemItemHighlight
   >;
 
   constructor(
-    private featuredService: FeaturedService,
+    private cursoredFileSystemService: CursoredFileSystemService,
     private snackBarService: SnackBarService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.featuredService
-      .retrieveCursoredHighlight({
+    this.cursoredFileSystemService
+      .retrieveNewCursoredHighlight({
         limit: 4,
         parent: 'featured',
         nextCursor: null,

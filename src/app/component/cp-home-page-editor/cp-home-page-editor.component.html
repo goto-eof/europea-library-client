@@ -1,4 +1,141 @@
-<form [formGroup]="articleForm" (ngSubmit)="onSubmit($event)" class="vstack">
+<h1>Home Page Widgets</h1>
+<div class="row">
+  <div class="col-6 p-3">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="customDescriptionEnabled"
+        #customDescriptionEnabled
+        [checked]="settings?.customDescriptionEnabled"
+        (click)="
+          update(
+            'customDescriptionEnabled',
+            !(settings?.customDescriptionEnabled || false)
+          )
+        "
+      />
+      <label class="form-check-label" for="customDescriptionEnabled">
+        <div>Enable Home Page content</div>
+        <small class="form-text text-muted"
+          >Enables the Home Page content, editable in the form bellow.</small
+        >
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input
+        (click)="
+          update('protectedDownloadsEnabled', protectedDownloadsEnabled.checked)
+        "
+        [checked]="settings?.protectedDownloadsEnabled"
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="protectedDownloadsEnabled"
+        #protectedDownloadsEnabled
+      />
+      <label class="form-check-label" for="protectedDownloadsEnabled">
+        <div>Enable Protected downloads</div>
+        <small class="form-text text-muted"
+          >Protect downloads by forcing unauthenticated users to
+          login/register</small
+        >
+      </label>
+    </div>
+    <div class="form-check">
+      <input
+        (click)="
+          update(
+            'featuredBooksWidgetEnabled',
+            featuredBooksWidgetEnabled.checked
+          )
+        "
+        [checked]="settings?.featuredBooksWidgetEnabled"
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="featuredBooksWidgetEnabled"
+        #featuredBooksWidgetEnabled
+      />
+      <label class="form-check-label" for="featuredBooksWidgetEnabled">
+        <div>Enable Featured Book<b>s</b> Widget</div>
+        <small class="form-text text-muted"
+          >Enable or disable the "Featured Book<b>s</b>" widget</small
+        >
+      </label>
+    </div>
+  </div>
+
+  <div class="col-6 p3">
+    <div class="form-check">
+      <input
+        (click)="
+          update('featuredBookWidgetEnabled', featuredBookWidgetEnabled.checked)
+        "
+        [checked]="settings?.featuredBookWidgetEnabled"
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="featuredBookWidgetEnabled"
+        #featuredBookWidgetEnabled
+      />
+      <label class="form-check-label" for="featuredBookWidgetEnabled">
+        <div>Enable Featured Book Widget</div>
+        <small class="form-text text-muted"
+          >Enable or disable the "Featured Book" widget</small
+        >
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input
+        (click)="update('newBooksWidgetEnabled', newBooksWidgetEnabled.checked)"
+        [checked]="settings?.newBooksWidgetEnabled"
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="newBooksWidgetEnabled"
+        #newBooksWidgetEnabled
+      />
+      <label class="form-check-label" for="newBooksWidgetEnabled">
+        <div>Enable Books Just Added Widget</div>
+        <small class="form-text text-muted"
+          >Enable or disable the "Books Just Added" widget</small
+        >
+      </label>
+    </div>
+
+    <div class="form-check">
+      <input
+        (click)="
+          update('popularBooksWidgetEnabled', popularBooksWidgetEnabled.checked)
+        "
+        [checked]="settings?.popularBooksWidgetEnabled"
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="popularBooksWidgetEnabled"
+        #popularBooksWidgetEnabled
+      />
+      <label class="form-check-label" for="popularBooksWidgetEnabled">
+        <div>Enable Popular Books Widget</div>
+        <small class="form-text text-muted"
+          >Enable or disable the "Popular Book" widget</small
+        >
+      </label>
+    </div>
+  </div>
+</div>
+<hr />
+<form
+  *ngIf="customDescriptionEnabled.checked"
+  [formGroup]="articleForm"
+  (ngSubmit)="onSubmit($event)"
+  class="vstack"
+>
+  <h1>Home Page Content</h1>
   <div class="form-group">
     <label for="title">Title</label>
     <input

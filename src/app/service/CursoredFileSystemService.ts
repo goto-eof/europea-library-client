@@ -12,20 +12,29 @@ import CursoredTag from '../model/CursoredTag';
 import SearchFileSystemItemRequest from '../model/SearchFileSystemItemRequest';
 import SearchResult from '../model/SearchResult';
 import FileSystemItem from '../model/FileSystemItem';
-import ItemAndFrequency from '../model/ItemAndFrequency';
 import GenericCursoredRequest from '../model/GenericCursoredRequest';
 import GenericCursoredResponse from '../model/GenericCursoredResponse';
+import FileSystemItemHighlight from '../model/FileSystemItemHighlight';
+import GenericCursoredRequestByFileType from '../model/GenericCursoredRequestByFileType';
 
 const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v2/file';
 
 @Injectable()
 export default class CursoredFileSystemService {
   retrieveCursoredByDownloadCount(
-    cursorRequest: GenericCursoredRequest<string>
+    cursorRequest: GenericCursoredRequestByFileType<string>
   ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
     return this.httpClient.post<
       GenericCursoredResponse<string, FileSystemItem>
     >(`${baseUrl}/cursored/downloadCount`, cursorRequest);
+  }
+
+  retrieveCursoredByDownloadCounHighlighted(
+    cursorRequest: GenericCursoredRequestByFileType<string>
+  ): Observable<GenericCursoredResponse<string, FileSystemItemHighlight>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItemHighlight>
+    >(`${baseUrl}/cursored/downloadCount/highlight`, cursorRequest);
   }
   get(fileSystemItemId: number) {
     return this.httpClient.get<CursoredFileSystemItem>(
@@ -119,5 +128,21 @@ export default class CursoredFileSystemService {
     return this.httpClient.post<
       GenericCursoredResponse<string, FileSystemItem>
     >(`${baseUrl}/cursored/rating`, cursorRequest);
+  }
+
+  retrieveNewCursored(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string, FileSystemItem>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItem>
+    >(`${baseUrl}/cursored/new`, cursorRequest);
+  }
+
+  retrieveNewCursoredHighlight(
+    cursorRequest: GenericCursoredRequest<string>
+  ): Observable<GenericCursoredResponse<string, FileSystemItemHighlight>> {
+    return this.httpClient.post<
+      GenericCursoredResponse<string, FileSystemItemHighlight>
+    >(`${baseUrl}/cursored/new/highlight`, cursorRequest);
   }
 }

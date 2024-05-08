@@ -109,3 +109,7 @@ ul {
   background-color: rgba(0, 0, 0, .65);
   color: white;
 }
+
+input[disabled] {
+  background-color: #e5e5e5;
+}

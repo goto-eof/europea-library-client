@@ -4,6 +4,8 @@ import { environment } from '../../../environments/environment';
 import Post from '../../model/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import SnackBarService from '../../service/SnackBarService';
+import ApplicationSettingsService from '../../service/ApplicationSettingsService';
+import ApplicationSettings from '../../model/ApplicationSettings';
 
 @Component({
   selector: 'app-cp-home-page-editor',
@@ -11,10 +13,13 @@ import SnackBarService from '../../service/SnackBarService';
   styleUrl: './cp-home-page-editor.component.css',
 })
 export class CpHomePageEditorComponent implements OnInit {
+  settings?: ApplicationSettings;
+
   constructor(
     private postService: PostService,
     private formBuilder: FormBuilder,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private applicationSettingsService: ApplicationSettingsService
   ) {}
 
   articleForm: FormGroup<any> = this.formBuilder.group({
@@ -26,6 +31,22 @@ export class CpHomePageEditorComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.applicationSettingsService.get().subscribe({
+      next: (settings) => {
+        this.settings = settings;
+        if (settings.customDescriptionEnabled) {
+          this.loadDescriptionForm();
+        }
+      },
+      error: () => {
+        this.snackBarService.showErrorWithMessage(
+          'Something went wrong when trying to retrieve settings'
+        );
+      },
+    });
+  }
+
+  loadDescriptionForm() {
     this.postService
       .getByIdentifier(environment.IDENTIFIER_HOME_PAGE_ARTICLE)
       .subscribe({
@@ -49,7 +70,6 @@ export class CpHomePageEditorComponent implements OnInit {
   onSubmit(e: any) {
     e.preventDefault();
     if (this.articleForm.valid) {
-      console.log(this.articleForm);
       const post: Post = {
         id: this.articleForm.value.id,
         identifier: this.articleForm.value.identifier,
@@ -69,5 +89,27 @@ export class CpHomePageEditorComponent implements OnInit {
       return;
     }
     this.snackBarService.showErrorWithMessage('Invalid input');
+  }
+
+  update(propertyName: string, newValue: boolean) {
+    if (propertyName === 'customDescriptionEnabled' && newValue) {
+      this.loadDescriptionForm();
+    }
+    this.applicationSettingsService
+      .update({
+        ...this.settings,
+        [propertyName]: newValue,
+      })
+      .subscribe({
+        next: (settings) => {
+          this.settings = settings;
+          this.snackBarService.showInfoWithMessage('Saved');
+        },
+        error: () => {
+          this.snackBarService.showErrorWithMessage(
+            'Something went wrong when trying to update settings'
+          );
+        },
+      });
   }
 }

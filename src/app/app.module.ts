@@ -71,6 +71,12 @@ import PostService from './service/PostService';
 import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
 import { FeaturedBooksComponent } from './component/featured-books/featured-books.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { CursoredByJustAddedFileExplorerComponent } from './component/cursored-by-just-added-file-explorer/cursored-by-just-added-file-explorer.component';
+import { LatestBooksComponent } from './component/latest-books/latest-books.component';
+import { PopularDownloadsComponent } from './component/popular-downloads/popular-downloads.component';
+import { PopularDownloadsContainerComponent } from './component/popular-downloads-container/popular-downloads-container.component';
+import ApplicationSettingsService from './service/ApplicationSettingsService';
+import { FeaturedBookComponent } from './component/featured-book/featured-book.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,6 +122,11 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
     CustomHomePageComponent,
     FeaturedBooksComponent,
     NavBarComponent,
+    CursoredByJustAddedFileExplorerComponent,
+    LatestBooksComponent,
+    PopularDownloadsComponent,
+    PopularDownloadsContainerComponent,
+    FeaturedBookComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,6 +161,7 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
     CacheLoaderService,
     FeaturedService,
     PostService,
+    ApplicationSettingsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

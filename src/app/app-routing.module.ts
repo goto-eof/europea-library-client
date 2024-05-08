@@ -30,6 +30,7 @@ import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-r
 import { CursoredByFeaturedFileExplorerComponent } from './component/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
 import { CursoredByDownloadCountFileExplorerComponent } from './component/cursored-by-download-count-file-explorer/cursored-by-download-count-file-explorer.component';
 import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
+import { CursoredByJustAddedFileExplorerComponent } from './component/cursored-by-just-added-file-explorer/cursored-by-just-added-file-explorer.component';
 
 const routes: Routes = [
   { path: 'home', component: CustomHomePageComponent },
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'explore/downloadCount',
     component: CursoredByDownloadCountFileExplorerComponent,
+  },
+  {
+    path: 'explore/justAdded',
+    component: CursoredByJustAddedFileExplorerComponent,
   },
   {
     path: 'explore/publisher/:parent',
