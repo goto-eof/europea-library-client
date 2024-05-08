@@ -34,10 +34,17 @@ export class FeaturedBooksComponent implements OnInit {
         next: (data) => {
           data.childrenList.map((item) => {
             item.description = item.description
-              ? item.description.length > 200
-                ? item.description.substring(0, 200) + '...'
+              ? item.description.length > 150
+                ? item.description.substring(0, 150) + '...'
                 : item.description
               : '';
+
+            item.title = item.title
+              ? item.title.length > 50
+                ? item.title.substring(0, 50) + '...'
+                : item.title
+              : '';
+
             return item;
           });
           this.genericCursoredResponse = data;
