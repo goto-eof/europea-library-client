@@ -12,6 +12,8 @@ const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/featured';
 
 @Injectable()
 export default class FeaturedService {
+  constructor(private httpClient: HttpClient) {}
+
   retrieveCursoredHighlight(
     cursorRequest: GenericCursoredRequest<string>
   ): Observable<GenericCursoredResponse<string, FileSystemItemHighlight>> {
@@ -19,7 +21,6 @@ export default class FeaturedService {
       GenericCursoredResponse<string, FileSystemItemHighlight>
     >(`${baseUrl}/cursored/highlight`, cursorRequest);
   }
-  constructor(private httpClient: HttpClient) {}
 
   isFeatured(fileSystemItemId: number) {
     return this.httpClient.get<OperationStatus>(
@@ -47,5 +48,22 @@ export default class FeaturedService {
     return this.httpClient.post<
       GenericCursoredResponse<string, FileSystemItem>
     >(`${baseUrl}/cursored`, cursorRequest);
+  }
+
+  retrieveHighlight(): Observable<FileSystemItemHighlight> {
+    return this.httpClient.get<FileSystemItemHighlight>(`${baseUrl}/highlight`);
+  }
+
+  isHighlight(fileSystemItemId: number): Observable<OperationStatus> {
+    return this.httpClient.get<OperationStatus>(
+      `${baseUrl}/isHighlight/${fileSystemItemId}`
+    );
+  }
+
+  setHighlight(fileSystemItemId: number): Observable<OperationStatus> {
+    return this.httpClient.put<OperationStatus>(
+      `${baseUrl}/highlight/${fileSystemItemId}`,
+      {}
+    );
   }
 }

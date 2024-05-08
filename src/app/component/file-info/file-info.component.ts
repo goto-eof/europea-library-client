@@ -14,6 +14,8 @@ import AuthService from '../../service/AuthService';
 import QRCodeService from '../../service/QRCodeService';
 import FeaturedService from '../../service/FeaturedService';
 import BookInfoConst from '../../constants/BookInfoConst';
+import SnackBarService from '../../service/SnackBarService';
+import { NotExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-file-info',
@@ -27,6 +29,7 @@ export class FileInfoComponent implements OnInit {
   isDownloading: boolean = false;
   isFeatured: boolean = false;
   isLocked: boolean = false;
+  isHighlighted: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -38,7 +41,8 @@ export class FileInfoComponent implements OnInit {
     private searchService: SearchService,
     private authService: AuthService,
     private qrCodeService: QRCodeService,
-    private featuredService: FeaturedService
+    private featuredService: FeaturedService,
+    private snackBarService: SnackBarService
   ) {}
 
   isAdminAuthenticated(): any {
@@ -55,6 +59,12 @@ export class FileInfoComponent implements OnInit {
             .subscribe((operationStatus) => {
               this.isFeatured = operationStatus.status;
             });
+          this.featuredService.isHighlight(+fileSystemItemId).subscribe({
+            next: (operationstatus) => {
+              this.isHighlighted = operationstatus.status;
+            },
+            error: () => {},
+          });
         }
         this.cursoredFileSystemService.get(+fileSystemItemId).subscribe({
           error: () => {
@@ -216,6 +226,24 @@ export class FileInfoComponent implements OnInit {
   }
   edit() {
     this.router.navigate([`/file-info/edit/${this.fileSystemItem!.id}`]);
+  }
+
+  setHighlighted() {
+    if (this.fileSystemItem?.id) {
+      this.featuredService.setHighlight(this.fileSystemItem!.id!).subscribe({
+        next: (operationStatus) => {
+          if (operationStatus.status) {
+            this.snackBarService.showInfoWithMessage('saved');
+            this.isHighlighted = true;
+            return;
+          }
+          this.snackBarService.showErrorWithMessage('unable to save');
+        },
+        error: () => {
+          this.snackBarService.showErrorWithMessage('unable to save');
+        },
+      });
+    }
   }
 
   addRemoveFeatured() {

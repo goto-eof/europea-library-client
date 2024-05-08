@@ -5,6 +5,7 @@
         <h1>{{ post.title }}</h1>
         <h4>{{ post.subtitle }}</h4>
         <p>{{ post.content }}</p>
+        <hr />
       </div>
       <div
         *ngIf="settings?.customDescriptionEnabled && !post && isAdministrator()"
@@ -12,21 +13,20 @@
         Please configure your home page content from the control panel
       </div>
       <div *ngIf="settings?.featuredBookWidgetEnabled">
-        <hr />
         <app-featured-book />
+        <hr />
       </div>
       <div *ngIf="settings?.featuredBooksWidgetEnabled">
-        <hr />
         <app-featured-books />
+        <hr />
       </div>
 
       <div *ngIf="settings?.newBooksWidgetEnabled">
-        <hr />
         <app-latest-books />
+        <hr />
       </div>
 
       <div *ngIf="settings?.popularBooksWidgetEnabled">
-        <hr />
         <app-popular-downloads-container />
       </div>
     </div>
