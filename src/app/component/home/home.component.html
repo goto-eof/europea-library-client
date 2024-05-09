@@ -4,9 +4,8 @@
       <h1>What is Europea Library?</h1>
       <p>
         A library web application that allows to index, edit, explore, retrieve
-        information about books from file metadata/web (by using
-        multi-threading), search and download e-books (need to be authenticated
-        in order to be able to download).
+        information about books from file metadata/web ( by using
+        multi-threading), search and download e-books.
       </p>
       <h1>How it works?</h1>
       <p>
@@ -22,9 +21,23 @@
         cases when the directory contains new e-books). After the job completed
         all steps, the API becomes available for queries, so that the client
         application can interact with the API ( otherwise an HTTP 404 status is
-        returned). Moreover, the indexer job starts every night at 11:00 PM
+        returned). Moreover, the indexer job starts every night at 00:00 PM
         (configurable). If the job is already running then it will continue to
-        process files and no other job will run.
+        process files and no other job will run. After the job finished it's
+        work, the e-book database is made available for exploration. In
+        particular, the front-end is able to list the files in different ways
+        and orders, it allows also to filter the results or search for a e-book.
+        Moreover, it is also possible to view e-book information, update it,
+        change the cover image and finally, download the e-book. The file
+        download is customizable, in particular, the administrator can choose if
+        only authenticated users should be able to download files or also not
+        authenticated users have this right. Currently, there are 3 categories
+        of users: ADMINISTRATOR, USER and not authenticated user. ADMINISTRATOR
+        is able to customize the Home Page, to run the job and reload the
+        application cache. While the user is able to download e-books (as I
+        said, this feature is customizable). All the users, authenticated and
+        not authenticated, are able to explore the library, search for an e-book
+        and view book information.
       </p>
     </div>
   </div>

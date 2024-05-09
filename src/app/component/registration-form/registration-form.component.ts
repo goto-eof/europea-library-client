@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthService from '../../service/AuthService';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import FormValidatorService from '../../service/FormValidatorService';
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.css',
 })
-export class RegistrationFormComponent {
+export class RegistrationFormComponent implements OnInit {
   registrationForm: FormGroup<any> = this.formBuilder.group({
     username: ['', FormValidatorService.getUsernameValidator()],
     password: ['', FormValidatorService.getPasswordValidator()],
@@ -30,6 +30,10 @@ export class RegistrationFormComponent {
     private navigationService: NavigationService,
     private snackBarService: SnackBarService
   ) {}
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
 
   toggleIsShowPasswordEnabled() {
     this.isShowPasswordEnabled = !this.isShowPasswordEnabled;
