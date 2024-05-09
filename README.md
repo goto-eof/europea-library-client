@@ -41,7 +41,13 @@ CSS • TypeScript • Angular 17 • Bootstrap UI
 
 ## Screenshots
 
+### New UI
+
 ![screenshot](/images/screenshot.png)
+
+### Comparison with the old version
+
+![screenshot old-new-version comparison](/images/old-new-version.png)
 
 ## More
 
