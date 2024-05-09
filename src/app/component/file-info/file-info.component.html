@@ -222,6 +222,13 @@
                 </td>
                 <td *ngIf="!fileSystemItem.extension">-</td>
               </tr>
+              <tr *ngIf="fileSystemItem && fileSystemItem.createdDate">
+                <td>Insert date</td>
+                <td *ngIf="fileSystemItem.createdDate">
+                  {{ fileSystemItem!.createdDate | date : "yyyy-MM-dd" }}
+                </td>
+                <td *ngIf="!fileSystemItem.createdDate">-</td>
+              </tr>
             </table>
           </td>
         </tr>

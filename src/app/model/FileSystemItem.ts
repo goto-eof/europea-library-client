@@ -11,4 +11,5 @@ export default interface FileSystemItem extends ModelCommon {
   parent?: FileSystemItem;
   childrenList?: Array<FileSystemItem>;
   downloadCount: number;
+  createdDate?: Date;
 }
