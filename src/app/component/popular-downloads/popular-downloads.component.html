@@ -12,7 +12,11 @@
       class="my-2 col-md-12"
       *ngFor="let item of genericCursoredResponse!.childrenList"
     >
-      <div class="card cursor-pointer" (click)="goToItem(item.id)">
+      <div
+        class="card cursor-pointer"
+        style="min-height: 250px"
+        (click)="goToItem(item.id)"
+      >
         <div class="row no-gutters">
           <div class="col-md-4 text-center text-md-left px-3 py-2">
             <div

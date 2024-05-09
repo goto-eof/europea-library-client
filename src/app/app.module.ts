@@ -77,6 +77,7 @@ import { PopularDownloadsComponent } from './component/popular-downloads/popular
 import { PopularDownloadsContainerComponent } from './component/popular-downloads-container/popular-downloads-container.component';
 import ApplicationSettingsService from './service/ApplicationSettingsService';
 import { FeaturedBookComponent } from './component/featured-book/featured-book.component';
+import { CpSecurityComponent } from './component/cp-security/cp-security.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,6 +128,7 @@ import { FeaturedBookComponent } from './component/featured-book/featured-book.c
     PopularDownloadsComponent,
     PopularDownloadsContainerComponent,
     FeaturedBookComponent,
+    CpSecurityComponent,
   ],
   imports: [
     BrowserModule,

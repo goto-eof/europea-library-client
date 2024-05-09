@@ -27,6 +27,22 @@
           <button
             *ngIf="isAdministrator()"
             class="nav-link rounded-0"
+            id="v-pills-home-page-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#v-pills-security"
+            type="button"
+            role="tab"
+            aria-controls="v-pills-security"
+            aria-selected="true"
+          >
+            <div class="d-flex flex-row">
+              <i class="bi bi-toggles me-2 d-inline-block"></i>
+              <span>Security</span>
+            </div>
+          </button>
+          <button
+            *ngIf="isAdministrator()"
+            class="nav-link rounded-0"
             id="v-pills-home-tab"
             data-bs-toggle="pill"
             data-bs-target="#v-pills-home"
@@ -88,6 +104,23 @@
               <app-cp-home-page-editor />
             </div>
           </div>
+
+          <div
+            *ngIf="isAdministrator()"
+            class="tab-pane fade show pb-5"
+            id="v-pills-security"
+            role="tabpanel"
+            aria-labelledby="v-pills-security"
+          >
+            <h1 class="pb-3 pt-3 text-start">
+              <i class="bi bi-protection"></i> Security
+            </h1>
+            <hr />
+            <div class="vstack">
+              <app-cp-security />
+            </div>
+          </div>
+
           <div
             *ngIf="isAdministrator()"
             class="tab-pane fade show pb-5"
