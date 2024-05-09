@@ -36,9 +36,9 @@ export class CustomHomePageComponent implements OnInit {
               this.post = post;
             },
             error: () => {
-              if (!this.isAdministrator()) {
-                this.router.navigate(['/about']);
-              }
+              // if (!this.isAdministrator()) {
+              //   this.router.navigate(['/about']);
+              // }
             },
           });
       },
