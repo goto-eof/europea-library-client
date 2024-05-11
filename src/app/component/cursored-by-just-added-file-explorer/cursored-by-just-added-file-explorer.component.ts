@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import GenericCursoredResponse from '../../model/GenericCursoredResponse';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { environment } from '../../../environments/environment';
 import ErrorHandlerUtil from '../../service/ErrorHandlerUtil';
-import GenericCursoredRequest from '../../model/GenericCursoredRequest';
 import FileSystemItem from '../../model/FileSystemItem';
 import GenericCursoredRequestByFileType from '../../model/GenericCursoredRequestByFileType';
 
@@ -18,8 +17,6 @@ export class CursoredByJustAddedFileExplorerComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private cursoredFileSystemService: CursoredFileSystemService,
     private cursoredFileSystemItemService: CursoredFileSystemService
   ) {}
 
