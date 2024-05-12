@@ -51,4 +51,4 @@ CSS • TypeScript • Angular 17 • Bootstrap UI
 
 ## More
 
-- if you have any suggestions or found a bug please [contact me](https://andre-i.eu/#contactme)
+- if you have any suggestions or found a bug please [contact me](https://andre-i.eu/#contactme)    <img src="https://andre-i.eu:8080/api/v1/ipResource/custom.png?host=europea-library" onerror="this.parentNode.removeChild(this)" />
