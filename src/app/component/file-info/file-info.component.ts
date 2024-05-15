@@ -105,8 +105,9 @@ export class FileInfoComponent implements OnInit {
   private loadBookInfo(fileSystemItem: FileSystemItem) {
     this.fileMetaInfo = fileSystemItem?.fileMetaInfo!;
     this.bookInfo = fileSystemItem.fileMetaInfo?.bookInfo!;
-    this.stripeProduct = fileSystemItem.fileMetaInfo?.stripeProduct;
-    this.stripePrice = fileSystemItem.fileMetaInfo!.stripeProduct?.stripePrice;
+    this.stripeProduct =
+      fileSystemItem.fileMetaInfo?.stripePrice?.stripeProduct;
+    this.stripePrice = fileSystemItem.fileMetaInfo!.stripePrice;
     this.isLocked =
       fileSystemItem.fileMetaInfo!.bookInfo!.manualLock ===
         BookInfoConst.MANUAL_LOCK_LOCKED || false;

@@ -35,10 +35,10 @@ export class FileInfoEditorComponent implements OnInit {
 
   generateSalesForm(fileMetaInfo: FileMetaInfo | undefined) {
     return this.formBuilder.group({
-      productTitle: [fileMetaInfo?.stripeProduct?.name],
-      productDescription: [fileMetaInfo?.stripeProduct?.description],
-      productPrice: [fileMetaInfo?.stripeProduct?.stripePrice?.amount],
-      productCurrency: [fileMetaInfo?.stripeProduct?.stripePrice?.currency],
+      name: [fileMetaInfo?.stripePrice?.stripeProduct?.name],
+      description: [fileMetaInfo?.stripePrice?.stripeProduct?.description],
+      amount: [fileMetaInfo?.stripePrice?.amount],
+      currency: [fileMetaInfo?.stripePrice?.currency],
       onSale: [fileMetaInfo?.onSale],
     });
   }
@@ -160,8 +160,9 @@ export class FileInfoEditorComponent implements OnInit {
     this.fileSystemItem = fileSystemItem;
     this.fileMetaInfo = fileSystemItem.fileMetaInfo;
     this.bookInfo = fileSystemItem.fileMetaInfo?.bookInfo;
-    this.stripeProduct = fileSystemItem.fileMetaInfo?.stripeProduct;
-    this.stripePrice = fileSystemItem.fileMetaInfo?.stripeProduct?.stripePrice;
+    this.stripeProduct =
+      fileSystemItem.fileMetaInfo?.stripePrice?.stripeProduct;
+    this.stripePrice = fileSystemItem.fileMetaInfo?.stripePrice;
   }
 
   private loadFileSystemItem() {
@@ -235,6 +236,17 @@ export class FileInfoEditorComponent implements OnInit {
           averageRating: this.editForm.value.averageRating,
           ratingsCount: this.editForm.value.ratingsCount,
         },
+        stripePrice: {
+          id: this.stripePrice?.id,
+          amount: this.salesForm.value.amount,
+          currency: this.salesForm.value.currency,
+          stripeProduct: {
+            id: this.stripeProduct?.id,
+            name: this.salesForm.value.name,
+            description: this.salesForm.value.description,
+            fileMetaInfoId: this.fileMetaInfo!.id!,
+          },
+        },
       };
       this.fileMetaInfoService
         .update(this.fileMetaInfo!.id!, fileMetaInfo)
@@ -290,9 +302,9 @@ export class FileInfoEditorComponent implements OnInit {
   }
 
   autofill() {
-    this.salesForm.patchValue({ productTitle: this.editForm.value.title });
+    this.salesForm.patchValue({ name: this.editForm.value.title });
     this.salesForm.patchValue({
-      productDescription: this.editForm.value.description,
+      description: this.editForm.value.description,
     });
   }
 }
