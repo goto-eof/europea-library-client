@@ -25,7 +25,7 @@
 # Europea Library (client)
 
 A library web application that allows to index, edit, explore, retrieve information about books from file metadata/web (by using
-multithreading), search and download e-books. The back-end project can be cloned [here](https://github.com/goto-eof/europea-library-server).
+multithreading), search, download and buy/sell (WIP) e-books. The back-end project can be cloned [here](https://github.com/goto-eof/europea-library-server).
 
 ## Configure the application
 
@@ -51,4 +51,4 @@ CSS • TypeScript • Angular 17 • Bootstrap UI
 
 ## More
 
-- if you have any suggestions or found a bug please [contact me](https://andre-i.eu/#contactme)    <img src="https://andre-i.eu:8080/api/v1/ipResource/custom.png?host=https://github.com/goto-eof/europea-library-client" onerror="this.parentNode.removeChild(this)" />
+- if you have any suggestions or found a bug please [contact me](https://andre-i.eu/#contactme) <img src="https://andre-i.eu:8080/api/v1/ipResource/custom.png?host=https://github.com/goto-eof/europea-library-client" onerror="this.parentNode.removeChild(this)" />
