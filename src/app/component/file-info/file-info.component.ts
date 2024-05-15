@@ -279,12 +279,12 @@ export class FileInfoComponent implements OnInit {
       return;
     }
     if (this.isLocked) {
-      this.bookInfoService.unlock(this.bookInfo!.id!).subscribe(() => {
+      this.bookInfoService.unlock(this.fileMetaInfo!.id!).subscribe(() => {
         this.isLocked = false;
       });
       return;
     }
-    this.bookInfoService.lock(this.bookInfo!.id!).subscribe(() => {
+    this.bookInfoService.lock(this.fileMetaInfo!.id!).subscribe(() => {
       this.isLocked = true;
     });
   }
