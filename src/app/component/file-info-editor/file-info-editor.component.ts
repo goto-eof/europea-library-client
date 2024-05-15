@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import FileSystemItem from '../../model/FileSystemItem';
 import { ActivatedRoute, Router } from '@angular/router';
 import BookInfoService from '../../service/BookInfoService';
-import FileMetaInfoBook from '../../model/FileMetaInfoBook';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import CursoredFileSystemService from '../../service/CursoredFileSystemService';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import SnackBarService from '../../service/SnackBarService';
+import FileMetaInfo from '../../model/FileMetaInfo';
+import BookInfo from '../../model/BookInfo';
+import StripeProduct from '../../model/StripeProduct';
+import StripePrice from '../../model/StripePrice';
+import FileMetaInfoService from '../../service/FileMetaInfoService';
 
 @Component({
   selector: 'app-file-info-editor',
@@ -15,8 +19,11 @@ import SnackBarService from '../../service/SnackBarService';
   styleUrl: './file-info-editor.component.css',
 })
 export class FileInfoEditorComponent implements OnInit {
-  bookInfo?: FileMetaInfoBook;
+  bookInfo?: BookInfo;
+  fileMetaInfo?: FileMetaInfo;
   fileSystemItem?: FileSystemItem;
+  stripeProduct?: StripeProduct;
+  stripePrice?: StripePrice;
   editForm: FormGroup<any> = this.generateForm(undefined);
   salesForm: FormGroup<any> = this.generateSalesForm(undefined);
   managerForm: FormGroup<any> = this.generateManagerForm(undefined);
@@ -26,50 +33,64 @@ export class FileInfoEditorComponent implements OnInit {
     this.router.navigate([`/explorer/${fileSystemItem.id}`]);
   }
 
-  generateSalesForm(data: FileMetaInfoBook | undefined) {
+  generateSalesForm(fileMetaInfo: FileMetaInfo | undefined) {
     return this.formBuilder.group({
-      productTitle: [''],
-      productDescription: [''],
-      productPrice: [0],
-      productCurrency: ['eur'],
-      onSale: [data?.onSale],
+      productTitle: [fileMetaInfo?.stripeProduct?.name],
+      productDescription: [fileMetaInfo?.stripeProduct?.description],
+      productPrice: [fileMetaInfo?.stripeProduct?.stripePrice?.amount],
+      productCurrency: [fileMetaInfo?.stripeProduct?.stripePrice?.currency],
+      onSale: [fileMetaInfo?.onSale],
     });
   }
 
-  generateManagerForm(data: FileMetaInfoBook | undefined) {
+  generateManagerForm(fileMetaInfo: FileMetaInfo | undefined) {
     return this.formBuilder.group({
-      hidden: [data?.hidden],
+      hidden: [fileMetaInfo?.hidden],
     });
   }
 
-  generateForm(data: FileMetaInfoBook | undefined) {
+  generateForm(fileMetaInfo: FileMetaInfo | undefined) {
     return this.formBuilder.group({
-      title: [data?.title?.trim(), Validators.maxLength(512)],
-      publisher: [data?.publisher?.trim(), [Validators.maxLength(100)]],
-      description: [data?.description?.trim(), [Validators.maxLength(4000)]],
-      publishedDate: [data?.publishedDate?.trim(), [Validators.maxLength(50)]],
+      title: [fileMetaInfo?.title?.trim(), Validators.maxLength(512)],
+      publisher: [
+        fileMetaInfo?.bookInfo?.publisher?.trim(),
+        [Validators.maxLength(100)],
+      ],
+      description: [
+        fileMetaInfo?.description?.trim(),
+        [Validators.maxLength(4000)],
+      ],
+      publishedDate: [
+        fileMetaInfo?.bookInfo?.publishedDate?.trim(),
+        [Validators.maxLength(50)],
+      ],
       isbn10: [
-        data?.isbn10?.trim(),
+        fileMetaInfo?.bookInfo?.isbn10?.trim(),
         [Validators.maxLength(10), Validators.minLength(10)],
       ],
       isbn13: [
-        data?.isbn13?.trim(),
+        fileMetaInfo?.bookInfo?.isbn13?.trim(),
         [Validators.maxLength(13), Validators.minLength(13)],
       ],
-      authors: [data?.authors, Validators.maxLength(500)],
-      note: [data?.note?.trim(), Validators.maxLength(2000)],
-      numberOfPages: data?.numberOfPages,
-      language: [data?.language?.trim(), Validators.maxLength(10)],
+      authors: [fileMetaInfo?.bookInfo?.authors, Validators.maxLength(500)],
+      note: [fileMetaInfo?.bookInfo?.note?.trim(), Validators.maxLength(2000)],
+      numberOfPages: fileMetaInfo?.bookInfo?.numberOfPages,
+      language: [
+        fileMetaInfo?.bookInfo?.language?.trim(),
+        Validators.maxLength(10),
+      ],
       categoryList: [
-        data?.categoryList.map((category) => category.name.trim()).join(','),
+        fileMetaInfo?.bookInfo?.categoryList
+          .map((category) => category.name.trim())
+          .join(','),
         Validators.maxLength(1000),
       ],
       tagList: [
-        data?.tagList.map((tag) => tag.name.trim()).join(','),
+        fileMetaInfo?.tagList.map((tag) => tag.name.trim()).join(','),
         Validators.maxLength(1000),
       ],
-      averageRating: [data?.averageRating],
-      ratingsCount: [data?.ratingsCount],
+      averageRating: [fileMetaInfo?.bookInfo?.averageRating],
+      ratingsCount: [fileMetaInfo?.bookInfo?.ratingsCount],
     });
   }
 
@@ -81,7 +102,7 @@ export class FileInfoEditorComponent implements OnInit {
     private location: Location,
     private bookInfoService: BookInfoService,
     private cursoredFileSystemService: CursoredFileSystemService,
-    private fileMetaInfoService: BookInfoService,
+    private fileMetaInfoService: FileMetaInfoService,
     private snackBarService: SnackBarService
   ) {}
 
@@ -89,15 +110,7 @@ export class FileInfoEditorComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((map) => {
       const fileSystemItemId: string | null = map.get('fileSystemItemId');
       if (fileSystemItemId) {
-        this.cursoredFileSystemService.get(+fileSystemItemId).subscribe({
-          error: () => {
-            this.loadFileSystemItem();
-          },
-          next: (fsi: FileSystemItem) => {
-            this.fileSystemItem = fsi;
-          },
-        });
-        this.loadBookInfo(fileSystemItemId);
+        this.retrieveFileSystemItem(+fileSystemItemId);
       }
     });
     window.scrollTo(0, 0);
@@ -114,18 +127,41 @@ export class FileInfoEditorComponent implements OnInit {
   submitSalesForm(): void {}
   submitManagerForm(): void {}
 
-  private loadBookInfo(fileSystemItemId: string) {
-    this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
-      next: (data) => {
-        this.bookInfo = data;
-        this.editForm = this.generateForm(data);
-        this.salesForm = this.generateSalesForm(data);
-        this.managerForm = this.generateManagerForm(data);
-      },
+  // private loadBookInfo(fileSystemItemId: string) {
+  //   this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
+  //     next: (data) => {
+  //       this.bookInfo = data;
+  //       this.editForm = this.generateForm(data);
+  //       this.salesForm = this.generateSalesForm(data);
+  //       this.managerForm = this.generateManagerForm(data);
+  //     },
+  //     error: () => {
+  //       this.router.navigate(['/page-not-found']);
+  //     },
+  //   });
+  // }
+
+  private retrieveFileSystemItem(fileSystemItemId: number) {
+    this.cursoredFileSystemService.get(fileSystemItemId).subscribe({
       error: () => {
-        this.router.navigate(['/page-not-found']);
+        this.loadFileSystemItem();
+      },
+      next: (fsi: FileSystemItem) => {
+        this.fileSystemItem = fsi;
+        this.explode(fsi);
+        this.editForm = this.generateForm(this.fileMetaInfo);
+        this.salesForm = this.generateSalesForm(this.fileMetaInfo);
+        this.managerForm = this.generateManagerForm(this.fileMetaInfo);
       },
     });
+  }
+
+  private explode(fileSystemItem: FileSystemItem) {
+    this.fileSystemItem = fileSystemItem;
+    this.fileMetaInfo = fileSystemItem.fileMetaInfo;
+    this.bookInfo = fileSystemItem.fileMetaInfo?.bookInfo;
+    this.stripeProduct = fileSystemItem.fileMetaInfo?.stripeProduct;
+    this.stripePrice = fileSystemItem.fileMetaInfo?.stripeProduct?.stripePrice;
   }
 
   private loadFileSystemItem() {
@@ -142,35 +178,9 @@ export class FileInfoEditorComponent implements OnInit {
 
   update() {
     if (this.editForm?.valid) {
-      const fileMetaInfoBook: FileMetaInfoBook = {
-        id: this.bookInfo?.id,
+      const fileMetaInfo: FileMetaInfo = {
+        id: this.fileMetaInfo?.id,
         title: !!!this.editForm.value.title ? null : this.editForm.value.title,
-        publisher: !!!this.editForm.value.publisher
-          ? null
-          : this.editForm.value.publisher,
-        authors: !!!this.editForm.value.authors
-          ? null
-          : this.editForm.value.authors,
-        description: !!!this.editForm.value.description
-          ? null
-          : this.editForm.value.description,
-        publishedDate: !!!this.editForm.value.publishedDate
-          ? null
-          : this.editForm.value.publishedDate,
-        isbn10: !!!this.editForm.value.isbn10
-          ? null
-          : this.editForm.value.isbn10,
-        isbn13: !!!this.editForm.value.isbn13
-          ? null
-          : this.editForm.value.isbn13,
-        imageUrl: undefined,
-        language: !!!this.editForm.value.language
-          ? null
-          : this.editForm.value.language!,
-        numberOfPages: !!!this.editForm.value.numberOfPages
-          ? null
-          : this.editForm.value.numberOfPages,
-        note: !!!this.editForm.value.note! ? null : this.editForm.value.note,
         tagList: !!!this.editForm.value.tagList
           ? []
           : this.editForm.value.tagList
@@ -181,23 +191,53 @@ export class FileInfoEditorComponent implements OnInit {
                   name: tag,
                 };
               }),
-        categoryList: !!!this.editForm.value.categoryList
-          ? []
-          : this.editForm.value.categoryList
-              .trim()
-              .split(',')
-              .map((category: string) => {
-                return {
-                  name: category,
-                };
-              }),
-        averageRating: this.editForm.value.averageRating,
-        ratingsCount: this.editForm.value.ratingsCount,
+        description: !!!this.editForm.value.description
+          ? null
+          : this.editForm.value.description,
         onSale: this.salesForm.value.onSale || false,
         hidden: this.managerForm.value.hidden || false,
+        bookInfo: {
+          publisher: !!!this.editForm.value.publisher
+            ? null
+            : this.editForm.value.publisher,
+          authors: !!!this.editForm.value.authors
+            ? null
+            : this.editForm.value.authors,
+
+          publishedDate: !!!this.editForm.value.publishedDate
+            ? null
+            : this.editForm.value.publishedDate,
+          isbn10: !!!this.editForm.value.isbn10
+            ? null
+            : this.editForm.value.isbn10,
+          isbn13: !!!this.editForm.value.isbn13
+            ? null
+            : this.editForm.value.isbn13,
+          imageUrl: undefined,
+          language: !!!this.editForm.value.language
+            ? null
+            : this.editForm.value.language!,
+          numberOfPages: !!!this.editForm.value.numberOfPages
+            ? null
+            : this.editForm.value.numberOfPages,
+          note: !!!this.editForm.value.note! ? null : this.editForm.value.note,
+
+          categoryList: !!!this.editForm.value.categoryList
+            ? []
+            : this.editForm.value.categoryList
+                .trim()
+                .split(',')
+                .map((category: string) => {
+                  return {
+                    name: category,
+                  };
+                }),
+          averageRating: this.editForm.value.averageRating,
+          ratingsCount: this.editForm.value.ratingsCount,
+        },
       };
       this.fileMetaInfoService
-        .update(this.bookInfo!.id!, fileMetaInfoBook)
+        .update(this.fileMetaInfo!.id!, fileMetaInfo)
         .subscribe(() => {
           this.router.navigate([`/file-info/${this.fileSystemItem!.id}`]);
         });
@@ -227,14 +267,14 @@ export class FileInfoEditorComponent implements OnInit {
 
       formData.append('image', file);
 
-      this.fileMetaInfoService
-        .uploadBookCover(this.bookInfo!.id!, formData)
+      this.bookInfoService
+        .uploadBookCover(this.fileMetaInfo!.id!, formData)
         .subscribe({
           next: (response) => {
             this.snackBarService.showInfoWithMessage(
               response.status ? 'Image uploaded successfully' : 'Server error'
             );
-            this.loadBookInfoImageUrl(this.fileSystemItem!.id!);
+            this.loadBookInfoImageUrl(file);
           },
           error: () => {
             this.snackBarService.showErrorWithMessage(
@@ -245,15 +285,8 @@ export class FileInfoEditorComponent implements OnInit {
     }
   }
 
-  loadBookInfoImageUrl(fileSystemItemId: number) {
-    this.bookInfoService.retrieveByFileSystemId(fileSystemItemId).subscribe({
-      next: (data) => {
-        this.bookInfo!.imageUrl = data.imageUrl;
-      },
-      error: () => {
-        this.router.navigate(['/page-not-found']);
-      },
-    });
+  loadBookInfoImageUrl(file: File) {
+    this.bookInfo!.imageUrl = URL.createObjectURL(file);
   }
 
   autofill() {

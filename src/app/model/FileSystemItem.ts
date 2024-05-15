@@ -1,3 +1,4 @@
+import FileMetaInfo from './FileMetaInfo';
 import ModelCommon from './ModelCommon';
 
 export default interface FileSystemItem extends ModelCommon {
@@ -12,4 +13,5 @@ export default interface FileSystemItem extends ModelCommon {
   childrenList?: Array<FileSystemItem>;
   downloadCount: number;
   createdDate?: Date;
+  fileMetaInfo?: FileMetaInfo;
 }

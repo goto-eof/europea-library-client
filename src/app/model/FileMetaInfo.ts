@@ -1,4 +1,6 @@
+import BookInfo from './BookInfo';
 import ModelCommon from './ModelCommon';
+import StripeProduct from './StripeProduct';
 import Tag from './Tag';
 
 export default interface FileMetaInfo extends ModelCommon {
@@ -8,4 +10,6 @@ export default interface FileMetaInfo extends ModelCommon {
   onSale: boolean;
   price?: number;
   hidden: boolean;
+  bookInfo?: BookInfo;
+  stripeProduct?: StripeProduct;
 }

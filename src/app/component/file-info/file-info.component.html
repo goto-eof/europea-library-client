@@ -90,7 +90,7 @@
               />
               <div class="hstack w-100">
                 <button
-                  *ngIf="!bookInfo.onSale"
+                  *ngIf="!fileMetaInfo?.onSale"
                   [disabled]="isDownloading"
                   class="pointer-cursor btn btn-primary mb-1 w-100"
                   (click)="download()"
@@ -100,13 +100,13 @@
                   }})
                 </button>
                 <button
-                  *ngIf="bookInfo.onSale"
+                  *ngIf="fileMetaInfo?.onSale"
                   [disabled]="isDownloading"
                   class="pointer-cursor btn btn-primary mb-1 w-100"
                   (click)="buy()"
                 >
                   <i class="bi bi-cart4 px-2"></i> Buy for only
-                  {{ bookInfo.price }}€
+                  {{ stripePrice?.amount || 0 }}€
                 </button>
               </div>
             </div>
@@ -120,15 +120,15 @@
               </div>
               <div
                 class="col-md-10 text-center text-md-start"
-                *ngIf="bookInfo.title"
+                *ngIf="fileMetaInfo!.title"
               >
                 <span class="cursor-pointer link"
                   ><a (click)="searchByTitle()">
-                    {{ bookInfo.title }}
+                    {{ fileMetaInfo!.title }}
                   </a>
                 </span>
               </div>
-              <td *ngIf="!bookInfo.title">-</td>
+              <td *ngIf="!fileMetaInfo!.title">-</td>
             </div>
             <div class="row pb-2">
               <div class="col-md-2 text-center text-md-start fw-bold">
@@ -279,11 +279,11 @@
               <div class="col-md-2 text-center text-md-start fw-bold">Tags</div>
               <div
                 class="col-md-10 text-center text-md-start"
-                *ngIf="bookInfo.tagList.length > 0"
+                *ngIf="fileMetaInfo!.tagList.length > 0"
               >
                 <div
                   class="tag"
-                  *ngFor="let tag of bookInfo.tagList"
+                  *ngFor="let tag of fileMetaInfo!.tagList"
                   (click)="goToTag(tag)"
                 >
                   {{ tag.name }}
@@ -291,7 +291,7 @@
               </div>
               <div
                 class="col-md-10 text-center text-md-start"
-                *ngIf="bookInfo.tagList.length === 0"
+                *ngIf="fileMetaInfo!.tagList.length === 0"
               >
                 -
               </div>
@@ -300,12 +300,15 @@
               <div class="col-md-2 text-center text-md-start fw-bold">
                 Description
               </div>
-              <div class="col-md-10 text-justify" *ngIf="bookInfo.description">
-                {{ bookInfo.description }}
+              <div
+                class="col-md-10 text-justify"
+                *ngIf="fileMetaInfo!.description"
+              >
+                {{ fileMetaInfo!.description }}
               </div>
               <div
                 class="col-md-10 text-center text-md-start"
-                *ngIf="!bookInfo.description"
+                *ngIf="!fileMetaInfo!.description"
               >
                 -
               </div>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import FileSystemItem from '../../model/FileSystemItem';
 import { ActivatedRoute, Router } from '@angular/router';
 import BookInfoService from '../../service/BookInfoService';
-import FileMetaInfoBook from '../../model/FileMetaInfoBook';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
 import Category from '../../model/Category';
@@ -15,6 +14,10 @@ import QRCodeService from '../../service/QRCodeService';
 import FeaturedService from '../../service/FeaturedService';
 import BookInfoConst from '../../constants/BookInfoConst';
 import SnackBarService from '../../service/SnackBarService';
+import BookInfo from '../../model/BookInfo';
+import FileMetaInfo from '../../model/FileMetaInfo';
+import StripeProduct from '../../model/StripeProduct';
+import StripePrice from '../../model/StripePrice';
 
 @Component({
   selector: 'app-file-info',
@@ -22,8 +25,11 @@ import SnackBarService from '../../service/SnackBarService';
   styleUrl: './file-info.component.css',
 })
 export class FileInfoComponent implements OnInit {
-  bookInfo?: FileMetaInfoBook;
+  bookInfo?: BookInfo;
+  fileMetaInfo?: FileMetaInfo;
   fileSystemItem?: FileSystemItem;
+  stripeProduct?: StripeProduct;
+  stripePrice?: StripePrice;
   base64DownloadQRCode?: string;
   isDownloading: boolean = false;
   isFeatured: boolean = false;
@@ -71,6 +77,8 @@ export class FileInfoComponent implements OnInit {
           },
           next: (fsi: FileSystemItem) => {
             this.fileSystemItem = fsi;
+            this.loadBookInfo(fsi);
+
             this.qrCodeService
               .retrieveDownloadLink(fsi.id!)
               .subscribe((binaryImage) => {
@@ -79,7 +87,6 @@ export class FileInfoComponent implements OnInit {
               });
           },
         });
-        this.loadBookInfo(fileSystemItemId);
       }
     });
     window.scrollTo(0, 0);
@@ -95,17 +102,14 @@ export class FileInfoComponent implements OnInit {
     return window.btoa(binary);
   }
 
-  private loadBookInfo(fileSystemItemId: string) {
-    this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
-      next: (data) => {
-        this.bookInfo = data;
-        this.isLocked =
-          data.manualLock === BookInfoConst.MANUAL_LOCK_LOCKED || false;
-      },
-      error: () => {
-        this.router.navigate(['/page-not-found']);
-      },
-    });
+  private loadBookInfo(fileSystemItem: FileSystemItem) {
+    this.fileMetaInfo = fileSystemItem?.fileMetaInfo!;
+    this.bookInfo = fileSystemItem.fileMetaInfo?.bookInfo!;
+    this.stripeProduct = fileSystemItem.fileMetaInfo?.stripeProduct;
+    this.stripePrice = fileSystemItem.fileMetaInfo!.stripeProduct?.stripePrice;
+    this.isLocked =
+      fileSystemItem.fileMetaInfo!.bookInfo!.manualLock ===
+        BookInfoConst.MANUAL_LOCK_LOCKED || false;
   }
 
   private loadFileSystemItem() {
@@ -193,7 +197,7 @@ export class FileInfoComponent implements OnInit {
 
   searchByTitle() {
     const searchFileSystemItemRequest: SearchFileSystemItemRequest = {
-      title: this.bookInfo?.title,
+      title: this.fileMetaInfo!.title,
     };
     this.search(searchFileSystemItemRequest);
   }

@@ -78,6 +78,7 @@ import { PopularDownloadsContainerComponent } from './component/popular-download
 import ApplicationSettingsService from './service/ApplicationSettingsService';
 import { FeaturedBookComponent } from './component/featured-book/featured-book.component';
 import { CpSecurityComponent } from './component/cp-security/cp-security.component';
+import FileMetaInfoService from './service/FileMetaInfoService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -164,6 +165,7 @@ import { CpSecurityComponent } from './component/cp-security/cp-security.compone
     FeaturedService,
     PostService,
     ApplicationSettingsService,
+    FileMetaInfoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
