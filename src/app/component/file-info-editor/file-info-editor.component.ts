@@ -18,10 +18,28 @@ export class FileInfoEditorComponent implements OnInit {
   bookInfo?: FileMetaInfoBook;
   fileSystemItem?: FileSystemItem;
   editForm: FormGroup<any> = this.generateForm(undefined);
+  salesForm: FormGroup<any> = this.generateSalesForm(undefined);
+  managerForm: FormGroup<any> = this.generateManagerForm(undefined);
   filename = '';
 
   goToExplorer(fileSystemItem: FileSystemItem) {
     this.router.navigate([`/explorer/${fileSystemItem.id}`]);
+  }
+
+  generateSalesForm(data: FileMetaInfoBook | undefined) {
+    return this.formBuilder.group({
+      productTitle: [''],
+      productDescription: [''],
+      productPrice: [0],
+      productCurrency: ['eur'],
+      onSale: [data?.onSale],
+    });
+  }
+
+  generateManagerForm(data: FileMetaInfoBook | undefined) {
+    return this.formBuilder.group({
+      hidden: [data?.hidden],
+    });
   }
 
   generateForm(data: FileMetaInfoBook | undefined) {
@@ -85,15 +103,24 @@ export class FileInfoEditorComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  submit() {
+    this.submitForm();
+  }
+
   submitForm(): void {
     this.update();
   }
+
+  submitSalesForm(): void {}
+  submitManagerForm(): void {}
 
   private loadBookInfo(fileSystemItemId: string) {
     this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
       next: (data) => {
         this.bookInfo = data;
         this.editForm = this.generateForm(data);
+        this.salesForm = this.generateSalesForm(data);
+        this.managerForm = this.generateManagerForm(data);
       },
       error: () => {
         this.router.navigate(['/page-not-found']);
@@ -166,6 +193,8 @@ export class FileInfoEditorComponent implements OnInit {
               }),
         averageRating: this.editForm.value.averageRating,
         ratingsCount: this.editForm.value.ratingsCount,
+        onSale: this.salesForm.value.onSale || false,
+        hidden: this.managerForm.value.hidden || false,
       };
       this.fileMetaInfoService
         .update(this.bookInfo!.id!, fileMetaInfoBook)
@@ -224,6 +253,13 @@ export class FileInfoEditorComponent implements OnInit {
       error: () => {
         this.router.navigate(['/page-not-found']);
       },
+    });
+  }
+
+  autofill() {
+    this.salesForm.patchValue({ productTitle: this.editForm.value.title });
+    this.salesForm.patchValue({
+      productDescription: this.editForm.value.description,
     });
   }
 }

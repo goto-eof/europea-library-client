@@ -6,233 +6,383 @@
 <div class="container mt-1 mb-5" *ngIf="bookInfo">
   <div class="card">
     <div class="card-body">
-      <table>
-        <tr>
-          <td>
-            <table>
-              <tr>
-                <td>
-                  <div class="vstack">
-                    <img class="book-cover" [src]="bookInfo.imageUrl" />
-                    <div class="d-flex justify-content-center p-2">
-                      <app-rating
-                        *ngIf="bookInfo.averageRating"
-                        [averageRating]="bookInfo.averageRating || 0"
-                        [ratingsCount]="bookInfo.ratingsCount || 0"
-                      />
-                    </div>
-                    <img
-                      *ngIf="base64DownloadQRCode"
-                      [src]="'data:image/png;base64,' + base64DownloadQRCode"
-                    />
-                    <button
-                      [disabled]="isDownloading"
-                      class="pointer-cursor btn btn-primary mb-1"
-                      (click)="download()"
-                    >
-                      <i class="bi bi-cloud-download-fill px-2"></i> Download
-                      ({{ fileSystemItem?.downloadCount }})
-                    </button>
-                    <div class="hstack">
-                      <button
-                        *ngIf="isAdminAuthenticated()"
-                        class="btn btn-warning mb-1 w-25 me-2"
-                        (click)="edit()"
-                      >
-                        <i class="bi bi-pen-fill px-2"></i>
-                      </button>
-                      <button
-                        *ngIf="isAdminAuthenticated()"
-                        class="btn w-25 mb-1 me-2"
-                        [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
-                        (click)="addRemoveFeatured()"
-                      >
-                        <i
-                          class="bi px-2"
-                          [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
-                        ></i>
-                      </button>
-                      <button
-                        *ngIf="isAdminAuthenticated()"
-                        class="btn w-25 mb-1 me-2"
-                        [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
-                        (click)="lockUnlock()"
-                      >
-                        <i
-                          class="bi px-2"
-                          [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
-                        ></i>
-                      </button>
-                      <button
-                        *ngIf="isAdminAuthenticated()"
-                        class="btn w-25 mb-1"
-                        [class]="isHighlighted ? 'btn-danger' : 'btn-secondary'"
-                        (click)="setHighlighted()"
-                      >
-                        <i
-                          class="bi px-2"
-                          [class]="
-                            isHighlighted
-                              ? 'bi-arrow-through-heart-fill'
-                              : 'bi-arrow-through-heart'
-                          "
-                        ></i>
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td>
-            <table>
-              <tr>
-                <td>Title</td>
-                <td *ngIf="bookInfo.title">
-                  <span class="cursor-pointer link"
-                    ><a (click)="searchByTitle()">
-                      {{ bookInfo.title }}
-                    </a>
-                  </span>
-                </td>
-                <td *ngIf="!bookInfo.title">-</td>
-              </tr>
-              <tr>
-                <td>Authors</td>
-                <td *ngIf="bookInfo.authors">
-                  <span class="cursor-pointer link">
-                    <a (click)="searchByAuthor()">{{ bookInfo.authors }}</a>
-                  </span>
-                </td>
-                <td *ngIf="!bookInfo.authors">-</td>
-              </tr>
-              <tr>
-                <td>ISBN 10:</td>
-                <td *ngIf="bookInfo.isbn10">
-                  <span class="cursor-pointer link"
-                    ><a (click)="searchByIsbn10()">{{
-                      bookInfo.isbn10
-                    }}</a></span
-                  >
-                </td>
-                <td *ngIf="!bookInfo.isbn10">-</td>
-              </tr>
-              <tr>
-                <td>ISBN 13:</td>
-                <td *ngIf="bookInfo.isbn13">
-                  <span class="cursor-pointer link"
-                    ><a (click)="searchByIsbn13()">{{
-                      bookInfo.isbn13
-                    }}</a></span
-                  >
-                </td>
-                <td *ngIf="!bookInfo.isbn13">-</td>
-              </tr>
-              <tr>
-                <td>Number of pages:</td>
-                <td *ngIf="bookInfo.numberOfPages">
-                  {{ bookInfo.numberOfPages }}
-                </td>
-                <td *ngIf="!bookInfo.numberOfPages">-</td>
-              </tr>
-              <tr>
-                <td>Language:</td>
-                <td *ngIf="bookInfo.language">
-                  <span class="cursor-pointer link"
-                    ><a (click)="searchByLanguage()">{{
-                      bookInfo.language
-                    }}</a></span
-                  >
-                </td>
-                <td *ngIf="!bookInfo.language">-</td>
-              </tr>
-              <tr>
-                <td>Note</td>
-                <td *ngIf="bookInfo.note">{{ bookInfo.note }}</td>
-                <td *ngIf="!bookInfo.note">-</td>
-              </tr>
-              <tr>
-                <td>Publisher</td>
-                <td>
-                  <span *ngIf="bookInfo.publisher" class="cursor-pointer link">
-                    <a (click)="searchByPublisher()">{{
-                      bookInfo.publisher
-                    }}</a></span
-                  >
-                  <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
-                    >,
-                  </span>
-                  <span
-                    *ngIf="bookInfo.publishedDate"
-                    class="cursor-pointer link"
-                  >
-                    <a (click)="searchByPublishedDate()">
-                      {{ bookInfo.publishedDate }}
-                    </a>
-                  </span>
-                  <span *ngIf="!bookInfo.publishedDate && !bookInfo.publisher"
-                    >-</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>Categories</td>
-                <td *ngIf="bookInfo.categoryList.length > 0">
-                  <div
-                    class="category m-1"
-                    *ngFor="let category of bookInfo.categoryList"
-                    (click)="goToCategory(category)"
-                  >
-                    {{ category.name }}
-                  </div>
-                </td>
-                <td *ngIf="bookInfo.categoryList.length === 0">-</td>
-              </tr>
-              <tr>
-                <td>Tags</td>
-                <td *ngIf="bookInfo.tagList.length > 0">
-                  <div
-                    class="tag"
-                    *ngFor="let tag of bookInfo.tagList"
-                    (click)="goToTag(tag)"
-                  >
-                    {{ tag.name }}
-                  </div>
-                </td>
-                <td *ngIf="bookInfo.tagList.length === 0">-</td>
-              </tr>
-              <tr>
-                <td>Description</td>
-                <td *ngIf="bookInfo.description">
-                  {{ bookInfo.description }}
-                </td>
-                <td *ngIf="!bookInfo.description">-</td>
-              </tr>
-              <tr *ngIf="fileSystemItem && fileSystemItem.size">
-                <td>Size</td>
-                <td *ngIf="fileSystemItem.size">
-                  {{ fileSystemItem!.size | bytesToMegabytes }} Megabytes
-                </td>
-                <td *ngIf="!fileSystemItem.size">-</td>
-              </tr>
-              <tr *ngIf="fileSystemItem && fileSystemItem.extension">
-                <td>Format</td>
-                <td *ngIf="fileSystemItem.extension">
-                  {{ fileSystemItem!.extension }}
-                </td>
-                <td *ngIf="!fileSystemItem.extension">-</td>
-              </tr>
-              <tr *ngIf="fileSystemItem && fileSystemItem.createdDate">
-                <td>Insert date</td>
-                <td *ngIf="fileSystemItem.createdDate">
-                  {{ fileSystemItem!.createdDate | date : "yyyy-MM-dd" }}
-                </td>
-                <td *ngIf="!fileSystemItem.createdDate">-</td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+      <div class="row pb-2">
+        <div class="col-8 card-title">Book information</div>
+        <div class="col-4 text-end">
+          <div class="dropdown mb-1 ms-1" *ngIf="isAdminAuthenticated()">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-gear px-2"></i>
+            </button>
+            <div class="dropdown-menu">
+              <button class="btn btn-warning dropdown-item" (click)="edit()">
+                <i class="bi bi-pen-fill px-2"></i> Manage e-book
+              </button>
+
+              <hr class="dropdown-divider" />
+              <button
+                class="btn dropdown-item"
+                [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
+                (click)="lockUnlock()"
+              >
+                <i
+                  class="bi px-2"
+                  [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
+                ></i>
+                {{ isLocked ? "Unlock" : "Lock" }}
+              </button>
+              <hr class="dropdown-divider" />
+              <button
+                class="btn dropdown-item"
+                [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
+                (click)="addRemoveFeatured()"
+              >
+                <i
+                  class="bi px-2"
+                  [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
+                ></i>
+                {{ isFeatured ? "Remove from featured" : "Add as featured" }}
+              </button>
+              <button
+                class="btn dropdown-item"
+                [class]="isHighlighted ? 'btn-danger' : 'btn-secondary'"
+                (click)="setHighlighted()"
+              >
+                <i
+                  class="bi px-2"
+                  [class]="
+                    isHighlighted
+                      ? 'bi-arrow-through-heart-fill'
+                      : 'bi-arrow-through-heart'
+                  "
+                ></i>
+                {{
+                  isHighlighted
+                    ? "Already as main featured"
+                    : "Add as main featured"
+                }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pb-2">
+        <div class="col-sm-3">
+          <div class="vstack">
+            <div class="text-center">
+              <img class="img-fluid" [src]="bookInfo.imageUrl" />
+            </div>
+            <div class="vstack">
+              <div class="d-flex justify-content-center p-2">
+                <app-rating
+                  *ngIf="bookInfo.averageRating"
+                  [averageRating]="bookInfo.averageRating || 0"
+                  [ratingsCount]="bookInfo.ratingsCount || 0"
+                />
+              </div>
+              <img
+                *ngIf="base64DownloadQRCode"
+                [src]="'data:image/png;base64,' + base64DownloadQRCode"
+              />
+              <div class="hstack w-100">
+                <button
+                  *ngIf="!bookInfo.onSale"
+                  [disabled]="isDownloading"
+                  class="pointer-cursor btn btn-primary mb-1 w-100"
+                  (click)="download()"
+                >
+                  <i class="bi bi-cloud-download-fill px-2"></i> Download ({{
+                    fileSystemItem?.downloadCount
+                  }})
+                </button>
+                <button
+                  *ngIf="bookInfo.onSale"
+                  [disabled]="isDownloading"
+                  class="pointer-cursor btn btn-primary mb-1 w-100"
+                  (click)="buy()"
+                >
+                  <i class="bi bi-cart4 px-2"></i> Buy for only
+                  {{ bookInfo.price }}€
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <div class="">
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Title
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.title"
+              >
+                <span class="cursor-pointer link"
+                  ><a (click)="searchByTitle()">
+                    {{ bookInfo.title }}
+                  </a>
+                </span>
+              </div>
+              <td *ngIf="!bookInfo.title">-</td>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Authors
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.authors"
+              >
+                <span class="cursor-pointer link">
+                  <a (click)="searchByAuthor()">{{ bookInfo.authors }}</a>
+                </span>
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!bookInfo.authors"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                ISBN 10
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.isbn10"
+              >
+                <span class="cursor-pointer link"
+                  ><a (click)="searchByIsbn10()">{{ bookInfo.isbn10 }}</a></span
+                >
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!bookInfo.isbn10"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                ISBN 13
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.isbn13"
+              >
+                <span class="cursor-pointer link"
+                  ><a (click)="searchByIsbn13()">{{ bookInfo.isbn13 }}</a></span
+                >
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!bookInfo.isbn13"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Number of pages
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.numberOfPages"
+              >
+                {{ bookInfo.numberOfPages }}
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!bookInfo.numberOfPages"
+              >
+                -
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Language:
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.language"
+              >
+                <span class="cursor-pointer link"
+                  ><a (click)="searchByLanguage()">{{
+                    bookInfo.language
+                  }}</a></span
+                >
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!bookInfo.language"
+              >
+                -
+              </div>
+            </div>
+
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Publisher
+              </div>
+              <div class="col-md-10 text-center text-md-start">
+                <span *ngIf="bookInfo.publisher" class="cursor-pointer link">
+                  <a (click)="searchByPublisher()">{{
+                    bookInfo.publisher
+                  }}</a></span
+                >
+                <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
+                  >,
+                </span>
+                <span
+                  *ngIf="bookInfo.publishedDate"
+                  class="cursor-pointer link"
+                >
+                  <a (click)="searchByPublishedDate()">
+                    {{ bookInfo.publishedDate }}
+                  </a>
+                </span>
+                <span *ngIf="!bookInfo.publishedDate && !bookInfo.publisher"
+                  >-</span
+                >
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Categories
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.categoryList.length > 0"
+              >
+                <div
+                  class="category m-1"
+                  *ngFor="let category of bookInfo.categoryList"
+                  (click)="goToCategory(category)"
+                >
+                  {{ category.name }}
+                </div>
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.categoryList.length === 0"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">Tags</div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.tagList.length > 0"
+              >
+                <div
+                  class="tag"
+                  *ngFor="let tag of bookInfo.tagList"
+                  (click)="goToTag(tag)"
+                >
+                  {{ tag.name }}
+                </div>
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="bookInfo.tagList.length === 0"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Description
+              </div>
+              <div class="col-md-10 text-justify" *ngIf="bookInfo.description">
+                {{ bookInfo.description }}
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!bookInfo.description"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-md-2 text-center text-md-start fw-bold">Note</div>
+              <div
+                class="col-md-10 text-center text-md-start text-justify"
+                *ngIf="bookInfo.note"
+              >
+                {{ bookInfo.note }}
+              </div>
+              <div
+                class="col-md-2 text-center text-md-start fw-bold"
+                *ngIf="!bookInfo.note"
+              >
+                -
+              </div>
+            </div>
+            <div class="row pb-2" *ngIf="fileSystemItem && fileSystemItem.size">
+              <div class="col-md-2 text-center text-md-start fw-bold">Size</div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="fileSystemItem.size"
+              >
+                {{ fileSystemItem!.size | bytesToMegabytes }}
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!fileSystemItem.size"
+              >
+                -
+              </div>
+            </div>
+            <div
+              class="row pb-2"
+              *ngIf="fileSystemItem && fileSystemItem.extension"
+            >
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Format
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="fileSystemItem.extension"
+              >
+                {{ fileSystemItem!.extension }}
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!fileSystemItem.extension"
+              >
+                -
+              </div>
+            </div>
+            <div
+              class="row pb-2"
+              *ngIf="fileSystemItem && fileSystemItem.createdDate"
+            >
+              <div class="col-md-2 text-center text-md-start fw-bold">
+                Insert date
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="fileSystemItem.createdDate"
+              >
+                {{ fileSystemItem!.createdDate | date : "yyyy-MM-dd" }}
+              </div>
+              <div
+                class="col-md-10 text-center text-md-start"
+                *ngIf="!fileSystemItem.createdDate"
+              >
+                -
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

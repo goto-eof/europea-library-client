@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import FileSystemItem from '../../model/FileSystemItem';
 import { ActivatedRoute, Router } from '@angular/router';
 import BookInfoService from '../../service/BookInfoService';
@@ -15,7 +15,6 @@ import QRCodeService from '../../service/QRCodeService';
 import FeaturedService from '../../service/FeaturedService';
 import BookInfoConst from '../../constants/BookInfoConst';
 import SnackBarService from '../../service/SnackBarService';
-import { NotExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-file-info',
@@ -285,4 +284,6 @@ export class FileInfoComponent implements OnInit {
       this.isLocked = true;
     });
   }
+
+  buy() {}
 }

@@ -6,281 +6,484 @@
 <div class="container mt-1 mb-5" *ngIf="bookInfo">
   <div class="card">
     <div class="card-body">
-      <table>
-        <tr class="row">
-          <td class="col-3 p-2">
-            <table class="w-100">
-              <tr>
-                <td>
-                  <img class="book-cover" [src]="bookInfo.imageUrl" />
-                </td>
-              </tr>
-              <tr>
-                <td class="">
+      <div class="row pb-4">
+        <div class="col-md-9">Edit Book Information</div>
+        <div class="col-md-3 text-end">
+          <button (click)="submit()" class="btn btn-danger" type="submit">
+            Save changes
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="vstack">
+            <div class="text-center">
+              <img class="img-fluid" [src]="bookInfo.imageUrl" />
+            </div>
+            <input
+              type="file"
+              class="file-input"
+              (change)="onFileSelected($event)"
+              #fileUpload
+            />
+
+            <div class="file-upload pt-3">
+              {{ filename }}
+
+              <button
+                mat-mini-fab
+                class="btn btn-primary w-100"
+                (click)="fileUpload.click()"
+              >
+                Upload
+              </button>
+            </div>
+
+            <div class="d-flex justify-content-center p-2">
+              <app-rating
+                [averageRating]="bookInfo.averageRating || 0"
+                [ratingsCount]="bookInfo.ratingsCount || 0"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-9">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="book-info-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#book-info"
+                type="button"
+                role="tab"
+                aria-controls="book-info"
+                aria-selected="true"
+              >
+                Book information
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="sales-manager-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#sales-manager"
+                type="button"
+                role="tab"
+                aria-controls="sales-manager"
+                aria-selected="false"
+              >
+                Sales manager
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="book-manager-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#book-manager"
+                type="button"
+                role="tab"
+                aria-controls="book-manager"
+                aria-selected="false"
+              >
+                Book Manager
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content pt-3" id="myTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="book-info"
+              role="tabpanel"
+              aria-labelledby="book-info-tab"
+            >
+              <form
+                [formGroup]="editForm"
+                (submit)="submitForm()"
+                class="w-100"
+              >
+                <div class="form-group">
+                  <label for="title">Title</label>
                   <input
-                    type="file"
-                    class="file-input"
-                    (change)="onFileSelected($event)"
-                    #fileUpload
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    formControlName="title"
+                    aria-describedby="titleHelp"
+                    placeholder="Enter the title"
                   />
+                  <small id="titleHelp" class="form-text text-muted"
+                    >Book title</small
+                  >
+                </div>
 
-                  <div class="file-upload pt-3">
-                    {{ filename }}
+                <div class="form-group">
+                  <label for="authors">Authors</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="authors"
+                    formControlName="authors"
+                    aria-describedby="authorsHelp"
+                    placeholder="Enter the authors"
+                  />
+                  <small id="titleHelp" class="form-text text-muted"
+                    >Book authors separated by comma</small
+                  >
+                </div>
 
+                <div class="form-group">
+                  <label for="isbn10">ISBN-10</label>
+                  <input
+                    maxlength="10"
+                    type="text"
+                    class="form-control"
+                    id="isbn10"
+                    formControlName="isbn10"
+                    aria-describedby="isbn10Help"
+                    placeholder="Enter the ISBN-10"
+                  />
+                  <small id="isbn10Help" class="form-text text-muted"
+                    >ISBN-10 code</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="isbn13">ISBN-13</label>
+                  <input
+                    maxlength="13"
+                    type="text"
+                    class="form-control"
+                    id="isbn13"
+                    formControlName="isbn13"
+                    aria-describedby="isbn13Help"
+                    placeholder="Enter the ISBN-13"
+                  />
+                  <small id="isbn13Help" class="form-text text-muted"
+                    >ISBN-13 code</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="numberOfPages">Number of pages</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="numberOfPages"
+                    formControlName="numberOfPages"
+                    aria-describedby="numberOfPagesHelp"
+                    placeholder="Enter the number of pages"
+                  />
+                  <small id="numberOfPagesHelp" class="form-text text-muted"
+                    >Book number of pages</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="averageRating">Average rating</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="averageRating"
+                    formControlName="averageRating"
+                    aria-describedby="averageRatingHelp"
+                    placeholder="Enter the average rating"
+                  />
+                  <small id="averageRatingHelp" class="form-text text-muted"
+                    >Book average rating</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="ratingsCount">Ratings count</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="ratingsCount"
+                    formControlName="ratingsCount"
+                    aria-describedby="ratingsCountHelp"
+                    placeholder="Enter the ratings count"
+                  />
+                  <small id="ratingsCountHelp" class="form-text text-muted"
+                    >Ratings count</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="language">Language</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="language"
+                    formControlName="language"
+                    aria-describedby="languageHelp"
+                    placeholder="Enter the language"
+                  />
+                  <small id="languageHelp" class="form-text text-muted"
+                    >Book language</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="publisher">Publisher</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="publiser"
+                    formControlName="publisher"
+                    aria-describedby="publisherHelp"
+                    placeholder="Enter the publisher"
+                  />
+                  <small id="publisherHelp" class="form-text text-muted"
+                    >Book publisher</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="publishedDate">Published Date</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="publishedDate"
+                    formControlName="publishedDate"
+                    aria-describedby="publishedDateHelp"
+                    placeholder="Enter the published date"
+                  />
+                  <small id="publishedDateHelp" class="form-text text-muted"
+                    >Book published date</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="categories">Categories</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="categories"
+                    formControlName="categories"
+                    aria-describedby="categoriesHelp"
+                    placeholder="Enter the categories"
+                  />
+                  <small id="categoriesHelp" class="form-text text-muted"
+                    >Book categories separated by comma</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="tags">Tags</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="tags"
+                    formControlName="tags"
+                    aria-describedby="tagsHelp"
+                    placeholder="Enter the tags"
+                  />
+                  <small id="tagsHelp" class="form-text text-muted"
+                    >Book tags separated by comma</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    formControlName="description"
+                    rows="5"
+                    placeholder="Enter the description"
+                    aria-describedby="descriptionHelp"
+                  ></textarea>
+                  <small id="descriptionHelp" class="form-text text-muted"
+                    >Book description</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="note">Note</label>
+                  <textarea
+                    class="form-control"
+                    id="note"
+                    formControlName="note"
+                    rows="5"
+                    placeholder="Enter the note"
+                    aria-describedby="noteHelp"
+                  ></textarea>
+                  <small id="noteHelp" class="form-text text-muted">Note</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="size">Size</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="size"
+                    aria-describedby="sizeHelp"
+                    [value]="fileSystemItem!.size || 0 | bytesToMegabytes"
+                    disabled
+                  />
+                  <small id="sizeHelp" class="form-text text-muted"
+                    >Book size</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="extension">File format</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="extension"
+                    aria-describedby="extensionHelp"
+                    [value]="fileSystemItem!.extension || ''"
+                    disabled
+                  />
+                  <small id="extensionHelp" class="form-text text-muted"
+                    >File extension</small
+                  >
+                </div>
+              </form>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="sales-manager"
+              role="tabpanel"
+              aria-labelledby="sales-manager-tab"
+            >
+              <form
+                [formGroup]="salesForm"
+                (submit)="submitSalesForm()"
+                class="w-100"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="onSale"
+                    formControlName="onSale"
+                  />
+                  <div class="vstack">
+                    <label class="form-check-label" for="onSale">
+                      Put on sale this e-book
+                    </label>
+                    <small id="onSaleHelp" class="form-text text-muted"
+                      >Convert this e-book from a free product to a payable one
+                    </small>
+                  </div>
+                </div>
+                <div *ngIf="salesForm.value.onSale">
+                  <div class="text-end">
                     <button
-                      mat-mini-fab
-                      class="btn btn-primary w-100"
-                      (click)="fileUpload.click()"
+                      class="btn btn-primary"
+                      type="button"
+                      (click)="autofill()"
                     >
-                      Upload
+                      Auto-fill
                     </button>
                   </div>
-                </td>
-              </tr>
-              <tr *ngIf="bookInfo.averageRating">
-                <td>
-                  <div class="d-flex justify-content-center p-2">
-                    <app-rating
-                      [averageRating]="bookInfo.averageRating || 0"
-                      [ratingsCount]="bookInfo.ratingsCount || 0"
+                  <div class="form-group">
+                    <label for="productTitle">Product Title</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="productTitle"
+                      formControlName="productTitle"
+                      aria-describedby="productTitleHelp"
+                      placeholder="Enter the product title"
                     />
+                    <small id="productTitleHelp" class="form-text text-muted"
+                      >Product title</small
+                    >
                   </div>
-                </td>
-              </tr>
-            </table>
-          </td>
 
-          <td class="col-9 p-2">
-            <form
-              [formGroup]="editForm"
-              (submit)="submitForm()"
-              style="width: 100%"
-              class=""
+                  <div class="form-group">
+                    <label for="productDescription">Product Description</label>
+                    <textarea
+                      class="form-control"
+                      id="productDescription"
+                      formControlName="productDescription"
+                      rows="5"
+                      placeholder="Enter the product description"
+                      aria-describedby="productDescriptionHelp"
+                    ></textarea>
+                    <small
+                      id="productDescriptionHelp"
+                      class="form-text text-muted"
+                      >Product description</small
+                    >
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="productPrice">Product Price</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="productPrice"
+                        formControlName="productPrice"
+                        aria-describedby="productPriceHelp"
+                        placeholder="Enter the product price"
+                      />
+                      <small id="productPriceHelp" class="form-text text-muted"
+                        >Product price
+                      </small>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="productCurrency">Product Currency</label>
+                      <select
+                        class="form-select"
+                        aria-label="Currency"
+                        formControlName="productCurrency"
+                      >
+                        <option selected>Choose a currency</option>
+                        <option value="eur">EUR</option>
+                      </select>
+                      <small
+                        id="productCurrencyHelp"
+                        class="form-text text-muted"
+                        >Product currency
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div
+              class="tab-pane fade show"
+              id="book-manager"
+              role="tabpanel"
+              aria-labelledby="book-manager-tab"
             >
-              <div class="px-4">
-                <table class="w-100">
-                  <tr class="w-100">
-                    <td class="w-100">
-                      <table class="w-100">
-                        <tr>
-                          <td>Title</td>
-                          <td class="w-100">
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Title"
-                                formControlName="title"
-                              />
-                              <mat-hint>Book title</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Authors</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Authors"
-                                formControlName="authors"
-                              />
-                              <mat-hint>Book authors</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>ISBN 10:</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="ISBN 10"
-                                formControlName="isbn10"
-                              />
-                              <mat-hint>Book ISBN-10</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>ISBN 13:</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="ISBN 13"
-                                formControlName="isbn13"
-                              />
-                              <mat-hint>Book ISBN-13</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Number of pages:</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Number of pages"
-                                formControlName="numberOfPages"
-                                type="number"
-                              />
-                              <mat-hint>Number of pages</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Average rating:</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Average rating"
-                                formControlName="averageRating"
-                                type="number"
-                              />
-                              <mat-hint>Average rating</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Ratings count:</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Ratings count"
-                                formControlName="ratingsCount"
-                                type="number"
-                              />
-                              <mat-hint>Ratings count</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Language:</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Language"
-                                formControlName="language"
-                              />
-                              <mat-hint>Book language</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Note</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Note"
-                                formControlName="note"
-                              />
-                              <mat-hint>Book notes</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Publisher</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Publisher"
-                                formControlName="publisher"
-                              />
-                              <mat-hint>Book publisher</mat-hint>
-                            </mat-form-field>
-                            <span class="p-3"> </span>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Published date"
-                                formControlName="publishedDate"
-                              />
-                              <mat-hint>Book published date</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Categories</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Categories separated by comma"
-                                formControlName="categoryList"
-                              />
-                              <mat-hint
-                                >Book categories separated by commas</mat-hint
-                              >
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tags</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Tags"
-                                formControlName="tagList"
-                              />
-                              <mat-hint>Book tags separated by commas</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Description</td>
-                          <td>
-                            <mat-form-field class="w-100" appearance="fill">
-                              <input
-                                matInput
-                                placeholder="Description"
-                                formControlName="description"
-                              />
-                              <mat-hint>Book description</mat-hint>
-                            </mat-form-field>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Size</td>
-                          <td *ngIf="fileSystemItem && fileSystemItem.size">
-                            {{ fileSystemItem!.size | bytesToMegabytes }}
-                            Megabytes
-                          </td>
-                          <td *ngIf="!fileSystemItem || !fileSystemItem.size">
-                            -
-                          </td>
-                        </tr>
-                        <tr *ngIf="fileSystemItem && fileSystemItem.extension">
-                          <td>Format</td>
-                          <td *ngIf="fileSystemItem.extension">
-                            {{ fileSystemItem!.extension }}
-                          </td>
-                          <td *ngIf="!fileSystemItem.extension">-</td>
-                        </tr>
-                        <tr></tr>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div>
-                        <button class="btn btn-danger w-100 mt-3" type="submit">
-                          Update
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </form>
-          </td>
-        </tr>
-      </table>
+              <form
+                [formGroup]="managerForm"
+                (submit)="submitManagerForm()"
+                class="w-100"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="hidden"
+                    formControlName="hidden"
+                  />
+                  <div class="vstack">
+                    <label class="form-check-label" for="hidden">
+                      Hide from users
+                    </label>
+                    <small id="hideHelp" class="form-text text-muted"
+                      >Users will not be able to view/download/buy this e-book
+                    </small>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
