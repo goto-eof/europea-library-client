@@ -39,7 +39,9 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const user = this.authService.getUserFromLocal();
-    this.checkJobIsRunning();
+    if (this.isAdministrator()) {
+      this.checkJobIsRunning();
+    }
     this.user = user;
     this.roles = user?.authorityList?.map((auth) => auth.name);
   }

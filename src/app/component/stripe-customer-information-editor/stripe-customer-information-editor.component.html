@@ -1,0 +1,151 @@
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="row pb-4">
+        <div class="col-md-9">Edit your payment information</div>
+        <form [formGroup]="customerForm" (submit)="submitForm()" class="w-100">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="firstName">First name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                formControlName="firstName"
+                aria-describedby="firstNameHelp"
+                placeholder="Enter your first name"
+              />
+              <small id="firstNameHelp" class="form-text text-muted"
+                >Your first name</small
+              >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="lastName">Last name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                formControlName="lastName"
+                aria-describedby="lastNameHelp"
+                placeholder="Enter your last name"
+              />
+              <small id="lastNameHelp" class="form-text text-muted"
+                >Your last name</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label for="email">E-mail</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              formControlName="email"
+              aria-describedby="emailHelp"
+              placeholder="Enter your email"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >Your email</small
+            >
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="city">City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                formControlName="city"
+                aria-describedby="cityHelp"
+                placeholder="Enter your city"
+              />
+              <small id="cityHelp" class="form-text text-muted"
+                >Your city</small
+              >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="country">Country</label>
+              <input
+                type="text"
+                class="form-control"
+                id="country"
+                formControlName="country"
+                aria-describedby="countryHelp"
+                placeholder="Enter your country"
+              />
+              <small id="countryHelp" class="form-text text-muted"
+                >Your country</small
+              >
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="postalCode">Postal code</label>
+              <input
+                type="text"
+                class="form-control"
+                id="postalCode"
+                formControlName="postalCode"
+                aria-describedby="postalCodeHelp"
+                placeholder="Enter your Postal Code"
+              />
+              <small id="postalCodeHelp" class="form-text text-muted"
+                >Your Postal Code</small
+              >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="state">State</label>
+              <input
+                type="text"
+                class="form-control"
+                id="state"
+                formControlName="state"
+                aria-describedby="stateHelp"
+                placeholder="Enter your state"
+              />
+              <small id="stateHelp" class="form-text text-muted"
+                >Your state</small
+              >
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="line1">Address Line 1</label>
+              <input
+                type="text"
+                class="form-control"
+                id="line1"
+                formControlName="line1"
+                aria-describedby="line1Help"
+                placeholder="Enter your Address (line 1)"
+              />
+              <small id="line1Help" class="form-text text-muted"
+                >Your Address (line 1)</small
+              >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="line2">Address Line 2</label>
+              <input
+                type="text"
+                class="form-control"
+                id="line2"
+                formControlName="line2"
+                aria-describedby="line2Help"
+                placeholder="Enter your Address (line 2)"
+              />
+              <small id="line2Help" class="form-text text-muted"
+                >Your Address (line 2)</small
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

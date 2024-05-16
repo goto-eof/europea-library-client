@@ -18,7 +18,11 @@ import BookInfo from '../../model/BookInfo';
 import FileMetaInfo from '../../model/FileMetaInfo';
 import StripeProduct from '../../model/StripeProduct';
 import StripePrice from '../../model/StripePrice';
-
+import PaymentService from '../../service/PaymentService';
+import StripeCheckoutSessionRequest from '../../model/StripeCheckoutSessionRequest';
+import StripeCheckoutSessionResponse from '../../model/StripeCheckoutSessionResponse';
+import { Stripe } from 'stripe-angular';
+import { loadStripe } from '@stripe/stripe-js';
 @Component({
   selector: 'app-file-info',
   templateUrl: './file-info.component.html',
@@ -47,7 +51,8 @@ export class FileInfoComponent implements OnInit {
     private authService: AuthService,
     private qrCodeService: QRCodeService,
     private featuredService: FeaturedService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private paymentService: PaymentService
   ) {}
 
   isAdminAuthenticated(): any {
@@ -290,5 +295,23 @@ export class FileInfoComponent implements OnInit {
     });
   }
 
-  buy() {}
+  async buy() {
+    const stripeCheckoutSessionRequest: StripeCheckoutSessionRequest = {
+      checkoutBaseUrl: 'http://localhost:4200',
+      fileMetaInfoId: this.fileMetaInfo!.id!,
+      quantity: 1,
+    };
+    this.paymentService
+      .initCheckoutSession(stripeCheckoutSessionRequest)
+      .subscribe({
+        next: async (data: StripeCheckoutSessionResponse) => {
+          const stripe = await loadStripe(data.stripePublicKey);
+          stripe!
+            .redirectToCheckout({
+              sessionId: data.sessionId,
+            })
+            .then((data: any) => console.log('YOYOOYOYOYOYOYO: ' + data));
+        },
+      });
+  }
 }

@@ -79,6 +79,9 @@ import ApplicationSettingsService from './service/ApplicationSettingsService';
 import { FeaturedBookComponent } from './component/featured-book/featured-book.component';
 import { CpSecurityComponent } from './component/cp-security/cp-security.component';
 import FileMetaInfoService from './service/FileMetaInfoService';
+import { StripeCustomerInformationEditorComponent } from './component/stripe-customer-information-editor/stripe-customer-information-editor.component';
+import CustomerService from './service/CustomerService';
+import PaymentService from './service/PaymentService';
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,6 +133,7 @@ import FileMetaInfoService from './service/FileMetaInfoService';
     PopularDownloadsContainerComponent,
     FeaturedBookComponent,
     CpSecurityComponent,
+    StripeCustomerInformationEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -166,6 +170,8 @@ import FileMetaInfoService from './service/FileMetaInfoService';
     PostService,
     ApplicationSettingsService,
     FileMetaInfoService,
+    CustomerService,
+    PaymentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
