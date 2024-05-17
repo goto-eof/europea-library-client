@@ -82,6 +82,7 @@ import FileMetaInfoService from './service/FileMetaInfoService';
 import { StripeCustomerInformationEditorComponent } from './component/stripe-customer-information-editor/stripe-customer-information-editor.component';
 import CustomerService from './service/CustomerService';
 import PaymentService from './service/PaymentService';
+import { CheckoutComponent } from './component/checkout/checkout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +135,7 @@ import PaymentService from './service/PaymentService';
     FeaturedBookComponent,
     CpSecurityComponent,
     StripeCustomerInformationEditorComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

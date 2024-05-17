@@ -32,6 +32,7 @@ import { CursoredByDownloadCountFileExplorerComponent } from './component/cursor
 import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
 import { CursoredByJustAddedFileExplorerComponent } from './component/cursored-by-just-added-file-explorer/cursored-by-just-added-file-explorer.component';
 import { StripeCustomerInformationEditorComponent } from './component/stripe-customer-information-editor/stripe-customer-information-editor.component';
+import { CheckoutComponent } from './component/checkout/checkout.component';
 
 const routes: Routes = [
   { path: 'home', component: CustomHomePageComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'explorer', component: CursoredExplorerComponent },
   { path: 'rating', component: CursoredByRatingFileExplorerComponent },
   { path: 'search', component: CursoredSearchExplorerComponent },
+  { path: 'checkout', component: CheckoutComponent },
   { path: 'explorer/:id', component: CursoredExplorerComponent },
   {
     path: 'customer/edit',

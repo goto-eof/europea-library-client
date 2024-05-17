@@ -297,7 +297,7 @@ export class FileInfoComponent implements OnInit {
 
   async buy() {
     const stripeCheckoutSessionRequest: StripeCheckoutSessionRequest = {
-      checkoutBaseUrl: 'http://localhost:4200',
+      checkoutBaseUrl: 'http://localhost:4200/checkout',
       fileMetaInfoId: this.fileMetaInfo!.id!,
       quantity: 1,
     };
