@@ -2,9 +2,11 @@
   <div class="card">
     <div class="card-body">
       <h3>Checkout status</h3>
-      <p *ngIf="success === 'yes'">checkout completed successfully!</p>
-      <p *ngIf="success === 'no'">checkout failed</p>
-      <p *ngIf="success === 'checking'">checking...</p>
+      <p *ngIf="success === 'yes'" class="text-success">
+        checkout completed successfully!
+      </p>
+      <p *ngIf="success === 'no'" class="text-danger">checkout failed</p>
+      <p *ngIf="success === 'checking'" class="text-primary">checking...</p>
     </div>
   </div>
 </div>
