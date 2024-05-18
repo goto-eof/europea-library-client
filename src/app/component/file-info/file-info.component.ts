@@ -344,7 +344,7 @@ export class FileInfoComponent implements OnInit {
         error: () => {
           this.isPurchasing = false;
           this.snackBarService.showErrorWithMessage(
-            'Something went wrong. Unable to purchase the product.'
+            'Before proceeding please fill up the Customer Information in Control Panel -> Payments section'
           );
         },
         next: async (data: StripeCheckoutSessionResponse) => {

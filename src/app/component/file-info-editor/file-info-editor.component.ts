@@ -127,20 +127,6 @@ export class FileInfoEditorComponent implements OnInit {
   submitSalesForm(): void {}
   submitManagerForm(): void {}
 
-  // private loadBookInfo(fileSystemItemId: string) {
-  //   this.bookInfoService.retrieveByFileSystemId(+fileSystemItemId).subscribe({
-  //     next: (data) => {
-  //       this.bookInfo = data;
-  //       this.editForm = this.generateForm(data);
-  //       this.salesForm = this.generateSalesForm(data);
-  //       this.managerForm = this.generateManagerForm(data);
-  //     },
-  //     error: () => {
-  //       this.router.navigate(['/page-not-found']);
-  //     },
-  //   });
-  // }
-
   private retrieveFileSystemItem(fileSystemItemId: number) {
     this.cursoredFileSystemService.get(fileSystemItemId).subscribe({
       error: () => {
@@ -250,8 +236,16 @@ export class FileInfoEditorComponent implements OnInit {
       };
       this.fileMetaInfoService
         .update(this.fileMetaInfo!.id!, fileMetaInfo)
-        .subscribe(() => {
-          this.goToFileInfo();
+        .subscribe({
+          next: () => {
+            this.snackBarService.showInfoWithMessage(
+              'Update done successfully'
+            );
+            this.goToFileInfo();
+          },
+          error: () => {
+            this.snackBarService.showErrorWithMessage('Unable to update');
+          },
         });
     } else {
     }

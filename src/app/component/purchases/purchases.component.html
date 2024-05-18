@@ -6,10 +6,21 @@
   </div>
 </div>
 
-<div class="container mt-1 mb-5" *ngIf="cursoredItem">
+<div class="container mt-1 mb-5">
   <div class="card">
     <div class="card-body">
-      <div class="row">
+      <h1>Purchases</h1>
+      <div class="row" *ngIf="cursoredItem?.childrenList?.length === 0">
+        <h4>No purchases</h4>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          cursoredItem &&
+          cursoredItem.childrenList &&
+          cursoredItem.childrenList.length > 0
+        "
+      >
         <div
           *ngFor="let item of cursoredItem?.childrenList"
           class="col-12 col-sm-6 col-lg-4 mb-4"
