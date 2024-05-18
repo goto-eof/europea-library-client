@@ -41,6 +41,12 @@ export default class CursoredFileSystemService {
       `${baseUrl}/${fileSystemItemId}`
     );
   }
+
+  getByFileMetaInfoId(fileMetaInfoId: number) {
+    return this.httpClient.get<CursoredFileSystemItem>(
+      `${baseUrl}/fileMetaInfoId/${fileMetaInfoId}`
+    );
+  }
   constructor(private httpClient: HttpClient) {}
 
   listCursored(

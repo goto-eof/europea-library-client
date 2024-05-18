@@ -27,4 +27,11 @@ export class FeaturedBookComponent implements OnInit {
   goToItem() {
     this.router.navigate([`/file-info/${this.fileSystemItemHighlight!.id}`]);
   }
+
+  calculateImageUrl() {
+    if (this.fileSystemItemHighlight?.imageUrl) {
+      return this.fileSystemItemHighlight.imageUrl;
+    }
+    return '/assets/images/no-cover.jpg';
+  }
 }

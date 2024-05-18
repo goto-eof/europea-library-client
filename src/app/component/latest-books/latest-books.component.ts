@@ -56,6 +56,14 @@ export class LatestBooksComponent implements OnInit {
       });
   }
 
+  calculateImageUrl(item: FileSystemItemHighlight): string {
+    console.log(item);
+    if (item.imageUrl) {
+      return item.imageUrl;
+    }
+    return '/assets/images/no-cover.jpg';
+  }
+
   goToItem(id: number) {
     this.router.navigate([`/file-info/${id}`]);
   }

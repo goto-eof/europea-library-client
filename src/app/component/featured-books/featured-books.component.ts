@@ -4,6 +4,7 @@ import SnackBarService from '../../service/SnackBarService';
 import GenericCursoredResponse from '../../model/GenericCursoredResponse';
 import FileSystemItemHighlight from '../../model/FileSystemItemHighlight';
 import { Router } from '@angular/router';
+import FileMetaInfo from '../../model/FileMetaInfo';
 
 @Component({
   selector: 'app-featured-books',
@@ -54,6 +55,14 @@ export class FeaturedBooksComponent implements OnInit {
           // );
         },
       });
+  }
+
+  calculateImageUrl(item: FileSystemItemHighlight): string {
+    console.log(item);
+    if (item.imageUrl) {
+      return item.imageUrl;
+    }
+    return '/assets/images/no-cover.jpg';
   }
 
   goToItem(id: number) {

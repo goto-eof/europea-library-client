@@ -1,0 +1,25 @@
+<div class="card" style="width: 18rem">
+  <img
+    class="card-img-top object-fit-scale border rounded"
+    style="max-height: 250px"
+    onerror="this.src='/assets/images/no-cover.jpg';"
+    [src]="fileMetaInfo.bookInfo?.imageUrl"
+    alt="Card image cap"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">
+      {{ product.description }}
+    </p>
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <button class="btn btn-primary w-100" (click)="goToFileInfo()">
+          View
+        </button>
+      </div>
+      <div class="col-md-8">
+        <button class="btn btn-primary w-100">Payment details</button>
+      </div>
+    </div>
+  </div>
+</div>

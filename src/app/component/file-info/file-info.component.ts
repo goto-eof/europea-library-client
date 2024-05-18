@@ -62,39 +62,70 @@ export class FileInfoComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((map) => {
       const fileSystemItemId: string | null = map.get('fileSystemItemId');
+      const fileMetaInfoId: string | null = map.get('fileMetaInfoId');
       if (fileSystemItemId) {
-        if (this.isAdminAuthenticated()) {
-          this.featuredService
-            .isFeatured(+fileSystemItemId)
-            .subscribe((operationStatus) => {
-              this.isFeatured = operationStatus.status;
-            });
-          this.featuredService.isHighlight(+fileSystemItemId).subscribe({
-            next: (operationstatus) => {
-              this.isHighlighted = operationstatus.status;
-            },
-            error: () => {},
-          });
-        }
-        this.cursoredFileSystemService.get(+fileSystemItemId).subscribe({
-          error: () => {
-            this.loadFileSystemItem();
-          },
-          next: (fsi: FileSystemItem) => {
-            this.fileSystemItem = fsi;
-            this.loadBookInfo(fsi);
-
-            this.qrCodeService
-              .retrieveDownloadLink(fsi.id!)
-              .subscribe((binaryImage) => {
-                this.base64DownloadQRCode =
-                  this._arrayBufferToBase64(binaryImage);
-              });
-          },
-        });
+        this.manageCaseFileSystemIdPresent(+fileSystemItemId);
+      } else if (fileMetaInfoId) {
+        this.manageCaseFileMetaInfoIdPresent(+fileMetaInfoId);
       }
     });
     window.scrollTo(0, 0);
+  }
+
+  private manageCaseFileSystemIdPresent(fileSystemItemId: number) {
+    this.manageCaseIsAdministrator(fileSystemItemId);
+    this.cursoredFileSystemService.get(fileSystemItemId).subscribe({
+      error: () => {
+        this.loadFileSystemItem();
+      },
+      next: (fsi: FileSystemItem) => {
+        this.fileSystemItem = fsi;
+        this.loadBookInfo(fsi);
+
+        this.qrCodeService
+          .retrieveDownloadLink(fsi.id!)
+          .subscribe((binaryImage) => {
+            this.base64DownloadQRCode = this._arrayBufferToBase64(binaryImage);
+          });
+      },
+    });
+  }
+
+  private manageCaseFileMetaInfoIdPresent(fileMetaInfoId: number) {
+    this.cursoredFileSystemService
+      .getByFileMetaInfoId(fileMetaInfoId)
+      .subscribe({
+        error: () => {
+          this.loadFileSystemItem();
+        },
+        next: (fsi: FileSystemItem) => {
+          this.fileSystemItem = fsi;
+          this.loadBookInfo(fsi);
+          this.manageCaseIsAdministrator(fsi.id!);
+          this.qrCodeService
+            .retrieveDownloadLink(fsi.id!)
+            .subscribe((binaryImage) => {
+              this.base64DownloadQRCode =
+                this._arrayBufferToBase64(binaryImage);
+            });
+        },
+      });
+  }
+
+  private manageCaseIsAdministrator(fileSystemItemId: number) {
+    if (this.isAdminAuthenticated()) {
+      this.featuredService
+        .isFeatured(fileSystemItemId)
+        .subscribe((operationStatus) => {
+          this.isFeatured = operationStatus.status;
+        });
+      this.featuredService.isHighlight(fileSystemItemId).subscribe({
+        next: (operationstatus) => {
+          this.isHighlighted = operationstatus.status;
+        },
+        error: () => {},
+      });
+    }
   }
 
   private _arrayBufferToBase64(buffer: ArrayBuffer) {

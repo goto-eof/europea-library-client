@@ -29,7 +29,7 @@ export class CheckoutComponent implements OnInit {
   goToOwnedProducts() {
     const that = this;
     setTimeout(() => {
-      that.router.navigate(['/home']);
+      that.router.navigate(['/customer/purchases']);
     }, 5000);
   }
 

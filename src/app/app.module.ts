@@ -83,6 +83,9 @@ import { StripeCustomerInformationEditorComponent } from './component/stripe-cus
 import CustomerService from './service/CustomerService';
 import PaymentService from './service/PaymentService';
 import { CheckoutComponent } from './component/checkout/checkout.component';
+import { PurchasesComponent } from './component/purchases/purchases.component';
+import { StripePurchasesService } from './service/StripePurchasesService';
+import { BookCardComponent } from './component/book-card/book-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -136,6 +139,8 @@ import { CheckoutComponent } from './component/checkout/checkout.component';
     CpSecurityComponent,
     StripeCustomerInformationEditorComponent,
     CheckoutComponent,
+    PurchasesComponent,
+    BookCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -174,6 +179,7 @@ import { CheckoutComponent } from './component/checkout/checkout.component';
     FileMetaInfoService,
     CustomerService,
     PaymentService,
+    StripePurchasesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

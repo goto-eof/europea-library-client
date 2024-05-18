@@ -19,20 +19,13 @@
       >
         <div class="row no-gutters">
           <div class="col-md-2 text-center text-md-left px-3 py-2">
-            <div
-              *ngIf="item.imageUrl"
-              style="
-                min-width: 150px;
-                min-height: 150px;
-                width: 100%;
-                height: 100%;
-                display: block;
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: center;
-              "
-              [style.background-image]="'url(' + item.imageUrl + ')'"
-            ></div>
+            <img
+              class="card-img-top object-fit-scale border rounded"
+              style="max-height: 250px"
+              onerror="this.src='/assets/images/no-cover.jpg';"
+              [src]="calculateImageUrl(item)"
+              alt="Card image cap"
+            />
           </div>
           <div class="col-md-10">
             <div class="card-body">
@@ -43,7 +36,6 @@
               <p class="card-text">
                 <small class="text-muted">
                   <app-rating
-                    *ngIf="item.averageRating"
                     [averageRating]="item.averageRating || 0"
                     [ratingsCount]="item.ratingsCount || 0"
                   />

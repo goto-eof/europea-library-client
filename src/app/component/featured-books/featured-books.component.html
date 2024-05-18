@@ -20,7 +20,6 @@
         <div class="row no-gutters">
           <div class="col-md-5 text-center text-md-left px-3 py-2">
             <div
-              *ngIf="item.imageUrl"
               style="
                 min-width: 150px;
                 min-height: 150px;
@@ -31,7 +30,7 @@
                 background-size: contain;
                 background-position: center;
               "
-              [style.background-image]="'url(' + item.imageUrl + ')'"
+              [style.background-image]="'url(' + calculateImageUrl(item) + ')'"
             ></div>
           </div>
           <div class="col-md-7">
@@ -43,7 +42,6 @@
               <p class="card-text">
                 <small class="text-muted">
                   <app-rating
-                    *ngIf="item.averageRating"
                     [averageRating]="item.averageRating || 0"
                     [ratingsCount]="item.ratingsCount || 0"
                   />

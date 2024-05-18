@@ -251,10 +251,18 @@ export class FileInfoEditorComponent implements OnInit {
       this.fileMetaInfoService
         .update(this.fileMetaInfo!.id!, fileMetaInfo)
         .subscribe(() => {
-          this.router.navigate([`/file-info/${this.fileSystemItem!.id}`]);
+          this.goToFileInfo();
         });
     } else {
     }
+  }
+
+  cancel() {
+    this.goToFileInfo();
+  }
+
+  private goToFileInfo() {
+    this.router.navigate([`/file-info/${this.fileSystemItem!.id}`]);
   }
 
   public findInvalidControls() {

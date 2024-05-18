@@ -74,7 +74,11 @@
         <div class="col-sm-3">
           <div class="vstack">
             <div class="text-center">
-              <img class="img-fluid" [src]="bookInfo.imageUrl" />
+              <img
+                class="img-fluid"
+                [src]="bookInfo.imageUrl"
+                onerror="this.src='/assets/images/no-cover.jpg';"
+              />
             </div>
             <div class="vstack">
               <div class="d-flex justify-content-center p-2">

@@ -7,9 +7,12 @@
   <div class="card">
     <div class="card-body">
       <div class="row pb-4">
-        <div class="col-md-9">Edit Book Information</div>
-        <div class="col-md-3 text-end">
-          <button (click)="submit()" class="btn btn-danger" type="submit">
+        <div class="col-md-7">Edit Book Information</div>
+        <div class="col-md-5 text-end">
+          <button (click)="cancel()" class="btn btn-primary me-2" type="button">
+            Cancel
+          </button>
+          <button (click)="submit()" class="btn btn-danger" type="button">
             Save changes
           </button>
         </div>
@@ -18,7 +21,11 @@
         <div class="col-sm-3">
           <div class="vstack">
             <div class="text-center">
-              <img class="img-fluid" [src]="bookInfo.imageUrl" />
+              <img
+                class="img-fluid"
+                [src]="bookInfo.imageUrl"
+                onerror="this.src='/assets/images/no-cover.jpg';"
+              />
             </div>
             <input
               type="file"

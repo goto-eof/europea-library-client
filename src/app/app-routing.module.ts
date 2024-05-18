@@ -33,6 +33,7 @@ import { CustomHomePageComponent } from './component/custom-home-page/custom-hom
 import { CursoredByJustAddedFileExplorerComponent } from './component/cursored-by-just-added-file-explorer/cursored-by-just-added-file-explorer.component';
 import { StripeCustomerInformationEditorComponent } from './component/stripe-customer-information-editor/stripe-customer-information-editor.component';
 import { CheckoutComponent } from './component/checkout/checkout.component';
+import { PurchasesComponent } from './component/purchases/purchases.component';
 
 const routes: Routes = [
   { path: 'home', component: CustomHomePageComponent },
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'customer/edit',
     component: StripeCustomerInformationEditorComponent,
+  },
+  {
+    path: 'customer/purchases',
+    component: PurchasesComponent,
   },
   {
     path: 'explore/language/:parent',
@@ -89,6 +94,10 @@ const routes: Routes = [
   },
   { path: 'explorer/tag/:id', component: CursoredTagFileExplorerComponent },
   { path: 'file-info/:fileSystemItemId', component: FileInfoComponent },
+  {
+    path: 'file-info/fileMetaInfoId/:fileMetaInfoId',
+    component: FileInfoComponent,
+  },
   {
     path: 'file-info/edit/:fileSystemItemId',
     component: FileInfoEditorComponent,

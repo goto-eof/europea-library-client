@@ -1,0 +1,35 @@
+<div class="my-1 mx-1" *ngIf="cursoredItem?.parent">
+  <div class="card">
+    <div class="card-body">
+      <a routerLink="/customer/purchases">Your Purchases</a>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-1 mb-5" *ngIf="cursoredItem">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div
+          *ngFor="let item of cursoredItem?.childrenList"
+          class="col-12 col-sm-6 col-lg-4 mb-4"
+        >
+          <app-book-card
+            [product]="item.stripeProduct"
+            [price]="item.stripePrice"
+            [fileMetaInfo]="item.fileMetaInfo"
+          />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          *ngIf="cursoredItem?.nextCursor"
+          class="btn btn-primary"
+          (click)="loadMore()"
+        >
+          More
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

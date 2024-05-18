@@ -191,6 +191,14 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
             <button
               class="dropdown-item"
+              [routerLink]="['/customer/purchases']"
+              type="button"
+            >
+              <i class="bi bi-cart"></i> My Purchases
+            </button>
+            <div class="dropdown-divider"></div>
+            <button
+              class="dropdown-item"
               [routerLink]="['/control-panel']"
               type="button"
               data-bs-toggle="collapse"
