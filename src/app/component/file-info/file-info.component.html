@@ -88,10 +88,7 @@
                   [ratingsCount]="bookInfo.ratingsCount || 0"
                 />
               </div>
-              <img
-                *ngIf="base64DownloadQRCode"
-                [src]="'data:image/png;base64,' + base64DownloadQRCode"
-              />
+
               <div class="row">
                 <div class="col-md-12">
                   <button
@@ -120,6 +117,10 @@
                   </button>
                 </div>
               </div>
+              <img
+                *ngIf="base64DownloadQRCode"
+                [src]="'data:image/png;base64,' + base64DownloadQRCode"
+              />
             </div>
           </div>
         </div>
