@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import StripeCustomer from '../../model/StripeCustomer';
 import CustomerService from '../../service/CustomerService';
+import SnackBarService from '../../service/SnackBarService';
 
 @Component({
   selector: 'app-stripe-customer-information-editor',
@@ -14,7 +15,8 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private snackBarService: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -63,14 +65,24 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
     if (this.stripeCustomer?.id) {
       this.customerService.update(stripeCustomer).subscribe({
         next: (data) => {
+          this.snackBarService.showInfoWithMessage('Updated successfully');
           this.reload(data);
+        },
+        error: () => {
+          this.snackBarService.showErrorWithMessage(
+            'Unable to update information'
+          );
         },
       });
       return;
     }
     this.customerService.create(stripeCustomer).subscribe({
       next: (data) => {
+        this.snackBarService.showInfoWithMessage('Saved successfully');
         this.reload(data);
+      },
+      error: () => {
+        this.snackBarService.showErrorWithMessage('Unable to save information');
       },
     });
   }
