@@ -92,26 +92,33 @@
                 *ngIf="base64DownloadQRCode"
                 [src]="'data:image/png;base64,' + base64DownloadQRCode"
               />
-              <div class="hstack w-100">
-                <button
-                  *ngIf="!fileMetaInfo?.onSale"
-                  [disabled]="isDownloading"
-                  class="pointer-cursor btn btn-primary mb-1 w-100"
-                  (click)="download()"
-                >
-                  <i class="bi bi-cloud-download-fill px-2"></i> Download ({{
-                    fileSystemItem?.downloadCount
-                  }})
-                </button>
-                <button
-                  *ngIf="fileMetaInfo?.onSale"
-                  [disabled]="isDownloading"
-                  class="pointer-cursor btn btn-primary mb-1 w-100"
-                  (click)="buy()"
-                >
-                  <i class="bi bi-cart4 px-2"></i> Buy for only
-                  {{ stripePrice?.amount || 0 }}€
-                </button>
+              <div class="row">
+                <div class="col-md-12">
+                  <button
+                    *ngIf="fileMetaInfo?.onSale"
+                    [disabled]="isPurchasing"
+                    class="pointer-cursor btn btn-primary mb-1 w-100"
+                    (click)="buy()"
+                  >
+                    <i class="bi bi-cart4 px-2"></i>
+                    {{
+                      isRedirecting
+                        ? "Redirecting..."
+                        : "Buy for only " + (stripePrice?.amount || 0) + "€"
+                    }}
+                  </button>
+                </div>
+                <div class="col-md-12">
+                  <button
+                    [disabled]="isDownloading || !fileMetaInfo?.downloadable"
+                    class="pointer-cursor btn btn-primary mb-1 w-100"
+                    (click)="download()"
+                  >
+                    <i class="bi bi-cloud-download-fill px-2"></i> Download ({{
+                      fileSystemItem?.downloadCount
+                    }})
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -12,4 +12,5 @@ export default interface FileMetaInfo extends ModelCommon {
   hidden: boolean;
   bookInfo?: BookInfo;
   stripePrice?: StripePrice;
+  downloadable?: boolean;
 }

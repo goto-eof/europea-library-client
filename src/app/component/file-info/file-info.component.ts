@@ -21,7 +21,6 @@ import StripePrice from '../../model/StripePrice';
 import PaymentService from '../../service/PaymentService';
 import StripeCheckoutSessionRequest from '../../model/StripeCheckoutSessionRequest';
 import StripeCheckoutSessionResponse from '../../model/StripeCheckoutSessionResponse';
-import { Stripe } from 'stripe-angular';
 import { loadStripe } from '@stripe/stripe-js';
 @Component({
   selector: 'app-file-info',
@@ -39,6 +38,8 @@ export class FileInfoComponent implements OnInit {
   isFeatured: boolean = false;
   isLocked: boolean = false;
   isHighlighted: boolean = false;
+  isPurchasing: boolean = false;
+  isRedirecting: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -196,7 +197,11 @@ export class FileInfoComponent implements OnInit {
           this.isDownloading = false;
         },
         error: (e: any) => {
-          if (e.status !== 401) {
+          if (e.status === 403) {
+            this.snackBarService.showErrorWithMessage(
+              'This e-book is for sale. Please purchase it in order to be able to download.'
+            );
+          } else if (e.status !== 401) {
             this.router.navigate(['/page-not-found']);
           }
           this.isDownloading = false;
@@ -327,6 +332,7 @@ export class FileInfoComponent implements OnInit {
   }
 
   async buy() {
+    this.isPurchasing = true;
     const stripeCheckoutSessionRequest: StripeCheckoutSessionRequest = {
       checkoutBaseUrl: 'http://localhost:4200/checkout',
       fileMetaInfoId: this.fileMetaInfo!.id!,
@@ -335,13 +341,20 @@ export class FileInfoComponent implements OnInit {
     this.paymentService
       .initCheckoutSession(stripeCheckoutSessionRequest)
       .subscribe({
+        error: () => {
+          this.isPurchasing = false;
+          this.snackBarService.showErrorWithMessage(
+            'Something went wrong. Unable to purchase the product.'
+          );
+        },
         next: async (data: StripeCheckoutSessionResponse) => {
+          this.isRedirecting = true;
           const stripe = await loadStripe(data.stripePublicKey);
           stripe!
             .redirectToCheckout({
               sessionId: data.sessionId,
             })
-            .then((data: any) => console.log('YOYOOYOYOYOYOYO: ' + data));
+            .then((data: any) => {});
         },
       });
   }
