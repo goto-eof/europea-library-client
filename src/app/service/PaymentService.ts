@@ -28,4 +28,13 @@ export default class PaymentService {
       `${baseUrl}/checkPurchaseSessionStatus/${ongoingPurchaseSessionId}`
     );
   }
+
+  cancelCheckoutSession(
+    ongoingPurchaseSessionId: number
+  ): Observable<OperationStatus> {
+    return this.httpClient.put<OperationStatus>(
+      `${baseUrl}/cancel/ongoingPurchaseSessionId/${ongoingPurchaseSessionId}`,
+      {}
+    );
+  }
 }

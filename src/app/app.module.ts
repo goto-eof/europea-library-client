@@ -1,95 +1,91 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavigatorComponent } from './component/navigator/navigator.component';
-import { ExplorerComponent } from './component/explorer/explorer.component';
-import { HomeComponent } from './component/home/home.component';
-import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
-import FileSystemService from './service/FileSystemService';
+import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
-import { FileInfoComponent } from './component/file-info/file-info.component';
-import BookInfoService from './service/BookInfoService';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FooterComponent } from './component/footer/footer.component';
-import { WorkInProgressComponent } from './component/work-in-progress/work-in-progress.component';
-import { InternalServerErrorComponent } from './component/internal-server-error/internal-server-error.component';
-import { RatingComponent } from './component/rating/rating.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { MatCardModule } from '@angular/material/card';
-import { CursoredExplorerComponent } from './component/cursored-explorer/cursored-explorer.component';
-import CursoredFileSystemService from './service/CursoredFileSystemService';
-import { CategoriesExplorerComponent as CursoredCategoriesExplorerComponent } from './component/cursored-categories-explorer/cursored-categories-explorer.component';
-import { MatChipsModule } from '@angular/material/chips';
-import CursoredCategoriesService from './service/CursoredCategoriesService';
-import CursoredTagService from './service/CursoredTagService';
-import { CursoredTagFileExplorerComponent } from './component/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
-import { CursoredCategoryFileExplorerComponent } from './component/cursored-category-file-explorer/cursored-category-file-explorer.component';
-import { CursoredTagExplorerComponent } from './component/cursored-tag-explorer/cursored-tag-explorer.component';
-import { ByFileExtensionExplorerComponent } from './component/by-file-extension-explorer/by-file-extension-explorer.component';
-import { ExtensionsComponent } from './component/extensions/extensions.component';
-import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
-import { SearchFormComponent } from './component/search-form/search-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CursoredSearchExplorerComponent } from './component/cursored-search-explorer/cursored-search-explorer.component';
-import { FileInfoEditorComponent } from './component/file-info-editor/file-info-editor.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { LoginFormComponent } from './component/login-form/login-form.component';
-import { RegistrationFormComponent } from './component/registration-form/registration-form.component';
-import AuthService from './service/AuthService';
-import RequestInterceptor from './interceptor/RequestInterceptor';
-import SnackBarService from './service/SnackBarService';
-import QRCodeService from './service/QRCodeService';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CursoredLanguagesExplorerComponent } from './component/cursored-languages-explorer/cursored-languages-explorer.component';
-import { CursoredPublishersExplorerComponent } from './component/cursored-publishers-explorer/cursored-publishers-explorer.component';
-import { CursoredLanguagesFileExplorerComponent } from './component/cursored-languages-file-explorer/cursored-languages-file-explorer.component';
-import { CursoredPublishersFileExplorerComponent } from './component/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './component/home-page/home/home.component';
+import { PageNotFoundComponent } from './component/common/page-not-found/page-not-found.component';
+import { BreadcrumbComponent } from './component/common/breadcrumb/breadcrumb.component';
+import { FileInfoComponent } from './component/explorer/file-info/file-info.component';
+import { FileInfoEditorComponent } from './component/explorer/file-info-editor/file-info-editor.component';
+import { FooterComponent } from './component/common/footer/footer.component';
+import { WorkInProgressComponent } from './component/common/work-in-progress/work-in-progress.component';
+import { InternalServerErrorComponent } from './component/common/internal-server-error/internal-server-error.component';
+import { RatingComponent } from './component/common/rating/rating.component';
+import { CursoredExplorerComponent } from './component/explorer/cursored-explorer/cursored-explorer.component';
+import { CursoredTagExplorerComponent } from './component/explorer/cursored-tag-explorer/cursored-tag-explorer.component';
+import { CursoredTagFileExplorerComponent } from './component/explorer/cursored-tag-file-explorer/cursored-tag-file-explorer.component';
+import { CursoredCategoryFileExplorerComponent } from './component/explorer/cursored-category-file-explorer/cursored-category-file-explorer.component';
+import { ByFileExtensionExplorerComponent } from './component/explorer/by-file-extension-explorer/by-file-extension-explorer.component';
+import { ExtensionsComponent } from './component/explorer/extensions/extensions.component';
+import { BytesToMegabytesPipe } from './pipe/bytes-to-megabytes.pipe';
+import { SearchFormComponent } from './component/common/search-form/search-form.component';
+import { CursoredSearchExplorerComponent } from './component/explorer/cursored-search-explorer/cursored-search-explorer.component';
+import { BookCardComponent } from './component/sales/book-card/book-card.component';
+import { PurchasesComponent } from './component/sales/purchases/purchases.component';
+import { CheckoutComponent } from './component/sales/checkout/checkout.component';
+import { StripeCustomerInformationEditorComponent } from './component/control-panel/stripe-customer-information-editor/stripe-customer-information-editor.component';
+import { CpSecurityComponent } from './component/control-panel/cp-security/cp-security.component';
+import { FeaturedBookComponent } from './component/home-page/featured-book/featured-book.component';
+import { PopularDownloadsContainerComponent } from './component/home-page/popular-downloads-container/popular-downloads-container.component';
+import { PopularDownloadsComponent } from './component/home-page/popular-downloads/popular-downloads.component';
+import { LatestBooksComponent } from './component/home-page/latest-books/latest-books.component';
+import { CursoredByJustAddedFileExplorerComponent } from './component/explorer/cursored-by-just-added-file-explorer/cursored-by-just-added-file-explorer.component';
+import { NavBarComponent } from './component/common/nav-bar/nav-bar.component';
+import { FeaturedBooksComponent } from './component/home-page/featured-books/featured-books.component';
+import { CustomHomePageComponent } from './component/home-page/custom-home-page/custom-home-page.component';
+import { CpHomePageEditorComponent } from './component/control-panel/cp-home-page-editor/cp-home-page-editor.component';
+import { CursoredByDownloadCountFileExplorerComponent } from './component/explorer/cursored-by-download-count-file-explorer/cursored-by-download-count-file-explorer.component';
+import { CursoredByFeaturedFileExplorerComponent } from './component/explorer/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
+import { CursoredByRatingFileExplorerComponent } from './component/explorer/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
+import { PasswordResetEmailFormComponent } from './component/security/password-reset-email-form/password-reset-email-form.component';
+import { ResetPasswordFormComponent } from './component/security/reset-password-form/reset-password-form.component';
+import { PublishedDateExplorerComponent } from './component/explorer/published-date-explorer/published-date-explorer.component';
+import { EntityButtonComponent } from './component/explorer/entity-button/entity-button.component';
+import { CursoredPublishedDateFileExplorerComponent } from './component/explorer/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
+import { ControlPanelComponent } from './component/control-panel/control-panel/control-panel.component';
+import { ChangePasswordFormComponent } from './component/security/change-password-form/change-password-form.component';
+import { CursoredPublishersFileExplorerComponent } from './component/explorer/cursored-publishers-file-explorer/cursored-publishers-file-explorer.component';
+import { CursoredLanguagesFileExplorerComponent } from './component/explorer/cursored-languages-file-explorer/cursored-languages-file-explorer.component';
+import { CursoredPublishersExplorerComponent } from './component/explorer/cursored-publishers-explorer/cursored-publishers-explorer.component';
+import { CursoredLanguagesExplorerComponent } from './component/explorer/cursored-languages-explorer/cursored-languages-explorer.component';
+import { RegistrationFormComponent } from './component/security/registration-form/registration-form.component';
+import { LoginFormComponent } from './component/security/login-form/login-form.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import FileSystemService from './service/FileSystemService';
+import CursoredFileSystemService from './service/CursoredFileSystemService';
+import BookInfoService from './service/BookInfoService';
+import CursoredCategoriesService from './service/CursoredCategoriesService';
+import CursoredTagService from './service/CursoredTagService';
+import AuthService from './service/AuthService';
+import SnackBarService from './service/SnackBarService';
+import QRCodeService from './service/QRCodeService';
 import PublisherService from './service/PublisherService';
 import LanguageService from './service/LanguageService';
-import { ChangePasswordFormComponent } from './component/change-password-form/change-password-form.component';
-import { ControlPanelComponent } from './component/control-panel/control-panel.component';
 import JobService from './service/JobService';
-import { EntityButtonComponent } from './component/entity-button/entity-button.component';
 import PublishedDateService from './service/PublishedDateService';
-import { CursoredPublishedDateFileExplorerComponent } from './component/cursored-published-date-file-explorer/cursored-published-date-file-explorer.component';
-import { PublishedDateExplorerComponent } from './component/published-date-explorer/published-date-explorer.component';
 import CacheLoaderService from './service/CacheLoaderService';
-import { ResetPasswordFormComponent } from './component/reset-password-form/reset-password-form.component';
-import { PasswordResetEmailFormComponent } from './component/password-reset-email-form/password-reset-email-form.component';
-import { CursoredByRatingFileExplorerComponent } from './component/cursored-by-rating-file-explorer/cursored-by-rating-file-explorer.component';
 import FeaturedService from './service/FeaturedService';
-import { CursoredByFeaturedFileExplorerComponent } from './component/cursored-by-featured-file-explorer/cursored-by-featured-file-explorer.component';
-import { CursoredByDownloadCountFileExplorerComponent } from './component/cursored-by-download-count-file-explorer/cursored-by-download-count-file-explorer.component';
-import { CpHomePageEditorComponent } from './component/cp-home-page-editor/cp-home-page-editor.component';
-import PostService from './service/PostService';
-import { CustomHomePageComponent } from './component/custom-home-page/custom-home-page.component';
-import { FeaturedBooksComponent } from './component/featured-books/featured-books.component';
-import { NavBarComponent } from './component/nav-bar/nav-bar.component';
-import { CursoredByJustAddedFileExplorerComponent } from './component/cursored-by-just-added-file-explorer/cursored-by-just-added-file-explorer.component';
-import { LatestBooksComponent } from './component/latest-books/latest-books.component';
-import { PopularDownloadsComponent } from './component/popular-downloads/popular-downloads.component';
-import { PopularDownloadsContainerComponent } from './component/popular-downloads-container/popular-downloads-container.component';
-import ApplicationSettingsService from './service/ApplicationSettingsService';
-import { FeaturedBookComponent } from './component/featured-book/featured-book.component';
-import { CpSecurityComponent } from './component/cp-security/cp-security.component';
-import FileMetaInfoService from './service/FileMetaInfoService';
-import { StripeCustomerInformationEditorComponent } from './component/stripe-customer-information-editor/stripe-customer-information-editor.component';
-import CustomerService from './service/CustomerService';
-import PaymentService from './service/PaymentService';
-import { CheckoutComponent } from './component/checkout/checkout.component';
-import { PurchasesComponent } from './component/purchases/purchases.component';
+import RequestInterceptor from './interceptor/RequestInterceptor';
 import { StripePurchasesService } from './service/StripePurchasesService';
-import { BookCardComponent } from './component/book-card/book-card.component';
+import PaymentService from './service/PaymentService';
+import CustomerService from './service/CustomerService';
+import FileMetaInfoService from './service/FileMetaInfoService';
+import ApplicationSettingsService from './service/ApplicationSettingsService';
+import PostService from './service/PostService';
+import { CategoriesExplorerComponent } from './component/explorer/cursored-categories-explorer/cursored-categories-explorer.component';
+import { ExplorerComponent } from './component/explorer/explorer/explorer.component';
+
 @NgModule({
   declarations: [
+    CategoriesExplorerComponent,
     AppComponent,
-    NavigatorComponent,
     ExplorerComponent,
     HomeComponent,
     PageNotFoundComponent,
@@ -101,7 +97,7 @@ import { BookCardComponent } from './component/book-card/book-card.component';
     InternalServerErrorComponent,
     RatingComponent,
     CursoredExplorerComponent,
-    CursoredCategoriesExplorerComponent,
+    CursoredCategoryFileExplorerComponent,
     CursoredTagExplorerComponent,
     CursoredTagFileExplorerComponent,
     CursoredCategoryFileExplorerComponent,
@@ -147,22 +143,17 @@ import { BookCardComponent } from './component/book-card/book-card.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    MatCardModule,
-    MatChipsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     FileSystemService,
     CursoredFileSystemService,
     BookInfoService,
-    provideAnimationsAsync(),
     CursoredCategoriesService,
     CursoredTagService,
     AuthService,
