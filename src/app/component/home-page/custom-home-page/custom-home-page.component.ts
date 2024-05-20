@@ -29,18 +29,17 @@ export class CustomHomePageComponent implements OnInit {
     this.applicationSettingsService.get().subscribe({
       next: (settings) => {
         this.settings = settings;
-        this.postService
-          .getByIdentifier(environment.IDENTIFIER_HOME_PAGE_ARTICLE)
-          .subscribe({
-            next: (post) => {
-              this.post = post;
-            },
-            error: () => {
-              // if (!this.isAdministrator()) {
-              //   this.router.navigate(['/about']);
-              // }
-            },
-          });
+
+        if (settings.customDescriptionEnabled) {
+          this.postService
+            .getByIdentifier(environment.IDENTIFIER_HOME_PAGE_ARTICLE)
+            .subscribe({
+              next: (post) => {
+                this.post = post;
+              },
+              error: () => {},
+            });
+        }
       },
       error: () => {
         this.snackBarService.showErrorWithMessage(
