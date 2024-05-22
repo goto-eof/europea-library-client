@@ -25,7 +25,7 @@
 # Europea Library (client)
 
 A library web application that allows to index, edit, explore, retrieve information about books from file metadata/web (by using
-multithreading), search, download and buy/sell (WIP) e-books. The back-end project can be cloned [here](https://github.com/goto-eof/europea-library-server).
+multithreading), search, download and buy/sell e-books. The back-end project can be cloned [here](https://github.com/goto-eof/europea-library-server).
 
 ## Configure the application
 
