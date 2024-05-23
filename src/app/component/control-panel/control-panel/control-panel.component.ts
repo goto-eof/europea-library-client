@@ -55,7 +55,6 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
           that.jobStepStatus = operationStatus.message;
         },
         error: (e) => {
-          console.log(e);
           if (e.error.code === 503) {
             that.isJobRunning = 'yes';
             that.jobStepStatus = '';

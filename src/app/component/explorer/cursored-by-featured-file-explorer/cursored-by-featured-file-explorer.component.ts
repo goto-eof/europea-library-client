@@ -42,7 +42,7 @@ export class CursoredByFeaturedFileExplorerComponent implements OnInit {
 
   loadMore() {
     const cursoredRequest: GenericCursoredRequest<string> = {
-      limit: environment.LIMIT_EXPLORER_BY_RATING,
+      limit: environment.LIMIT_EXPLORER_BY_FEATURED,
       nextCursor: this.cursoredItem?.nextCursor!,
       parent: this.cursoredItem?.parent!,
     };

@@ -6,7 +6,6 @@ import { environment } from '../../../../environments/environment';
 import ErrorHandlerUtil from '../../../service/ErrorHandlerUtil';
 import { Router } from '@angular/router';
 import GenericCursoredRequest from '../../../model/GenericCursoredRequest';
-import FileMetaInfo from '../../../model/FileMetaInfo';
 
 @Component({
   selector: 'app-purchases',
@@ -24,7 +23,7 @@ export class PurchasesComponent implements OnInit {
   ngOnInit(): void {
     this.stripePurchasesService
       .retrieveCursoredPurchases({
-        limit: environment.LIMIT_EXPLORER_BY_PUBLISHER,
+        limit: environment.LIMIT_EXPLORER_BY_PURCHASES,
         nextCursor: null,
         parent: 'purchases',
       })
@@ -40,7 +39,7 @@ export class PurchasesComponent implements OnInit {
 
   loadMore() {
     const cursoredRequest: GenericCursoredRequest<string> = {
-      limit: environment.LIMIT_EXPLORER_BY_PUBLISHER,
+      limit: environment.LIMIT_EXPLORER_BY_PURCHASES,
       nextCursor: this.cursoredItem?.nextCursor!,
       parent: this.cursoredItem?.parent!,
     };

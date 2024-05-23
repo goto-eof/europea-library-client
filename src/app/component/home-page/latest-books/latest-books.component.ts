@@ -57,7 +57,6 @@ export class LatestBooksComponent implements OnInit {
   }
 
   calculateImageUrl(item: FileSystemItemHighlight): string {
-    console.log(item);
     if (item.imageUrl) {
       return item.imageUrl;
     }
