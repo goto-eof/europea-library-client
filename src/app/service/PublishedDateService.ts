@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import ApplicationConst from '../constants/ApplicationConst';
 import OperationStatus from '../model/OperationStatus';
 import Rename from '../model/Rename';
 import ItemAndFrequency from '../model/ItemAndFrequency';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/publishedDate';
+const baseUrl = '/api/v1/publishedDate';
 
 @Injectable()
 export default class PublishedDateService {

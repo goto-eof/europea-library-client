@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import ApplicationConst from '../constants/ApplicationConst';
 import OperationStatus from '../model/OperationStatus';
 import FileMetaInfo from '../model/FileMetaInfo';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/bookInfo';
+const baseUrl = '/api/v1/bookInfo';
 @Injectable()
 export default class BookInfoService {
   uploadBookCover(

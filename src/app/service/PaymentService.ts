@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import ApplicationConst from '../constants/ApplicationConst';
 import { Observable } from 'rxjs';
 import StripeCheckoutSessionRequest from '../model/StripeCheckoutSessionRequest';
 import StripeCheckoutSessionResponse from '../model/StripeCheckoutSessionResponse';
 import OperationStatus from '../model/OperationStatus';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/payment';
+const baseUrl = '/api/v1/payment';
 
 @Injectable()
 export default class PaymentService {

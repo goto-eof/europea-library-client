@@ -82,7 +82,8 @@
               "buildTarget": "europea-library-client:build:production"
             },
             "development": {
-              "buildTarget": "europea-library-client:build:development"
+              "buildTarget": "europea-library-client:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

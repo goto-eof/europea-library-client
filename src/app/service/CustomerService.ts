@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import ApplicationConst from '../constants/ApplicationConst';
 import { Observable } from 'rxjs';
 import StripeCustomer from '../model/StripeCustomer';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/stripe/customer';
+const baseUrl = '/api/v1/stripe/customer';
 
 @Injectable()
 export default class CustomerService {

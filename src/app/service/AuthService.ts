@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import ApplicationConst from '../constants/ApplicationConst';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import AuthResponse from '../model/AuthResponse';
 import User from '../model/User';
 import OperationStatus from '../model/OperationStatus';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/auth';
+const baseUrl = '/api/v1/auth';
 @Injectable()
 export default class AuthService {
   changePassword(
@@ -29,6 +28,10 @@ export default class AuthService {
       username,
       password,
     });
+  }
+
+  logout(): Observable<OperationStatus> {
+    return this.httpClient.post<OperationStatus>(`${baseUrl}/logout`, {});
   }
 
   register(

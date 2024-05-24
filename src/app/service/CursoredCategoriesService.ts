@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import ApplicationConst from '../constants/ApplicationConst';
 import CommonCursoredRequest from '../model/CommonCursoredRequest';
 import Cursor from '../model/Cursor';
 import Category from '../model/Category';
@@ -9,7 +8,7 @@ import { environment } from '../../environments/environment';
 import OperationStatus from '../model/OperationStatus';
 import Rename from '../model/Rename';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/category';
+const baseUrl = '/api/v1/category';
 
 @Injectable()
 export default class CursoredCategoriesService {

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import ApplicationConst from '../constants/ApplicationConst';
 import { Observable } from 'rxjs';
 import OperationStatus from '../model/OperationStatus';
 import GenericCursoredRequest from '../model/GenericCursoredRequest';
@@ -8,7 +7,7 @@ import GenericCursoredResponse from '../model/GenericCursoredResponse';
 import FileSystemItemHighlight from '../model/FileSystemItemHighlight';
 import FileSystemItem from '../model/FileSystemItem';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/featured';
+const baseUrl = '/api/v1/featured';
 
 @Injectable()
 export default class FeaturedService {
