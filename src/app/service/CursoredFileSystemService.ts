@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import CursoredRequest from '../model/CursoredRequest';
 import CursoredFileSystemItem from '../model/CursoredFileSystemItem';
-import ApplicationConst from '../constants/ApplicationConst';
 import CursoredFileSystemItemByExtension from '../model/CursoredFileExtensionRequest';
 import FileExtension from '../model/FileExtension';
 import CursoredExtension from '../model/CursoredExtension';
@@ -17,7 +16,7 @@ import GenericCursoredResponse from '../model/GenericCursoredResponse';
 import FileSystemItemHighlight from '../model/FileSystemItemHighlight';
 import GenericCursoredRequestByFileType from '../model/GenericCursoredRequestByFileType';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v2/file';
+const baseUrl = '/api/v2/file';
 
 @Injectable()
 export default class CursoredFileSystemService {

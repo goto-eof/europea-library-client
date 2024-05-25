@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NavigationService } from '../../../service/NavigationService';
 import { SHA256 } from 'crypto-js';
 import User from '../../../model/User';
+import SnackBarService from '../../../service/SnackBarService';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,7 +18,8 @@ export class NavBarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private snackBarService: SnackBarService
   ) {}
   ngOnInit(): void {
     this.navigationService.getObservable().subscribe({
@@ -36,10 +38,21 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.role = this.getRole() || '';
-    this.router.navigate(['/home']);
+    this.authService.logout().subscribe({
+      next: (response) => {
+        if (response.status) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          this.role = this.getRole() || '';
+          this.router.navigate(['/home']);
+        }
+      },
+      error: (err) => {
+        this.snackBarService.showErrorWithMessage(
+          'Fatal Error! Unable to logout.'
+        );
+      },
+    });
   }
 
   isLoggedIn() {

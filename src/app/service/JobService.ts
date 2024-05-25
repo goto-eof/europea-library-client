@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import ApplicationConst from '../constants/ApplicationConst';
 import { Observable } from 'rxjs';
 import OperationStatus from '../model/OperationStatus';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/job';
+const baseUrl = '/api/v1/job';
 
 @Injectable()
 export default class JobService {

@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import ApplicationConst from '../constants/ApplicationConst';
 import Post from '../model/Post';
 
-const baseUrl = ApplicationConst.API_ENDPOINT + '/api/v1/post';
+const baseUrl = '/api/v1/post';
 
 @Injectable()
 export default class PostService {
