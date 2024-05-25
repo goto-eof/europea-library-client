@@ -41,7 +41,7 @@ export class CursoredByDownloadCountFileExplorerComponent implements OnInit {
 
   loadMore() {
     const cursoredRequest: GenericCursoredRequest<string> = {
-      limit: environment.LIMIT_EXPLORER_BY_RATING,
+      limit: environment.LIMIT_EXPLORER_BY_DOWNLOAD_COUNT,
       nextCursor: this.cursoredItem?.nextCursor!,
       parent: this.cursoredItem?.parent!,
     };
