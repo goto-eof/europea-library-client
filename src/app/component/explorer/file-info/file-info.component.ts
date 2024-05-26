@@ -22,6 +22,7 @@ import PaymentService from '../../../service/PaymentService';
 import StripeCheckoutSessionRequest from '../../../model/StripeCheckoutSessionRequest';
 import StripeCheckoutSessionResponse from '../../../model/StripeCheckoutSessionResponse';
 import { loadStripe } from '@stripe/stripe-js';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-file-info',
   templateUrl: './file-info.component.html',
@@ -334,7 +335,7 @@ export class FileInfoComponent implements OnInit {
   async buy() {
     this.isPurchasing = true;
     const stripeCheckoutSessionRequest: StripeCheckoutSessionRequest = {
-      checkoutBaseUrl: 'http://localhost:4200/checkout',
+      checkoutBaseUrl: `${environment.hostname}/checkout`,
       fileMetaInfoId: this.fileMetaInfo!.id!,
       quantity: 1,
     };

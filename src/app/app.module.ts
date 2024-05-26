@@ -81,6 +81,11 @@ import ApplicationSettingsService from './service/ApplicationSettingsService';
 import PostService from './service/PostService';
 import { CategoriesExplorerComponent } from './component/explorer/cursored-categories-explorer/cursored-categories-explorer.component';
 import { ExplorerComponent } from './component/explorer/explorer/explorer.component';
+import { ControlPanelLargeComponent } from './component/control-panel/control-panel-large/control-panel-large.component';
+import { ControlPanelSmallComponent } from './component/control-panel/control-panel-small/control-panel-small.component';
+import { CpAdministrationComponent } from './component/control-panel/cp-administration/cp-administration.component';
+import { CpProfileComponent } from './component/control-panel/cp-profile/cp-profile.component';
+import { CpAccountComponent } from './component/control-panel/cp-account/cp-account.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +142,11 @@ import { ExplorerComponent } from './component/explorer/explorer/explorer.compon
     CheckoutComponent,
     PurchasesComponent,
     BookCardComponent,
+    ControlPanelLargeComponent,
+    ControlPanelSmallComponent,
+    CpAdministrationComponent,
+    CpProfileComponent,
+    CpAccountComponent,
   ],
   imports: [
     BrowserModule,
