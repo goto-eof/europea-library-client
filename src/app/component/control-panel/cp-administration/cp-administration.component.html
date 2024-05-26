@@ -1,0 +1,67 @@
+<h1 class="pb-3 pt-3 text-start">
+  <i class="bi bi-tools"></i> Site administration
+</h1>
+<hr />
+<div class="row p-2">
+  <div class="col-md-9">
+    <div class="vstack">
+      <div>Run the indexing and cataloguing job</div>
+      <small class="text-secondary"
+        >The index and catalog job allows to search for e-books, add them to the
+        database and retrieve information for them.</small
+      >
+      <small
+        [class]="isJobRunning === 'yes' ? 'text-danger' : 'text-secondary'"
+        >{{ jobStepStatus }}</small
+      >
+    </div>
+  </div>
+  <div class="col-md-3">
+    <button
+      class="btn btn-secondary w-100"
+      *ngIf="isJobRunning === 'checking'"
+      [disabled]="true"
+    >
+      Checking...
+    </button>
+    <button
+      class="btn btn-primary w-100"
+      *ngIf="isJobRunning === 'no'"
+      (click)="runTheJob()"
+      [disabled]="isStartRequestMade"
+    >
+      Run the job
+    </button>
+    <button
+      class="btn btn-danger w-100"
+      *ngIf="isJobRunning === 'yes'"
+      [disabled]="isStopRequestMade"
+      (click)="stopTheJob()"
+    >
+      Stop the job
+    </button>
+  </div>
+</div>
+
+<div class="row p-2">
+  <div class="col-md-9">
+    <div class="vstack">
+      <div>Reload cache</div>
+      <small class="text-secondary"
+        >In order to make the user experience more pleasant, Europea Library
+        uses data caching. If you modified manually some book information, it is
+        recommended to reload the application cache if you want to see the new
+        changes.</small
+      >
+    </div>
+  </div>
+  <div class="col-md-3">
+    <button
+      class="btn btn-primary w-100"
+      (click)="reloadCache()"
+      [disabled]="isReloadCacheRequestMade"
+    >
+      Reload cache
+    </button>
+  </div>
+</div>
