@@ -1,4 +1,5 @@
 export const environment = {
+  hostname: 'http://localhost:4200',
   apiUrl: 'http://localhost:8081',
   isAutoLoadEnabled: true,
   autoLoadTime: 20,

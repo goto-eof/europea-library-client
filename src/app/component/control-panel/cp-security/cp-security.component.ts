@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import PostService from '../../../service/PostService';
-import { FormBuilder } from '@angular/forms';
 import SnackBarService from '../../../service/SnackBarService';
 import ApplicationSettingsService from '../../../service/ApplicationSettingsService';
 import ApplicationSettings from '../../../model/ApplicationSettings';
