@@ -37,12 +37,18 @@ export default class AuthService {
   register(
     username: string,
     email: string,
-    password: string
+    password: string,
+    consensus1Flag: boolean,
+    consensus2Flag: boolean,
+    consensus3Flag: boolean
   ): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(`${baseUrl}/register`, {
       username,
       email,
       password,
+      consensus1Flag,
+      consensus2Flag,
+      consensus3Flag,
     });
   }
 
