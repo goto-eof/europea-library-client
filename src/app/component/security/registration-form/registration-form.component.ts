@@ -20,6 +20,9 @@ export class RegistrationFormComponent implements OnInit {
     username: ['', FormValidatorService.getUsernameValidator()],
     password: ['', FormValidatorService.getPasswordValidator()],
     email: ['', Validators.maxLength(320)],
+    consensus1Flag: [false],
+    consensus2Flag: [false],
+    consensus3Flag: [false],
   });
   isShowPasswordEnabled = false;
 
@@ -45,7 +48,10 @@ export class RegistrationFormComponent implements OnInit {
         .register(
           this.registrationForm.value.username.trim().toLowerCase(),
           this.registrationForm.value.email.trim().toLowerCase(),
-          this.registrationForm.value.password
+          this.registrationForm.value.password,
+          this.registrationForm.value.consensus1Flag,
+          this.registrationForm.value.consensus2Flag,
+          this.registrationForm.value.consensus3Flag
         )
         .subscribe({
           next: (authResponse: AuthResponse) => {
