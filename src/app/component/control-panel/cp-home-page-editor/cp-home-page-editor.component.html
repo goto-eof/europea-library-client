@@ -1,7 +1,15 @@
 <h1>Home Page Widgets</h1>
 <div class="row">
-  <div class="col-6 p-3">
-    <div class="form-check">
+  <div class="col-md-6 p-3">
+    <div
+      class="form-check"
+      (click)="
+        update(
+          'customDescriptionEnabled',
+          !(settings?.customDescriptionEnabled || false)
+        )
+      "
+    >
       <input
         class="form-check-input"
         type="checkbox"
@@ -9,12 +17,6 @@
         id="customDescriptionEnabled"
         #customDescriptionEnabled
         [checked]="settings?.customDescriptionEnabled"
-        (click)="
-          update(
-            'customDescriptionEnabled',
-            !(settings?.customDescriptionEnabled || false)
-          )
-        "
       />
       <label class="form-check-label" for="customDescriptionEnabled">
         <div>Enable Home Page content</div>
@@ -24,14 +26,16 @@
       </label>
     </div>
 
-    <div class="form-check">
+    <div
+      class="form-check"
+      (click)="
+        update(
+          'featuredBooksWidgetEnabled',
+          !(settings?.featuredBooksWidgetEnabled || false)
+        )
+      "
+    >
       <input
-        (click)="
-          update(
-            'featuredBooksWidgetEnabled',
-            featuredBooksWidgetEnabled.checked
-          )
-        "
         [checked]="settings?.featuredBooksWidgetEnabled"
         class="form-check-input"
         type="checkbox"
@@ -48,12 +52,17 @@
     </div>
   </div>
 
-  <div class="col-6 p3">
-    <div class="form-check">
+  <div class="col-md-6 p3">
+    <div
+      class="form-check"
+      (click)="
+        update(
+          'featuredBookWidgetEnabled',
+          !(settings?.featuredBookWidgetEnabled || false)
+        )
+      "
+    >
       <input
-        (click)="
-          update('featuredBookWidgetEnabled', featuredBookWidgetEnabled.checked)
-        "
         [checked]="settings?.featuredBookWidgetEnabled"
         class="form-check-input"
         type="checkbox"
@@ -69,9 +78,16 @@
       </label>
     </div>
 
-    <div class="form-check">
+    <div
+      class="form-check"
+      (click)="
+        update(
+          'newBooksWidgetEnabled',
+          !(settings?.newBooksWidgetEnabled || false)
+        )
+      "
+    >
       <input
-        (click)="update('newBooksWidgetEnabled', newBooksWidgetEnabled.checked)"
         [checked]="settings?.newBooksWidgetEnabled"
         class="form-check-input"
         type="checkbox"
@@ -87,11 +103,16 @@
       </label>
     </div>
 
-    <div class="form-check">
+    <div
+      class="form-check"
+      (click)="
+        update(
+          'popularBooksWidgetEnabled',
+          !(settings?.popularBooksWidgetEnabled || false)
+        )
+      "
+    >
       <input
-        (click)="
-          update('popularBooksWidgetEnabled', popularBooksWidgetEnabled.checked)
-        "
         [checked]="settings?.popularBooksWidgetEnabled"
         class="form-check-input"
         type="checkbox"

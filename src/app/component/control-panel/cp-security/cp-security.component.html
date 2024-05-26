@@ -1,8 +1,13 @@
-<div class="form-check">
+<div
+  class="form-check"
+  (click)="
+    update(
+      'protectedDownloadsEnabled',
+      !(settings?.protectedDownloadsEnabled || false)
+    )
+  "
+>
   <input
-    (click)="
-      update('protectedDownloadsEnabled', protectedDownloadsEnabled.checked)
-    "
     [checked]="settings?.protectedDownloadsEnabled"
     class="form-check-input"
     type="checkbox"
