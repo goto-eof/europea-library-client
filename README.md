@@ -27,6 +27,13 @@
 A library web application that allows to index, edit, explore, retrieve information about books from file metadata/web (by using
 multithreading), search, download and buy/sell e-books. The back-end project can be cloned [here](https://github.com/goto-eof/europea-library-server).
 
+# Demo
+
+I already bought a domain and deployed the application on my VPS. So that I have
+a working demo on [http://europea-library.eu](http://europea-library.eu). For now the Stripe payment features are set to
+TEST MODE. It means that when you buy an e-book on europea-library.eu it is enough to use as test card like 424242...
+and some random information in order to purchase the book.
+
 ## Configure the application
 
 In order to run the application it necessary to duplicate the `environment.development.ts` and rename it to `environment.production.ts`, otherwise an error will be thrown when you will try to start the application.
