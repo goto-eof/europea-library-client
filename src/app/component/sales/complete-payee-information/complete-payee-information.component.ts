@@ -4,7 +4,6 @@ import PaymentService from '../../../service/PaymentService';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeCheckoutSessionResponse from '../../../model/StripeCheckoutSessionResponse';
 import SnackBarService from '../../../service/SnackBarService';
-import { state } from '@angular/animations';
 import { Location } from '@angular/common';
 
 @Component({
@@ -14,18 +13,22 @@ import { Location } from '@angular/common';
 })
 export class CompletePayeeInformationComponent implements OnInit {
   paymentInfo?: any;
+  callback: Function;
+
   constructor(
     private router: Router,
     private paymentService: PaymentService,
     private snackBarService: SnackBarService,
     private activatedRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) {
+    this.callback = this.continue;
+  }
   ngOnInit(): void {
     const state = this.location.getState() as any;
     this.paymentInfo = state['data'];
   }
-  continue() {
+  continue(): void {
     if (!this.paymentInfo) {
       this.snackBarService.showErrorWithMessage(
         'Something went wrong. Payment information not available.'
