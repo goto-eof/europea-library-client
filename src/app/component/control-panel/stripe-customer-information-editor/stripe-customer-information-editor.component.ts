@@ -69,9 +69,9 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
           this.snackBarService.showInfoWithMessage('Updated successfully');
           this.reload(data);
         },
-        error: () => {
+        error: (e) => {
           this.snackBarService.showErrorWithMessage(
-            'Unable to update information'
+            'Unable to save information: ' + e.error.message
           );
         },
       });
@@ -86,8 +86,10 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
         }
         this.reload(data);
       },
-      error: () => {
-        this.snackBarService.showErrorWithMessage('Unable to save information');
+      error: (e) => {
+        this.snackBarService.showErrorWithMessage(
+          'Unable to save information: ' + e.error.message
+        );
       },
     });
   }
