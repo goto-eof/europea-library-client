@@ -86,7 +86,7 @@ import { ControlPanelSmallComponent } from './component/control-panel/control-pa
 import { CpAdministrationComponent } from './component/control-panel/cp-administration/cp-administration.component';
 import { CpProfileComponent } from './component/control-panel/cp-profile/cp-profile.component';
 import { CpAccountComponent } from './component/control-panel/cp-account/cp-account.component';
-import { CompletePayeeInformationComponent } from './component/sales/complete-payee-information/complete-payee-information.component';
+import { CompletePayerInformationComponent } from './component/sales/complete-payer-information/complete-payer-information.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +148,7 @@ import { CompletePayeeInformationComponent } from './component/sales/complete-pa
     CpAdministrationComponent,
     CpProfileComponent,
     CpAccountComponent,
-    CompletePayeeInformationComponent,
+    CompletePayerInformationComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,11 +9,11 @@ import FileMetaInfo from '../../../model/FileMetaInfo';
 import StripePrice from '../../../model/StripePrice';
 
 @Component({
-  selector: 'app-complete-payee-information',
-  templateUrl: './complete-payee-information.component.html',
-  styleUrl: './complete-payee-information.component.css',
+  selector: 'app-complete-payer-information',
+  templateUrl: './complete-payer-information.component.html',
+  styleUrl: './complete-payer-information.component.css',
 })
-export class CompletePayeeInformationComponent implements OnInit {
+export class CompletePayerInformationComponent implements OnInit {
   paymentInfo?: any;
   callback: Function;
   bookInfo?: BookInfo;

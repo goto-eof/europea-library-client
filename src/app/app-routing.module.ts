@@ -34,7 +34,7 @@ import { RegistrationFormComponent } from './component/security/registration-for
 import { ResetPasswordFormComponent } from './component/security/reset-password-form/reset-password-form.component';
 import { CustomHomePageComponent } from './component/home-page/custom-home-page/custom-home-page.component';
 import { CategoriesExplorerComponent } from './component/explorer/cursored-categories-explorer/cursored-categories-explorer.component';
-import { CompletePayeeInformationComponent } from './component/sales/complete-payee-information/complete-payee-information.component';
+import { CompletePayerInformationComponent } from './component/sales/complete-payer-information/complete-payer-information.component';
 
 const routes: Routes = [
   { path: 'home', component: CustomHomePageComponent },
@@ -113,7 +113,7 @@ const routes: Routes = [
   { path: 'internal-server-error', component: InternalServerErrorComponent },
   {
     path: 'complete-payee-information',
-    component: CompletePayeeInformationComponent,
+    component: CompletePayerInformationComponent,
   },
   { path: '**', component: PageNotFoundComponent },
 ];
