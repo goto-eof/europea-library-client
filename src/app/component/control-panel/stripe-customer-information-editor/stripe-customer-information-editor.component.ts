@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import StripeCustomer from '../../../model/StripeCustomer';
 import CustomerService from '../../../service/CustomerService';
 import SnackBarService from '../../../service/SnackBarService';
-import { retryWhen } from 'rxjs';
 
 @Component({
   selector: 'app-stripe-customer-information-editor',

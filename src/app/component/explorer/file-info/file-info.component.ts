@@ -360,6 +360,9 @@ export class FileInfoComponent implements OnInit {
               checkoutBaseUrl: `${environment.hostname}/checkout`,
               fileMetaInfoId: this.fileMetaInfo!.id!,
               quantity: 1,
+              bookInfo: this.bookInfo,
+              fileMetaInfo: this.fileMetaInfo,
+              stripePrice: this.stripePrice,
             };
 
             const navigationExtras: NavigationExtras = {

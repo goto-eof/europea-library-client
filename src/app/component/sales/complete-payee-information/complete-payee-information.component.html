@@ -2,8 +2,26 @@
   <div class="card">
     <div class="card-body">
       <div *ngIf="paymentInfo">
-        <div>Product ID: {{ paymentInfo.fileMetaInfoId }}</div>
-        <div>Quantity: {{ paymentInfo.quantity }}</div>
+        <div class="row pb-2">
+          <div class="">
+            <div class="hstack">
+              <img
+                class="img-fluid"
+                [src]="bookInfo?.imageUrl"
+                onerror="this.src='/assets/images/no-cover.jpg';"
+              />
+              <div class="vstack p-3">
+                <div>Product ID: {{ paymentInfo.fileMetaInfoId }}</div>
+                <div>Quantity: {{ paymentInfo.quantity }}</div>
+                <div>Price: {{ stripePrice?.amount }}€</div>
+                <div>Title: {{ fileMetaInfo?.title }}</div>
+                <div *ngIf="fileMetaInfo?.description">
+                  Description: {{ fileMetaInfo?.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <app-stripe-customer-information-editor
         [callback]="continue.bind(this)"

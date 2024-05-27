@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import PaymentService from '../../../service/PaymentService';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeCheckoutSessionResponse from '../../../model/StripeCheckoutSessionResponse';
 import SnackBarService from '../../../service/SnackBarService';
 import { Location } from '@angular/common';
+import BookInfo from '../../../model/BookInfo';
+import FileMetaInfo from '../../../model/FileMetaInfo';
+import StripePrice from '../../../model/StripePrice';
 
 @Component({
   selector: 'app-complete-payee-information',
@@ -14,12 +16,13 @@ import { Location } from '@angular/common';
 export class CompletePayeeInformationComponent implements OnInit {
   paymentInfo?: any;
   callback: Function;
+  bookInfo?: BookInfo;
+  fileMetaInfo?: FileMetaInfo;
+  stripePrice?: StripePrice;
 
   constructor(
-    private router: Router,
     private paymentService: PaymentService,
     private snackBarService: SnackBarService,
-    private activatedRoute: ActivatedRoute,
     private location: Location
   ) {
     this.callback = this.continue;
@@ -27,6 +30,9 @@ export class CompletePayeeInformationComponent implements OnInit {
   ngOnInit(): void {
     const state = this.location.getState() as any;
     this.paymentInfo = state['data'];
+    this.bookInfo = this.paymentInfo?.bookInfo;
+    this.fileMetaInfo = this.paymentInfo?.fileMetaInfo;
+    this.stripePrice = this.paymentInfo.stripePrice;
   }
   continue(): void {
     if (!this.paymentInfo) {
