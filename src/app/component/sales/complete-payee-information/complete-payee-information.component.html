@@ -1,0 +1,12 @@
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <div *ngIf="paymentInfo">
+        <div>Product ID: {{ paymentInfo.fileMetaInfoId }}</div>
+        <div>Quantity: {{ paymentInfo.quantity }}</div>
+      </div>
+      <app-stripe-customer-information-editor />
+      <button class="btn btn-primary" (click)="continue()">Continue</button>
+    </div>
+  </div>
+</div>
