@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import FileSystemItem from '../../../model/FileSystemItem';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import BookInfoService from '../../../service/BookInfoService';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location } from '@angular/common';
@@ -23,6 +23,8 @@ import StripeCheckoutSessionRequest from '../../../model/StripeCheckoutSessionRe
 import StripeCheckoutSessionResponse from '../../../model/StripeCheckoutSessionResponse';
 import { loadStripe } from '@stripe/stripe-js';
 import { environment } from '../../../../environments/environment';
+import HttpErrorAdditionalInformation from '../../../model/HttpErrorAdditionalInformation';
+import { InternalErrorCode } from '../../../types/InternalErrorCode';
 @Component({
   selector: 'app-file-info',
   templateUrl: './file-info.component.html',
@@ -342,11 +344,41 @@ export class FileInfoComponent implements OnInit {
     this.paymentService
       .initCheckoutSession(stripeCheckoutSessionRequest)
       .subscribe({
-        error: () => {
+        error: (err) => {
+          const error = err.error as HttpErrorAdditionalInformation;
           this.isPurchasing = false;
-          this.snackBarService.showErrorWithMessage(
-            'Before proceeding please fill up the Customer Information in Control Panel -> Payments section'
+
+          console.log(
+            err,
+            InternalErrorCode.MANDATORY_PAYEE_INFO,
+            error.internalErrorCode
           );
+          if (
+            InternalErrorCode.MANDATORY_PAYEE_INFO === error.internalErrorCode
+          ) {
+            const paymentInfo = {
+              checkoutBaseUrl: `${environment.hostname}/checkout`,
+              fileMetaInfoId: this.fileMetaInfo!.id!,
+              quantity: 1,
+              bookInfo: this.bookInfo,
+              fileMetaInfo: this.fileMetaInfo,
+              stripePrice: this.stripePrice,
+            };
+
+            const navigationExtras: NavigationExtras = {
+              state: {
+                data: paymentInfo,
+              },
+            };
+            this.router.navigate(
+              ['/complete-payee-information'],
+              navigationExtras
+            );
+          } else {
+            this.snackBarService.showErrorWithMessage(
+              'Before proceeding please fill up the Customer Information in Control Panel -> Payments section'
+            );
+          }
         },
         next: async (data: StripeCheckoutSessionResponse) => {
           this.isRedirecting = true;

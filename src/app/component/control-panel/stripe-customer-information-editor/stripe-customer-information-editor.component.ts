@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import StripeCustomer from '../../../model/StripeCustomer';
 import CustomerService from '../../../service/CustomerService';
@@ -12,6 +12,7 @@ import SnackBarService from '../../../service/SnackBarService';
 export class StripeCustomerInformationEditorComponent implements OnInit {
   customerForm: FormGroup<any> = this.generateForm(undefined);
   stripeCustomer?: StripeCustomer;
+  @Input('callback') callback?: Function;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -79,6 +80,10 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
     this.customerService.create(stripeCustomer).subscribe({
       next: (data) => {
         this.snackBarService.showInfoWithMessage('Saved successfully');
+        if (this.callback) {
+          this.callback();
+          return;
+        }
         this.reload(data);
       },
       error: () => {

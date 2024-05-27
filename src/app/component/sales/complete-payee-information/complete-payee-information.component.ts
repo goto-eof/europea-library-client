@@ -1,0 +1,60 @@
+import { Component, OnInit } from '@angular/core';
+import PaymentService from '../../../service/PaymentService';
+import { loadStripe } from '@stripe/stripe-js';
+import StripeCheckoutSessionResponse from '../../../model/StripeCheckoutSessionResponse';
+import SnackBarService from '../../../service/SnackBarService';
+import { Location } from '@angular/common';
+import BookInfo from '../../../model/BookInfo';
+import FileMetaInfo from '../../../model/FileMetaInfo';
+import StripePrice from '../../../model/StripePrice';
+
+@Component({
+  selector: 'app-complete-payee-information',
+  templateUrl: './complete-payee-information.component.html',
+  styleUrl: './complete-payee-information.component.css',
+})
+export class CompletePayeeInformationComponent implements OnInit {
+  paymentInfo?: any;
+  callback: Function;
+  bookInfo?: BookInfo;
+  fileMetaInfo?: FileMetaInfo;
+  stripePrice?: StripePrice;
+
+  constructor(
+    private paymentService: PaymentService,
+    private snackBarService: SnackBarService,
+    private location: Location
+  ) {
+    this.callback = this.continue;
+  }
+  ngOnInit(): void {
+    const state = this.location.getState() as any;
+    this.paymentInfo = state['data'];
+    this.bookInfo = this.paymentInfo?.bookInfo;
+    this.fileMetaInfo = this.paymentInfo?.fileMetaInfo;
+    this.stripePrice = this.paymentInfo.stripePrice;
+  }
+  continue(): void {
+    if (!this.paymentInfo) {
+      this.snackBarService.showErrorWithMessage(
+        'Something went wrong. Payment information not available.'
+      );
+      return;
+    }
+    this.paymentService.initCheckoutSession(this.paymentInfo).subscribe({
+      error: (err) => {
+        this.snackBarService.showErrorWithMessage(
+          'Unable to proceed. Before proceeding, please complete the form and save changes.'
+        );
+      },
+      next: async (data: StripeCheckoutSessionResponse) => {
+        const stripe = await loadStripe(data.stripePublicKey);
+        stripe!
+          .redirectToCheckout({
+            sessionId: data.sessionId,
+          })
+          .then((data: any) => {});
+      },
+    });
+  }
+}

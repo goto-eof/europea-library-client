@@ -1,0 +1,40 @@
+<div class="container mt-1 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>Complete payee information</h1>
+      <p>
+        Before proceeding it is necessary to complete the payee information. You
+        need to do this operation for one time and then you will be able to pay
+        only with one click.
+      </p>
+      <h2>Product information</h2>
+      <div *ngIf="paymentInfo">
+        <div class="row pb-2">
+          <div class="">
+            <div class="hstack">
+              <img
+                class="img-fluid"
+                style="max-height: 128px"
+                [src]="bookInfo?.imageUrl"
+                onerror="this.src='/assets/images/no-cover.jpg';"
+              />
+              <div class="vstack p-3">
+                <div>Product ID: {{ paymentInfo.fileMetaInfoId }}</div>
+                <div>Quantity: {{ paymentInfo.quantity }}</div>
+                <div>Price: {{ stripePrice?.amount }}€</div>
+                <div>Title: {{ fileMetaInfo?.title }}</div>
+                <div *ngIf="fileMetaInfo?.description">
+                  Description: {{ fileMetaInfo?.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2>Payee information</h2>
+      <app-stripe-customer-information-editor
+        [callback]="continue.bind(this)"
+      />
+    </div>
+  </div>
+</div>
