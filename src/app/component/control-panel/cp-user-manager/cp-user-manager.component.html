@@ -26,9 +26,8 @@
           *ngFor="let item of cursoredItem?.childrenList"
           class="cursor-pointer"
         >
-          {{ item.id }}|{{ item.username }} | {{ item.email }}|{{
-            item.authorityList
-          }}
+          {{ item.id }}|{{ item.username }} | {{ item.email }} |
+          <span *ngFor="let role of item.authorityList"> {{ role.name }}</span>
         </li>
       </ul>
       <div class="d-flex justify-content-center">
