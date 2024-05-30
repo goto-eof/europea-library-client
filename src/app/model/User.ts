@@ -5,4 +5,5 @@ export default interface User {
   username: string;
   email: string;
   authorityList: Array<Authority>;
+  enabled: boolean;
 }

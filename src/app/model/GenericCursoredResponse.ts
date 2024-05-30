@@ -1,5 +1,6 @@
-export default interface GenericCursoredResponse<T, U> {
+import CommonGenericCursoredResponse from './CommonGenericCursoredResponse';
+
+export default interface GenericCursoredResponse<T, U>
+  extends CommonGenericCursoredResponse<U> {
   parent: T;
-  childrenList: Array<U>;
-  nextCursor: number;
 }

@@ -87,6 +87,10 @@ import { CpAdministrationComponent } from './component/control-panel/cp-administ
 import { CpProfileComponent } from './component/control-panel/cp-profile/cp-profile.component';
 import { CpAccountComponent } from './component/control-panel/cp-account/cp-account.component';
 import { CompletePayerInformationComponent } from './component/sales/complete-payer-information/complete-payer-information.component';
+import UserManagerService from './service/UserManagerService';
+import { CpUserManagerComponent } from './component/control-panel/cp-user-manager/cp-user-manager.component';
+import { UserCardComponent } from './component/control-panel/cp-user-manager/user-card/user-card.component';
+import GravatarService from './service/GravatarService';
 
 @NgModule({
   declarations: [
@@ -149,6 +153,8 @@ import { CompletePayerInformationComponent } from './component/sales/complete-pa
     CpProfileComponent,
     CpAccountComponent,
     CompletePayerInformationComponent,
+    CpUserManagerComponent,
+    UserCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -183,6 +189,8 @@ import { CompletePayerInformationComponent } from './component/sales/complete-pa
     CustomerService,
     PaymentService,
     StripePurchasesService,
+    UserManagerService,
+    GravatarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

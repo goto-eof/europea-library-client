@@ -54,6 +54,24 @@
           <span>Administration</span>
         </div>
       </button>
+
+      <button
+        *ngIf="isAdministrator()"
+        class="nav-link rounded-0"
+        id="v-pills-user-management-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-user-management"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-user-management"
+        aria-selected="false"
+      >
+        <div class="d-flex flex-row">
+          <i class="bi bi-toggles me-2 d-inline-block"></i>
+          <span>User Management</span>
+        </div>
+      </button>
+
       <button
         class="nav-link rounded-0"
         [class]="!isAdministrator() ? 'active' : ''"
@@ -145,6 +163,17 @@
       >
         <app-cp-administration />
       </div>
+
+      <div
+        *ngIf="isAdministrator()"
+        class="tab-pane fade show pb-5"
+        id="v-pills-user-management"
+        role="tabpanel"
+        aria-labelledby="v-pills-user-management-tab"
+      >
+        <app-cp-user-manager />
+      </div>
+
       <div
         class="tab-pane fade pb-5"
         [class]="!isAdministrator() ? 'show active' : ''"

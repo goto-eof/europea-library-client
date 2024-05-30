@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import AuthService from '../../../service/AuthService';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../service/NavigationService';
-import { SHA256 } from 'crypto-js';
 import User from '../../../model/User';
 import SnackBarService from '../../../service/SnackBarService';
+import GravatarService from '../../../service/GravatarService';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,7 +19,8 @@ export class NavBarComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private navigationService: NavigationService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private gravatarService: GravatarService
   ) {}
   ngOnInit(): void {
     this.navigationService.getObservable().subscribe({
@@ -33,8 +34,7 @@ export class NavBarComponent implements OnInit {
   }
 
   reloadGravatarImage() {
-    this.gravatarImage =
-      'https://gravatar.com/avatar/' + SHA256(this.getEmail()) + '?s=32';
+    this.gravatarImage = this.gravatarService.getAvatarURI(this.getEmail(), 32);
   }
 
   logout() {
