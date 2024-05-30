@@ -1,6 +1,6 @@
 <div class="d-block d-xs-block d-md-none">
   <div class="accordion" id="control-panel-accordion">
-    <div class="accordion-item">
+    <div class="accordion-item" *ngIf="isAdministrator()">
       <h2 class="accordion-header">
         <button
           class="accordion-button"
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="accordion-item">
+    <div class="accordion-item" *ngIf="isAdministrator()">
       <h2 class="accordion-header">
         <button
           class="accordion-button collapsed"
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div class="accordion-item">
+    <div class="accordion-item" *ngIf="isAdministrator()">
       <h2 class="accordion-header">
         <button
           class="accordion-button collapsed"
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="accordion-item">
+    <div class="accordion-item" *ngIf="isAdministrator()">
       <h2 class="accordion-header">
         <button
           class="accordion-button collapsed"
