@@ -87,6 +87,7 @@ import { CpAdministrationComponent } from './component/control-panel/cp-administ
 import { CpProfileComponent } from './component/control-panel/cp-profile/cp-profile.component';
 import { CpAccountComponent } from './component/control-panel/cp-account/cp-account.component';
 import { CompletePayerInformationComponent } from './component/sales/complete-payer-information/complete-payer-information.component';
+import UserManagerService from './service/UserManagerService';
 
 @NgModule({
   declarations: [
@@ -183,6 +184,7 @@ import { CompletePayerInformationComponent } from './component/sales/complete-pa
     CustomerService,
     PaymentService,
     StripePurchasesService,
+    UserManagerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
