@@ -16,20 +16,15 @@
       >
         no data
       </div>
-      <ul
-        class="mx-3"
+      <div
         *ngIf="
           cursoredItem!.childrenList && cursoredItem!.childrenList.length > 0
         "
       >
-        <li
-          *ngFor="let item of cursoredItem?.childrenList"
-          class="cursor-pointer"
-        >
-          {{ item.id }}|{{ item.username }} | {{ item.email }} |
-          <span *ngFor="let role of item.authorityList"> {{ role.name }}</span>
-        </li>
-      </ul>
+        <div class="mb-3" *ngFor="let user of cursoredItem?.childrenList">
+          <app-user-card class="cursor-pointer" [user]="user" />
+        </div>
+      </div>
       <div class="d-flex justify-content-center">
         <button
           *ngIf="cursoredItem?.nextCursor"

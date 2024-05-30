@@ -1,1 +1,31 @@
-<p>user-card works!</p>
+<div class="card w-100">
+  <div class="row">
+    <div class="col-sm-2">
+      <img class="img-fluid" [src]="avatarUrl" alt="avatar" />
+    </div>
+    <div class="col-sm-7">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.username }}</h5>
+        <p class="card-text">
+          {{ user.email }}
+        </p>
+        <button
+          *ngIf="user.enabled"
+          type="button"
+          (click)="disable()"
+          class="btn btn-danger"
+        >
+          Disable
+        </button>
+        <button
+          type="button"
+          *ngIf="!user.enabled"
+          (click)="enable()"
+          class="btn btn-success"
+        >
+          Enable
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

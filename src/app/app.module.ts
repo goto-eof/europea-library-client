@@ -90,6 +90,7 @@ import { CompletePayerInformationComponent } from './component/sales/complete-pa
 import UserManagerService from './service/UserManagerService';
 import { CpUserManagerComponent } from './component/control-panel/cp-user-manager/cp-user-manager.component';
 import { UserCardComponent } from './component/control-panel/cp-user-manager/user-card/user-card.component';
+import GravatarService from './service/GravatarService';
 
 @NgModule({
   declarations: [
@@ -189,6 +190,7 @@ import { UserCardComponent } from './component/control-panel/cp-user-manager/use
     PaymentService,
     StripePurchasesService,
     UserManagerService,
+    GravatarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
