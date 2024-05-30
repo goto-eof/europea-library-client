@@ -88,6 +88,7 @@ import { CpProfileComponent } from './component/control-panel/cp-profile/cp-prof
 import { CpAccountComponent } from './component/control-panel/cp-account/cp-account.component';
 import { CompletePayerInformationComponent } from './component/sales/complete-payer-information/complete-payer-information.component';
 import UserManagerService from './service/UserManagerService';
+import { CpUserManagerComponent } from './component/control-panel/cp-user-manager/cp-user-manager.component';
 
 @NgModule({
   declarations: [
@@ -150,6 +151,7 @@ import UserManagerService from './service/UserManagerService';
     CpProfileComponent,
     CpAccountComponent,
     CompletePayerInformationComponent,
+    CpUserManagerComponent,
   ],
   imports: [
     BrowserModule,

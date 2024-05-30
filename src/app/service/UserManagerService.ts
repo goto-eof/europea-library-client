@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import CommonCursoredRequest from '../model/CommonCursoredRequest';
 import User from '../model/User';
 import { Observable } from 'rxjs';
+import CommonGenericCursoredResponse from '../model/CommonGenericCursoredResponse';
 
 const baseUrl = '/api/v1/user';
 @Injectable()
@@ -25,7 +26,12 @@ export default class UserManagerService {
     });
   }
 
-  getAllPaginated(commonCursoredRequest: CommonCursoredRequest) {
-    return this.httpClient.post(`${baseUrl}`, commonCursoredRequest);
+  getAllPaginated(
+    commonCursoredRequest: CommonCursoredRequest
+  ): Observable<CommonGenericCursoredResponse<User>> {
+    return this.httpClient.post<CommonGenericCursoredResponse<User>>(
+      `${baseUrl}`,
+      commonCursoredRequest
+    );
   }
 }

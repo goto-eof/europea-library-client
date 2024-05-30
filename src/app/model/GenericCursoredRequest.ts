@@ -1,5 +1,6 @@
-export default interface GenericCursoredRequest<T> {
+import CommonGenericCursoredRequest from './CommonGenericCursoredRequest';
+
+export default interface GenericCursoredRequest<T>
+  extends CommonGenericCursoredRequest {
   parent: T;
-  nextCursor: number | null;
-  limit: number;
 }

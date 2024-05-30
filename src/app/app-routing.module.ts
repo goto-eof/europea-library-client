@@ -35,6 +35,7 @@ import { ResetPasswordFormComponent } from './component/security/reset-password-
 import { CustomHomePageComponent } from './component/home-page/custom-home-page/custom-home-page.component';
 import { CategoriesExplorerComponent } from './component/explorer/cursored-categories-explorer/cursored-categories-explorer.component';
 import { CompletePayerInformationComponent } from './component/sales/complete-payer-information/complete-payer-information.component';
+import { CpUserManagerComponent } from './component/control-panel/cp-user-manager/cp-user-manager.component';
 
 const routes: Routes = [
   { path: 'home', component: CustomHomePageComponent },
@@ -109,6 +110,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: 'explore/user', component: CpUserManagerComponent },
   { path: 'work-in-progress', component: WorkInProgressComponent },
   { path: 'internal-server-error', component: InternalServerErrorComponent },
   {

@@ -46,6 +46,7 @@
         </div>
       </div>
     </div>
+
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button
@@ -66,6 +67,30 @@
       >
         <div class="accordion-body">
           <app-cp-administration />
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseThreeOne"
+          aria-expanded="false"
+          aria-controls="collapseThreeOne"
+        >
+          User Management
+        </button>
+      </h2>
+      <div
+        id="collapseThreeOne"
+        class="accordion-collapse collapse"
+        data-bs-parent="#control-panel-accordion"
+      >
+        <div class="accordion-body">
+          <app-cp-user-manager />
         </div>
       </div>
     </div>

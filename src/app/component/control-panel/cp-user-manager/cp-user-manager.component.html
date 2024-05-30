@@ -1,0 +1,45 @@
+<div class="my-1 mx-1">
+  <div class="card">
+    <div class="card-body">
+      <a routerLink="/explore/user">User Management</a>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-1 mb-5" *ngIf="cursoredItem">
+  <div class="card">
+    <div class="card-body">
+      <div
+        *ngIf="
+          !cursoredItem!.childrenList || cursoredItem!.childrenList.length === 0
+        "
+      >
+        no data
+      </div>
+      <ul
+        class="mx-3"
+        *ngIf="
+          cursoredItem!.childrenList && cursoredItem!.childrenList.length > 0
+        "
+      >
+        <li
+          *ngFor="let item of cursoredItem?.childrenList"
+          class="cursor-pointer"
+        >
+          {{ item.id }}|{{ item.username }} | {{ item.email }}|{{
+            item.authorityList
+          }}
+        </li>
+      </ul>
+      <div class="d-flex justify-content-center">
+        <button
+          *ngIf="cursoredItem?.nextCursor"
+          class="btn btn-primary"
+          (click)="loadMore()"
+        >
+          More
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
