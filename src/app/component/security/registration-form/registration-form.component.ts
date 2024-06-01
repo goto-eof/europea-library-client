@@ -9,6 +9,7 @@ import {
 } from '../../../service/NavigationService';
 import SnackBarService from '../../../service/SnackBarService';
 import FormValidatorService from '../../../service/FormValidatorService';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-registration-form',
@@ -31,7 +32,8 @@ export class RegistrationFormComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private navigationService: NavigationService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) {}
 
   ngOnInit(): void {
@@ -42,55 +44,61 @@ export class RegistrationFormComponent implements OnInit {
     this.isShowPasswordEnabled = !this.isShowPasswordEnabled;
   }
 
-  async submitForm() {
+  submitForm() {
     if (this.registrationForm.valid) {
-      await this.authService
-        .register(
-          this.registrationForm.value.username.trim().toLowerCase(),
-          this.registrationForm.value.email.trim().toLowerCase(),
-          this.registrationForm.value.password,
-          this.registrationForm.value.consensus1Flag,
-          this.registrationForm.value.consensus2Flag,
-          this.registrationForm.value.consensus3Flag
-        )
-        .subscribe({
-          next: (authResponse: AuthResponse) => {
-            localStorage.setItem('token', authResponse.token);
-            this.authService.me().subscribe({
-              next: (me) => {
-                const user = JSON.stringify(me);
-                localStorage.setItem('user', user);
-                this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
-                this.snackBarService.showInfoWithMessage(
-                  'Logged in successfully :)'
-                );
-                this.router.navigate(['/home']);
-              },
-              error: (e) => {
-                this.snackBarService.showErrorWithMessage(
-                  'Something went wrong when trying to authenticate :('
-                );
-              },
-            });
-          },
-          error: (e) => {
-            if (e.error.code == 400) {
-              this.snackBarService.showErrorWithMessage(
-                'Something went wrong when trying to register: ' +
-                  e.error.message
-              );
-              return;
-            }
-            this.snackBarService.showErrorWithMessage(
-              'Something went wrong when trying to register :('
-            );
-            localStorage.removeItem('token');
-          },
-        });
+      this.recaptchaV3Service.execute('login').subscribe((token) => {
+        this.register(token);
+      });
     } else {
       this.snackBarService.showErrorWithMessage(
         'Malformed username, email or password. Please check the text helper.'
       );
     }
+  }
+
+  register(token: string) {
+    this.authService
+      .register(
+        token,
+        this.registrationForm.value.username.trim().toLowerCase(),
+        this.registrationForm.value.email.trim().toLowerCase(),
+        this.registrationForm.value.password,
+        this.registrationForm.value.consensus1Flag,
+        this.registrationForm.value.consensus2Flag,
+        this.registrationForm.value.consensus3Flag
+      )
+      .subscribe({
+        next: (authResponse: AuthResponse) => {
+          localStorage.setItem('token', authResponse.token);
+          this.authService.me().subscribe({
+            next: (me) => {
+              const user = JSON.stringify(me);
+              localStorage.setItem('user', user);
+              this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
+              this.snackBarService.showInfoWithMessage(
+                'Logged in successfully :)'
+              );
+              this.router.navigate(['/home']);
+            },
+            error: (e) => {
+              this.snackBarService.showErrorWithMessage(
+                'Something went wrong when trying to authenticate :('
+              );
+            },
+          });
+        },
+        error: (e) => {
+          if (e.error.code == 400) {
+            this.snackBarService.showErrorWithMessage(
+              'Something went wrong when trying to register: ' + e.error.message
+            );
+            return;
+          }
+          this.snackBarService.showErrorWithMessage(
+            'Something went wrong when trying to register :('
+          );
+          localStorage.removeItem('token');
+        },
+      });
   }
 }

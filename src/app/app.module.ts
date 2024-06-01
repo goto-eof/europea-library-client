@@ -56,7 +56,6 @@ import { CursoredPublishersExplorerComponent } from './component/explorer/cursor
 import { CursoredLanguagesExplorerComponent } from './component/explorer/cursored-languages-explorer/cursored-languages-explorer.component';
 import { RegistrationFormComponent } from './component/security/registration-form/registration-form.component';
 import { LoginFormComponent } from './component/security/login-form/login-form.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import FileSystemService from './service/FileSystemService';
 import CursoredFileSystemService from './service/CursoredFileSystemService';
@@ -92,10 +91,12 @@ import { CpUserManagerComponent } from './component/control-panel/cp-user-manage
 import { UserCardComponent } from './component/control-panel/cp-user-manager/user-card/user-card.component';
 import GravatarService from './service/GravatarService';
 import {
-  RECAPTCHA_SETTINGS,
+  RECAPTCHA_V3_SITE_KEY,
+  ReCaptchaV3Service,
   RecaptchaFormsModule,
+  RecaptchaLoaderService,
   RecaptchaModule,
-  RecaptchaSettings,
+  RecaptchaV3Module,
 } from 'ng-recaptcha';
 import { environment } from '../environments/environment';
 
@@ -174,8 +175,7 @@ import { environment } from '../environments/environment';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
+    RecaptchaV3Module,
   ],
   providers: [
     FileSystemService,
@@ -205,11 +205,10 @@ import { environment } from '../environments/environment';
       useClass: RequestInterceptor,
       multi: true,
     },
+    ReCaptchaV3Service,
     {
-      provide: RECAPTCHA_SETTINGS,
-      useValue: {
-        siteKey: environment.googleReCaptchaSiteKey,
-      } as RecaptchaSettings,
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.googleReCaptchaSiteKey,
     },
   ],
   bootstrap: [AppComponent],

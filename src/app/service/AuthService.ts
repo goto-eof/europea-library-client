@@ -23,8 +23,13 @@ export default class AuthService {
     return this.httpClient.get<User>(`${baseUrl}/me`);
   }
 
-  login(username: string, password: string): Observable<AuthResponse> {
+  login(
+    token: string,
+    username: string,
+    password: string
+  ): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(`${baseUrl}/login`, {
+      clientCaptchaToken: token,
       username,
       password,
     });
@@ -40,6 +45,7 @@ export default class AuthService {
   }
 
   register(
+    token: string,
     username: string,
     email: string,
     password: string,
@@ -48,6 +54,7 @@ export default class AuthService {
     consensus3Flag: boolean
   ): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(`${baseUrl}/register`, {
+      clientCaptchaToken: token,
       username,
       email,
       password,
