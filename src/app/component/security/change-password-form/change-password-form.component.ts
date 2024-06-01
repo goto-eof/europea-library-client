@@ -41,7 +41,7 @@ export class ChangePasswordFormComponent {
     this.isShowRepeatPasswordEnabled = !this.isShowRepeatPasswordEnabled;
   }
 
-  async submitForm(e: any) {
+  submitForm(e: any) {
     e.preventDefault();
 
     if (
@@ -49,7 +49,7 @@ export class ChangePasswordFormComponent {
       this.changePasswordForm.value.password ===
         this.changePasswordForm.value.repeatPassword
     ) {
-      await this.authService
+      this.authService
         .changePassword(
           this.changePasswordForm.value.oldPassword,
           this.changePasswordForm.value.password

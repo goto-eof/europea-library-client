@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthService from '../../../service/AuthService';
 import AuthResponse from '../../../model/AuthResponse';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   NavigationService,
   UPDATE_NAV_BAR_AFTER_LOGIN,
 } from '../../../service/NavigationService';
 import SnackBarService from '../../../service/SnackBarService';
 import FormValidatorService from '../../../service/FormValidatorService';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login-form',
@@ -22,13 +23,16 @@ export class LoginFormComponent implements OnInit {
     password: ['', FormValidatorService.getPasswordValidator()],
   });
   isShowPasswordEnabled = false;
+  clientToken?: string;
+  siteKey = environment.googleReCaptchaSiteKey;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private navigationService: NavigationService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) {}
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -45,48 +49,56 @@ export class LoginFormComponent implements OnInit {
         this.snackBarService.showErrorWithMessage('Invalid username');
         return;
       }
-      await this.authService
-        .login(username, this.loginForm.value.password)
-        .subscribe({
-          next: (authResponse: AuthResponse) => {
-            localStorage.setItem('token', authResponse.token);
-            this.authService.me().subscribe({
-              next: (me) => {
-                const user = JSON.stringify(me);
-                localStorage.setItem('user', user);
-                this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
-                this.snackBarService.showInfoWithMessage(
-                  'Logged in successfully :)'
-                );
-                this.router.navigate(['/home']);
-              },
-              error: () => {
-                this.snackBarService.showInfoWithMessage('Application Error');
-              },
-            });
-          },
-          error: (e) => {
-            if (e.error.code === 401) {
-              this.snackBarService.showErrorWithMessage(
-                'Incorrect username or password'
-              );
-              return;
-            }
-            if (e.name === 'HttpErrorResponse') {
-              this.snackBarService.showErrorWithMessage(
-                'Are you connected to internet?'
-              );
-              return;
-            }
-            this.snackBarService.showErrorWithMessage(
-              'Wrong username or password'
-            );
-            localStorage.removeItem('token');
-          },
-        });
+
+      this.recaptchaV3Service.execute('login').subscribe({
+        next: (token) => {
+          this.login(token, username, this.loginForm.value.password);
+        },
+        error: (_) => {
+          this.snackBarService.showErrorWithMessage('Authentication error');
+        },
+      });
     } else {
       this.snackBarService.showErrorWithMessage('Invalid username or password');
     }
+  }
+
+  login(token: string, username: string, password: string) {
+    this.authService.login(token, username, password).subscribe({
+      next: (authResponse: AuthResponse) => {
+        localStorage.setItem('token', authResponse.token);
+        this.authService.me().subscribe({
+          next: (me) => {
+            const user = JSON.stringify(me);
+            localStorage.setItem('user', user);
+            this.navigationService.setValue(UPDATE_NAV_BAR_AFTER_LOGIN);
+            this.snackBarService.showInfoWithMessage(
+              'Logged in successfully :)'
+            );
+            this.router.navigate(['/home']);
+          },
+          error: () => {
+            this.snackBarService.showInfoWithMessage('Application Error');
+          },
+        });
+      },
+      error: (e) => {
+        if (e.error.code === 401) {
+          this.snackBarService.showErrorWithMessage(
+            'Incorrect username or password'
+          );
+          return;
+        }
+        if (e.name === 'HttpErrorResponse') {
+          this.snackBarService.showErrorWithMessage(
+            'Are you connected to internet?'
+          );
+          return;
+        }
+        this.snackBarService.showErrorWithMessage('Wrong username or password');
+        localStorage.removeItem('token');
+      },
+    });
   }
 
   goToPasswordResetEmailForm() {

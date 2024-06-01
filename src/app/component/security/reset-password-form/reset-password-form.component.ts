@@ -48,7 +48,7 @@ export class ResetPasswordFormComponent implements OnInit {
     this.isShowRepeatPasswordEnabled = !this.isShowRepeatPasswordEnabled;
   }
 
-  async submitForm(e: any) {
+  submitForm(e: any) {
     e.preventDefault();
 
     if (
@@ -56,7 +56,7 @@ export class ResetPasswordFormComponent implements OnInit {
       this.resetPasswordForm.value.password ===
         this.resetPasswordForm.value.repeatPassword
     ) {
-      await this.authService
+      this.authService
         .resetPassword(
           this.resetPasswordForm.value.token,
           this.resetPasswordForm.value.password

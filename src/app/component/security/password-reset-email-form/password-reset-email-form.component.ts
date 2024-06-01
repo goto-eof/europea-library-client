@@ -25,9 +25,9 @@ export class PasswordResetEmailFormComponent {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  async submitForm() {
+  submitForm() {
     if (this.emailForm.valid) {
-      await this.authService
+      this.authService
         .resetPasswordRequest(this.emailForm.value.email.trim().toLowerCase())
         .subscribe({
           next: (operationStatus: OperationStatus) => {
