@@ -42,28 +42,37 @@ export class LoginFormComponent implements OnInit {
     this.isShowPasswordEnabled = !this.isShowPasswordEnabled;
   }
 
-  async submitForm() {
+  submitForm(): Promise<boolean> {
+    return new Promise<boolean>((resolve, _) => {
+      this.loginFlow(resolve);
+    });
+  }
+
+  async loginFlow(resolve: Function) {
     if (this.loginForm.valid) {
       const username = this.loginForm.value.username.trim().toLowerCase();
       if (!username) {
         this.snackBarService.showErrorWithMessage('Invalid username');
+        resolve(true);
         return;
       }
 
       this.recaptchaV3Service.execute('login').subscribe({
         next: (token) => {
-          this.login(token, username, this.loginForm.value.password);
+          this.login(resolve, token, username, this.loginForm.value.password);
         },
         error: (_) => {
           this.snackBarService.showErrorWithMessage('Authentication error');
+          resolve(true);
         },
       });
     } else {
       this.snackBarService.showErrorWithMessage('Invalid username or password');
+      resolve(true);
     }
   }
 
-  login(token: string, username: string, password: string) {
+  login(resolve: Function, token: string, username: string, password: string) {
     this.authService.login(token, username, password).subscribe({
       next: (authResponse: AuthResponse) => {
         localStorage.setItem('token', authResponse.token);
@@ -76,9 +85,11 @@ export class LoginFormComponent implements OnInit {
               'Logged in successfully :)'
             );
             this.router.navigate(['/home']);
+            resolve(true);
           },
           error: () => {
             this.snackBarService.showInfoWithMessage('Application Error');
+            resolve(true);
           },
         });
       },
@@ -87,16 +98,19 @@ export class LoginFormComponent implements OnInit {
           this.snackBarService.showErrorWithMessage(
             'Incorrect username or password'
           );
+          resolve(true);
           return;
         }
         if (e.name === 'HttpErrorResponse') {
           this.snackBarService.showErrorWithMessage(
             'Are you connected to internet?'
           );
+          resolve(true);
           return;
         }
         this.snackBarService.showErrorWithMessage('Wrong username or password');
         localStorage.removeItem('token');
+        resolve(true);
       },
     });
   }

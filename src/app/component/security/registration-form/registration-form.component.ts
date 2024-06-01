@@ -44,24 +44,32 @@ export class RegistrationFormComponent implements OnInit {
     this.isShowPasswordEnabled = !this.isShowPasswordEnabled;
   }
 
-  submitForm() {
+  submitForm(): Promise<boolean> {
+    return new Promise<boolean>((resolve, _) => {
+      this.registrationFlow(resolve);
+    });
+  }
+
+  registrationFlow(resolve: Function) {
     if (this.registrationForm.valid) {
       this.recaptchaV3Service.execute('register').subscribe({
         next: (token) => {
-          this.register(token);
+          this.register(resolve, token);
         },
         error: (_) => {
           this.snackBarService.showErrorWithMessage('Registration error');
+          resolve(true);
         },
       });
     } else {
       this.snackBarService.showErrorWithMessage(
         'Malformed username, email or password. Please check the text helper.'
       );
+      resolve(true);
     }
   }
 
-  register(token: string) {
+  register(resolve: Function, token: string) {
     this.authService
       .register(
         token,
@@ -84,11 +92,13 @@ export class RegistrationFormComponent implements OnInit {
                 'Logged in successfully :)'
               );
               this.router.navigate(['/home']);
+              resolve(true);
             },
-            error: (e) => {
+            error: (_) => {
               this.snackBarService.showErrorWithMessage(
                 'Something went wrong when trying to authenticate :('
               );
+              resolve(true);
             },
           });
         },
@@ -97,12 +107,14 @@ export class RegistrationFormComponent implements OnInit {
             this.snackBarService.showErrorWithMessage(
               'Something went wrong when trying to register: ' + e.error.message
             );
+            resolve(true);
             return;
           }
           this.snackBarService.showErrorWithMessage(
             'Something went wrong when trying to register :('
           );
           localStorage.removeItem('token');
+          resolve(true);
         },
       });
   }
