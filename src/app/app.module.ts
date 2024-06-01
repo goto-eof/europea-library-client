@@ -99,6 +99,7 @@ import {
   RecaptchaV3Module,
 } from 'ng-recaptcha';
 import { environment } from '../environments/environment';
+import { LockableButtonComponent } from './component/common/lockable-button/lockable-button.component';
 
 @NgModule({
   declarations: [
@@ -163,6 +164,7 @@ import { environment } from '../environments/environment';
     CompletePayerInformationComponent,
     CpUserManagerComponent,
     UserCardComponent,
+    LockableButtonComponent,
   ],
   imports: [
     BrowserModule,

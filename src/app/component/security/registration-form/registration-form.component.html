@@ -3,7 +3,6 @@
     <div class="card-body">
       <form
         [formGroup]="registrationForm"
-        (ngSubmit)="submitForm()"
         class="d-flex justify-content-center"
       >
         <div>
@@ -151,9 +150,13 @@
                 </div>
               </div>
 
-              <button class="btn btn-primary mt-4" type="submit">
-                Register
-              </button>
+              <div class="col-md-12">
+                <app-lockable-button
+                  [callback]="submitForm.bind(this)"
+                  [label]="'Register'"
+                  [classCustom]="'btn btn-primary w-100'"
+                />
+              </div>
             </div>
           </div>
         </div>
