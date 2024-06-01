@@ -34,11 +34,12 @@ export class CompletePayerInformationComponent implements OnInit {
     this.fileMetaInfo = this.paymentInfo?.fileMetaInfo;
     this.stripePrice = this.paymentInfo.stripePrice;
   }
-  continue(): void {
+  continue(resolve: Function): void {
     if (!this.paymentInfo) {
       this.snackBarService.showErrorWithMessage(
         'Something went wrong. Payment information not available.'
       );
+      resolve(true);
       return;
     }
     this.paymentService.initCheckoutSession(this.paymentInfo).subscribe({
@@ -46,14 +47,18 @@ export class CompletePayerInformationComponent implements OnInit {
         this.snackBarService.showErrorWithMessage(
           'Unable to proceed. Before proceeding, please complete the form and save changes.'
         );
+        resolve(true);
       },
       next: async (data: StripeCheckoutSessionResponse) => {
         const stripe = await loadStripe(data.stripePublicKey);
+
         stripe!
           .redirectToCheckout({
             sessionId: data.sessionId,
           })
-          .then((data: any) => {});
+          .then((data: any) => {
+            resolve(true);
+          });
       },
     });
   }
