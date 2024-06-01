@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthService from '../../../service/AuthService';
 import AuthResponse from '../../../model/AuthResponse';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   NavigationService,
   UPDATE_NAV_BAR_AFTER_LOGIN,
 } from '../../../service/NavigationService';
 import SnackBarService from '../../../service/SnackBarService';
 import FormValidatorService from '../../../service/FormValidatorService';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login-form',
@@ -20,9 +20,11 @@ export class LoginFormComponent implements OnInit {
   loginForm: FormGroup<any> = this.formBuilder.group({
     username: ['', FormValidatorService.getUsernameValidator()],
     password: ['', FormValidatorService.getPasswordValidator()],
+    clientToken: ['', Validators.minLength(10)],
   });
   isShowPasswordEnabled = false;
-
+  siteKeyCaptcha: string = environment.googleReCaptchaSiteKey;
+  clientToken?: string;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,

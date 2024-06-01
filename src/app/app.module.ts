@@ -91,6 +91,13 @@ import UserManagerService from './service/UserManagerService';
 import { CpUserManagerComponent } from './component/control-panel/cp-user-manager/cp-user-manager.component';
 import { UserCardComponent } from './component/control-panel/cp-user-manager/user-card/user-card.component';
 import GravatarService from './service/GravatarService';
+import {
+  RECAPTCHA_SETTINGS,
+  RecaptchaFormsModule,
+  RecaptchaModule,
+  RecaptchaSettings,
+} from 'ng-recaptcha';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -167,6 +174,8 @@ import GravatarService from './service/GravatarService';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   providers: [
     FileSystemService,
@@ -195,6 +204,12 @@ import GravatarService from './service/GravatarService';
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true,
+    },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.googleReCaptchaSiteKey,
+      } as RecaptchaSettings,
     },
   ],
   bootstrap: [AppComponent],
