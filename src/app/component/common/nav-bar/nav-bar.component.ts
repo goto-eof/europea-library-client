@@ -41,18 +41,22 @@ export class NavBarComponent implements OnInit {
     this.authService.logout().subscribe({
       next: (response) => {
         if (response.status) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          this.role = this.getRole() || '';
-          this.router.navigate(['/home']);
+          this.logoutClient();
         }
       },
-      error: (err) => {
+      error: (_) => {
         this.snackBarService.showErrorWithMessage(
-          'Fatal Error! Unable to logout.'
+          'Fatal Error! Unable to make a full logout.'
         );
+        this.logoutClient();
       },
     });
+  }
+
+  logoutClient() {
+    this.authService.logoutClient();
+    this.role = '';
+    this.router.navigate(['/home']);
   }
 
   isLoggedIn() {
