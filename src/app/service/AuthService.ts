@@ -34,6 +34,11 @@ export default class AuthService {
     return this.httpClient.post<OperationStatus>(`${baseUrl}/logout`, {});
   }
 
+  logoutClient() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
   register(
     username: string,
     email: string,
