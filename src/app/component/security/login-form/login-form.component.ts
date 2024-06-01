@@ -50,8 +50,13 @@ export class LoginFormComponent implements OnInit {
         return;
       }
 
-      this.recaptchaV3Service.execute('login').subscribe((token) => {
-        this.login(token, username, this.loginForm.value.password);
+      this.recaptchaV3Service.execute('login').subscribe({
+        next: (token) => {
+          this.login(token, username, this.loginForm.value.password);
+        },
+        error: (_) => {
+          this.snackBarService.showErrorWithMessage('Authentication error');
+        },
       });
     } else {
       this.snackBarService.showErrorWithMessage('Invalid username or password');

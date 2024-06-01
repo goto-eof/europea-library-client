@@ -46,8 +46,13 @@ export class RegistrationFormComponent implements OnInit {
 
   submitForm() {
     if (this.registrationForm.valid) {
-      this.recaptchaV3Service.execute('login').subscribe((token) => {
-        this.register(token);
+      this.recaptchaV3Service.execute('register').subscribe({
+        next: (token) => {
+          this.register(token);
+        },
+        error: (_) => {
+          this.snackBarService.showErrorWithMessage('Registration error');
+        },
       });
     } else {
       this.snackBarService.showErrorWithMessage(
