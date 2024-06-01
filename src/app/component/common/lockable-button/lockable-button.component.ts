@@ -1,17 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-lockable-button',
   templateUrl: './lockable-button.component.html',
   styleUrl: './lockable-button.component.css',
 })
-export class LockableButtonComponent {
+export class LockableButtonComponent implements OnInit {
   @Input() callback!: Function;
   @Input() label!: string;
   @Input() labelProcessing: string | undefined;
   @Input() classCustom: string = 'btn btn-primary w-100';
   locked = false;
-  currentLabel = this.label;
+  currentLabel?: string;
+
+  constructor() {}
+  ngOnInit(): void {
+    this.currentLabel = this.label;
+  }
 
   handleClick() {
     this.locked = true;
