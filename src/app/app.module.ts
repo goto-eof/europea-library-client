@@ -97,7 +97,7 @@ import {
 } from 'ng-recaptcha';
 import { environment } from '../environments/environment';
 import { LockableButtonComponent } from './component/common/lockable-button/lockable-button.component';
-import { PaginatedPairExplorerComponent } from './component/common/paginated-explorer/paginated-pair-explorer.component';
+import { PaginatedPairExplorerComponent } from './component/common/paginated-pair-explorer/paginated-pair-explorer.component';
 import TopSoldService from './service/TopSoldService';
 import { CursoredBySoldCountFileExplorerComponent } from './component/explorer/cursored-by-sold-count-file-explorer/cursored-by-sold-count-file-explorer.component';
 
