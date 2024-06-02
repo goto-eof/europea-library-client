@@ -93,13 +93,13 @@ import GravatarService from './service/GravatarService';
 import {
   RECAPTCHA_V3_SITE_KEY,
   ReCaptchaV3Service,
-  RecaptchaFormsModule,
-  RecaptchaLoaderService,
-  RecaptchaModule,
   RecaptchaV3Module,
 } from 'ng-recaptcha';
 import { environment } from '../environments/environment';
 import { LockableButtonComponent } from './component/common/lockable-button/lockable-button.component';
+import { PaginatedPairExplorerComponent } from './component/common/paginated-explorer/paginated-pair-explorer.component';
+import TopSoldService from './service/TopSoldService';
+import { CursoredBySoldCountFileExplorerComponent } from './component/explorer/cursored-by-sold-count-file-explorer/cursored-by-sold-count-file-explorer.component';
 
 @NgModule({
   declarations: [
@@ -165,6 +165,8 @@ import { LockableButtonComponent } from './component/common/lockable-button/lock
     CpUserManagerComponent,
     UserCardComponent,
     LockableButtonComponent,
+    PaginatedPairExplorerComponent,
+    CursoredBySoldCountFileExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -202,6 +204,7 @@ import { LockableButtonComponent } from './component/common/lockable-button/lock
     StripePurchasesService,
     UserManagerService,
     GravatarService,
+    TopSoldService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
