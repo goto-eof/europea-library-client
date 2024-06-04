@@ -7,65 +7,70 @@
   <div class="card">
     <div class="card-body">
       <div class="row pb-2">
-        <div class="col-8 card-title">Book information</div>
-        <div class="col-4 text-end">
-          <div class="dropdown mb-1 ms-1" *ngIf="isAdminAuthenticated()">
-            <button
-              class="btn btn-outline-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+        <div class="col-10 card-title">Book information</div>
+        <div class="col-2">
+          <div class="text-end">
+            <div
+              class="col-md-12 text-end dropdown mb-1 ms-1"
+              *ngIf="isAdminAuthenticated()"
             >
-              <i class="bi bi-gear px-2"></i>
-            </button>
-            <div class="dropdown-menu">
-              <button class="btn btn-warning dropdown-item" (click)="edit()">
-                <i class="bi bi-pen-fill px-2"></i> Manage e-book
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-gear px-2"></i>
               </button>
+              <div class="dropdown-menu">
+                <button class="btn btn-warning dropdown-item" (click)="edit()">
+                  <i class="bi bi-pen-fill px-2"></i> Manage e-book
+                </button>
 
-              <hr class="dropdown-divider" />
-              <button
-                class="btn dropdown-item"
-                [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
-                (click)="lockUnlock()"
-              >
-                <i
-                  class="bi px-2"
-                  [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
-                ></i>
-                {{ isLocked ? "Unlock" : "Lock" }}
-              </button>
-              <hr class="dropdown-divider" />
-              <button
-                class="btn dropdown-item"
-                [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
-                (click)="addRemoveFeatured()"
-              >
-                <i
-                  class="bi px-2"
-                  [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
-                ></i>
-                {{ isFeatured ? "Remove from featured" : "Add as featured" }}
-              </button>
-              <button
-                class="btn dropdown-item"
-                [class]="isHighlighted ? 'btn-danger' : 'btn-secondary'"
-                (click)="setHighlighted()"
-              >
-                <i
-                  class="bi px-2"
-                  [class]="
+                <hr class="dropdown-divider" />
+                <button
+                  class="btn dropdown-item"
+                  [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
+                  (click)="lockUnlock()"
+                >
+                  <i
+                    class="bi px-2"
+                    [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
+                  ></i>
+                  {{ isLocked ? "Unlock" : "Lock" }}
+                </button>
+                <hr class="dropdown-divider" />
+                <button
+                  class="btn dropdown-item"
+                  [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
+                  (click)="addRemoveFeatured()"
+                >
+                  <i
+                    class="bi px-2"
+                    [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
+                  ></i>
+                  {{ isFeatured ? "Remove from featured" : "Add as featured" }}
+                </button>
+                <button
+                  class="btn dropdown-item"
+                  [class]="isHighlighted ? 'btn-danger' : 'btn-secondary'"
+                  (click)="setHighlighted()"
+                >
+                  <i
+                    class="bi px-2"
+                    [class]="
+                      isHighlighted
+                        ? 'bi-arrow-through-heart-fill'
+                        : 'bi-arrow-through-heart'
+                    "
+                  ></i>
+                  {{
                     isHighlighted
-                      ? 'bi-arrow-through-heart-fill'
-                      : 'bi-arrow-through-heart'
-                  "
-                ></i>
-                {{
-                  isHighlighted
-                    ? "Already as main featured"
-                    : "Add as main featured"
-                }}
-              </button>
+                      ? "Already as main featured"
+                      : "Add as main featured"
+                  }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -395,6 +400,19 @@
                 -
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-end">
+            <i
+              [class]="
+                fileMetaInfo?.hidden
+                  ? 'text-danger bi bi-eye-slash'
+                  : 'text-success bi bi-eye'
+              "
+            ></i>
           </div>
         </div>
       </div>
