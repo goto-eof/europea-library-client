@@ -31,6 +31,7 @@
             (click)="listDirectory(item)"
             [ngClass]="item.isDirectory ? 'directory' : 'file'"
           >
+            [{{ item.averageRating }}|{{ item.ratingsCount }}]
             <i
               class="bi px-1"
               [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
