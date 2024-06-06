@@ -179,7 +179,7 @@ import { CursoredBySoldCountFileExplorerComponent } from './component/explorer/c
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
-    RecaptchaV3Module,
+    RecaptchaV3Module
   ],
   providers: [
     FileSystemService,
