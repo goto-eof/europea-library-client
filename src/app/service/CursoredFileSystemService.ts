@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 import CursoredRequest from '../model/CursoredRequest';
 import CursoredFileSystemItem from '../model/CursoredFileSystemItem';
 import CursoredFileSystemItemByExtension from '../model/CursoredFileExtensionRequest';
@@ -15,6 +15,7 @@ import GenericCursoredRequest from '../model/GenericCursoredRequest';
 import GenericCursoredResponse from '../model/GenericCursoredResponse';
 import FileSystemItemHighlight from '../model/FileSystemItemHighlight';
 import GenericCursoredRequestByFileType from '../model/GenericCursoredRequestByFileType';
+import LinkInfo from "../model/LinkInfo";
 
 const baseUrl = '/api/v2/file';
 
@@ -35,6 +36,7 @@ export default class CursoredFileSystemService {
       GenericCursoredResponse<string, FileSystemItemHighlight>
     >(`${baseUrl}/cursored/downloadCount/highlight`, cursorRequest);
   }
+
   get(fileSystemItemId: number) {
     return this.httpClient.get<CursoredFileSystemItem>(
       `${baseUrl}/${fileSystemItemId}`
@@ -46,7 +48,9 @@ export default class CursoredFileSystemService {
       `${baseUrl}/fileMetaInfoId/${fileMetaInfoId}`
     );
   }
-  constructor(private httpClient: HttpClient) {}
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   listCursored(
     cursoredRequest?: CursoredRequest
@@ -60,9 +64,15 @@ export default class CursoredFileSystemService {
     );
   }
 
-  download(fileSystemItemId: number): Observable<any> {
-    const header = { Accept: 'application/octet-stream' };
-    return this.httpClient.get(`${baseUrl}/download/${fileSystemItemId}`, {
+
+  getDownloadLink(fileSystemItemId: number): Observable<LinkInfo> {
+    return this.httpClient.get<LinkInfo>(`${baseUrl}/download/getLink/fileSystemItemId/${fileSystemItemId}`);
+  }
+
+
+  download(downloadLink: string): Observable<any> {
+    const header = {Accept: 'application/octet-stream'};
+    return this.httpClient.get(`${downloadLink}`, {
       responseType: 'arraybuffer',
       headers: header,
     });
