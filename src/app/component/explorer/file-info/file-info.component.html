@@ -37,12 +37,11 @@
       class="pointer-cursor btn btn-primary mb-1 w-100"
       (click)="download(modal)"
     >
-      <i class="bi bi-cloud-download-fill px-2"></i> Download (
-      <span *ngIf="downloadButtonStatus === 'loading'">loading...</span>
-      <span *ngIf="downloadButtonStatus === 'expired'">Link expired</span>
-      <span *ngIf="timer && (timer||0) > 0"> {{ timer || 0 > 0 ? timer : 0 }} seconds</span>
-      <span *ngIf="timerTTL && (timer||0) <= 0"> {{ timerTTL || 0 > 0 ? timerTTL : 0 }} seconds</span>
-      )
+      <i class="bi bi-cloud-download-fill px-2"></i> Download
+      <span *ngIf="downloadButtonStatus === 'loading'">(loading...)</span>
+      <span *ngIf="downloadButtonStatus === 'expired'">(Link expired)</span>
+      <span *ngIf="timer && (timer||0) > 0"> ({{ timer || 0 > 0 ? timer : 0 }} seconds)</span>
+      <span *ngIf="timerTTL && (timer||0) <= 0"> ({{ timerTTL || 0 > 0 ? timerTTL : 0 }} seconds)</span>
     </button>
   </div>
 </ng-template>
