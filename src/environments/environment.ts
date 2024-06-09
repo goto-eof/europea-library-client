@@ -1,6 +1,7 @@
 export const environment = {
   hostname: 'http://localhost:4200',
   apiUrl: 'http://localhost:8081',
+  googleReCaptchaSiteKey: 'YOUR_SITE_KEY',
   isAutoLoadEnabled: true,
   autoLoadTime: 1000,
   categoriesPerRequest: 100,

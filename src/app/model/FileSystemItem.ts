@@ -14,4 +14,6 @@ export default interface FileSystemItem extends ModelCommon {
   downloadCount: number;
   createdDate?: Date;
   fileMetaInfo?: FileMetaInfo;
+  averageRating?: number;
+  ratingsCount?: number;
 }

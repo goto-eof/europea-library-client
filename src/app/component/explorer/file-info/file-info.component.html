@@ -1,3 +1,52 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Download</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closePopup(modal)"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <div class="input-group">
+          <div class="col-md-12">
+            <div class="text-center vstack">
+              <img
+                style="max-width: 100px"
+                class="img-fluid m-auto"
+                [src]="bookInfo?.imageUrl"
+                onerror="this.src='/assets/images/no-cover.jpg';"
+              />
+              <div
+                class="col-md-12 text-center text-md-center"
+                *ngIf="fileMetaInfo!.title"
+              >
+                <div class="">
+                  {{ fileMetaInfo!.title }}
+                </div>
+              </div>
+              <div *ngIf="!fileMetaInfo!.title">-</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      [disabled]="isDownloading || !fileMetaInfo?.downloadable || (timer || 0) > 0 || (timerTTL || 0)<=0"
+      class="pointer-cursor btn btn-primary mb-1 w-100"
+      (click)="download(modal)"
+    >
+      <i class="bi bi-cloud-download-fill px-2"></i> Download
+      <span *ngIf="downloadButtonStatus === 'loading'">(loading...)</span>
+      <span *ngIf="downloadButtonStatus === 'expired'">(Link expired)</span>
+      <span *ngIf="timer && (timer||0) > 0"> ({{ timer || 0 > 0 ? timer : 0 }} seconds)</span>
+      <span *ngIf="timerTTL && (timer||0) <= 0"> ({{ timerTTL || 0 > 0 ? timerTTL : 0 }} seconds)</span>
+    </button>
+  </div>
+</ng-template>
+
+
 <app-breadcrumb
   *ngIf="fileSystemItem"
   [fileSystemItem]="fileSystemItem"
@@ -7,65 +56,70 @@
   <div class="card">
     <div class="card-body">
       <div class="row pb-2">
-        <div class="col-8 card-title">Book information</div>
-        <div class="col-4 text-end">
-          <div class="dropdown mb-1 ms-1" *ngIf="isAdminAuthenticated()">
-            <button
-              class="btn btn-outline-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+        <div class="col-10 card-title">Book information</div>
+        <div class="col-2">
+          <div class="text-end">
+            <div
+              class="col-md-12 text-end dropdown mb-1 ms-1"
+              *ngIf="isAdminAuthenticated()"
             >
-              <i class="bi bi-gear px-2"></i>
-            </button>
-            <div class="dropdown-menu">
-              <button class="btn btn-warning dropdown-item" (click)="edit()">
-                <i class="bi bi-pen-fill px-2"></i> Manage e-book
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-gear px-2"></i>
               </button>
+              <div class="dropdown-menu">
+                <button class="btn btn-warning dropdown-item" (click)="edit()">
+                  <i class="bi bi-pen-fill px-2"></i> Manage e-book
+                </button>
 
-              <hr class="dropdown-divider" />
-              <button
-                class="btn dropdown-item"
-                [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
-                (click)="lockUnlock()"
-              >
-                <i
-                  class="bi px-2"
-                  [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
-                ></i>
-                {{ isLocked ? "Unlock" : "Lock" }}
-              </button>
-              <hr class="dropdown-divider" />
-              <button
-                class="btn dropdown-item"
-                [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
-                (click)="addRemoveFeatured()"
-              >
-                <i
-                  class="bi px-2"
-                  [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
-                ></i>
-                {{ isFeatured ? "Remove from featured" : "Add as featured" }}
-              </button>
-              <button
-                class="btn dropdown-item"
-                [class]="isHighlighted ? 'btn-danger' : 'btn-secondary'"
-                (click)="setHighlighted()"
-              >
-                <i
-                  class="bi px-2"
-                  [class]="
+                <hr class="dropdown-divider"/>
+                <button
+                  class="btn dropdown-item"
+                  [class]="isLocked ? 'btn-danger' : 'btn-secondary'"
+                  (click)="lockUnlock()"
+                >
+                  <i
+                    class="bi px-2"
+                    [class]="isLocked ? 'bi-lock' : 'bi-unlock'"
+                  ></i>
+                  {{ isLocked ? "Unlock" : "Lock" }}
+                </button>
+                <hr class="dropdown-divider"/>
+                <button
+                  class="btn dropdown-item"
+                  [class]="isFeatured ? 'btn-success' : 'btn-secondary'"
+                  (click)="addRemoveFeatured()"
+                >
+                  <i
+                    class="bi px-2"
+                    [class]="isFeatured ? 'bi-heart-fill' : 'bi-heart'"
+                  ></i>
+                  {{ isFeatured ? "Remove from featured" : "Add as featured" }}
+                </button>
+                <button
+                  class="btn dropdown-item"
+                  [class]="isHighlighted ? 'btn-danger' : 'btn-secondary'"
+                  (click)="setHighlighted()"
+                >
+                  <i
+                    class="bi px-2"
+                    [class]="
+                      isHighlighted
+                        ? 'bi-arrow-through-heart-fill'
+                        : 'bi-arrow-through-heart'
+                    "
+                  ></i>
+                  {{
                     isHighlighted
-                      ? 'bi-arrow-through-heart-fill'
-                      : 'bi-arrow-through-heart'
-                  "
-                ></i>
-                {{
-                  isHighlighted
-                    ? "Already as main featured"
-                    : "Add as main featured"
-                }}
-              </button>
+                      ? "Already as main featured"
+                      : "Add as main featured"
+                  }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -105,13 +159,11 @@
                     }}
                   </button>
                 </div>
+
                 <div class="col-md-12">
-                  <button
-                    [disabled]="isDownloading || !fileMetaInfo?.downloadable"
-                    class="pointer-cursor btn btn-primary mb-1 w-100"
-                    (click)="download()"
-                  >
-                    <i class="bi bi-cloud-download-fill px-2"></i> Download ({{
+                  <button [disabled]="isDownloading || !fileMetaInfo?.downloadable"
+                          class="pointer-cursor btn btn-primary mb-1 w-100" (click)="open(content)"><i
+                    class="bi bi-cloud-download-fill px-2"></i> Download ({{
                       fileSystemItem?.downloadCount
                     }})
                   </button>
@@ -135,7 +187,7 @@
                 *ngIf="fileMetaInfo!.title"
               >
                 <span class="cursor-pointer link"
-                  ><a (click)="searchByTitle()">
+                ><a (click)="searchByTitle()">
                     {{ fileMetaInfo!.title }}
                   </a>
                 </span>
@@ -170,7 +222,7 @@
                 *ngIf="bookInfo.isbn10"
               >
                 <span class="cursor-pointer link"
-                  ><a (click)="searchByIsbn10()">{{ bookInfo.isbn10 }}</a></span
+                ><a (click)="searchByIsbn10()">{{ bookInfo.isbn10 }}</a></span
                 >
               </div>
               <div
@@ -189,7 +241,7 @@
                 *ngIf="bookInfo.isbn13"
               >
                 <span class="cursor-pointer link"
-                  ><a (click)="searchByIsbn13()">{{ bookInfo.isbn13 }}</a></span
+                ><a (click)="searchByIsbn13()">{{ bookInfo.isbn13 }}</a></span
                 >
               </div>
               <div
@@ -225,7 +277,7 @@
                 *ngIf="bookInfo.language"
               >
                 <span class="cursor-pointer link"
-                  ><a (click)="searchByLanguage()">{{
+                ><a (click)="searchByLanguage()">{{
                     bookInfo.language
                   }}</a></span
                 >
@@ -245,11 +297,11 @@
               <div class="col-md-10 text-center text-md-start">
                 <span *ngIf="bookInfo.publisher" class="cursor-pointer link">
                   <a (click)="searchByPublisher()">{{
-                    bookInfo.publisher
-                  }}</a></span
+                      bookInfo.publisher
+                    }}</a></span
                 >
                 <span *ngIf="bookInfo.publishedDate && bookInfo.publisher"
-                  >,
+                >,
                 </span>
                 <span
                   *ngIf="bookInfo.publishedDate"
@@ -260,7 +312,7 @@
                   </a>
                 </span>
                 <span *ngIf="!bookInfo.publishedDate && !bookInfo.publisher"
-                  >-</span
+                >-</span
                 >
               </div>
             </div>
@@ -398,6 +450,21 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-end">
+            <i
+              [class]="
+                fileMetaInfo?.hidden
+                  ? 'text-danger bi bi-eye-slash'
+                  : 'text-success bi bi-eye'
+              "
+            ></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+

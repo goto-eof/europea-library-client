@@ -56,7 +56,6 @@ import { CursoredPublishersExplorerComponent } from './component/explorer/cursor
 import { CursoredLanguagesExplorerComponent } from './component/explorer/cursored-languages-explorer/cursored-languages-explorer.component';
 import { RegistrationFormComponent } from './component/security/registration-form/registration-form.component';
 import { LoginFormComponent } from './component/security/login-form/login-form.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import FileSystemService from './service/FileSystemService';
 import CursoredFileSystemService from './service/CursoredFileSystemService';
@@ -91,6 +90,16 @@ import UserManagerService from './service/UserManagerService';
 import { CpUserManagerComponent } from './component/control-panel/cp-user-manager/cp-user-manager.component';
 import { UserCardComponent } from './component/control-panel/cp-user-manager/user-card/user-card.component';
 import GravatarService from './service/GravatarService';
+import {
+  RECAPTCHA_V3_SITE_KEY,
+  ReCaptchaV3Service,
+  RecaptchaV3Module,
+} from 'ng-recaptcha';
+import { environment } from '../environments/environment';
+import { LockableButtonComponent } from './component/common/lockable-button/lockable-button.component';
+import { PaginatedPairExplorerComponent } from './component/common/paginated-pair-explorer/paginated-pair-explorer.component';
+import TopSoldService from './service/TopSoldService';
+import { CursoredBySoldCountFileExplorerComponent } from './component/explorer/cursored-by-sold-count-file-explorer/cursored-by-sold-count-file-explorer.component';
 
 @NgModule({
   declarations: [
@@ -155,6 +164,9 @@ import GravatarService from './service/GravatarService';
     CompletePayerInformationComponent,
     CpUserManagerComponent,
     UserCardComponent,
+    LockableButtonComponent,
+    PaginatedPairExplorerComponent,
+    CursoredBySoldCountFileExplorerComponent,
   ],
   imports: [
     BrowserModule,
@@ -167,6 +179,7 @@ import GravatarService from './service/GravatarService';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
+    RecaptchaV3Module
   ],
   providers: [
     FileSystemService,
@@ -191,10 +204,16 @@ import GravatarService from './service/GravatarService';
     StripePurchasesService,
     UserManagerService,
     GravatarService,
+    TopSoldService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true,
+    },
+    ReCaptchaV3Service,
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.googleReCaptchaSiteKey,
     },
   ],
   bootstrap: [AppComponent],

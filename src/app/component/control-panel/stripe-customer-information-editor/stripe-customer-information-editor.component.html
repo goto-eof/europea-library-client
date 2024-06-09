@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row pb-4">
         <div class="col-md-9">Edit your payment information</div>
-        <form [formGroup]="customerForm" (submit)="submitForm()" class="w-100">
+        <form [formGroup]="customerForm" class="w-100">
           <div class="row">
             <div class="form-group col-md-6">
               <label for="firstName">First name</label>
@@ -142,10 +142,15 @@
               >
             </div>
           </div>
-          <div class="text-end">
-            <button type="submit" class="btn btn-primary">
-              {{ callback ? "Continue with payment" : "Save" }}
-            </button>
+          <div class="col-md-12">
+            <app-lockable-button
+              [callback]="submitForm.bind(this)"
+              [label]="callback ? 'Continue with payment' : 'Save'"
+              [labelProcessing]="
+                callback ? 'Redirecting to Stripe...' : 'Saving...'
+              "
+              [classCustom]="'btn btn-primary w-100'"
+            />
           </div>
         </form>
       </div>

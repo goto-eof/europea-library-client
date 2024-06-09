@@ -47,7 +47,13 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
     });
   }
 
-  submitForm() {
+  submitForm(): Promise<boolean> {
+    return new Promise<boolean>((resolve, _) => {
+      this.saveStripeCustomerInformationFlow(resolve);
+    });
+  }
+
+  saveStripeCustomerInformationFlow(resolve: Function) {
     const stripeCustomer: StripeCustomer = {
       id: this.stripeCustomer?.id,
       firstName: this.customerForm.value.firstName,
@@ -68,11 +74,13 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
         next: (data) => {
           this.snackBarService.showInfoWithMessage('Updated successfully');
           this.reload(data);
+          resolve(true);
         },
         error: (e) => {
           this.snackBarService.showErrorWithMessage(
             'Unable to save information: ' + e.error.message
           );
+          resolve(true);
         },
       });
       return;
@@ -81,7 +89,7 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
       next: (data) => {
         this.snackBarService.showInfoWithMessage('Saved successfully');
         if (this.callback) {
-          this.callback();
+          this.callback(resolve);
           return;
         }
         this.reload(data);
@@ -90,6 +98,7 @@ export class StripeCustomerInformationEditorComponent implements OnInit {
         this.snackBarService.showErrorWithMessage(
           'Unable to save information: ' + e.error.message
         );
+        resolve(true);
       },
     });
   }

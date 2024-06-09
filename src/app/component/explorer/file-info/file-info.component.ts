@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import FileSystemItem from '../../../model/FileSystemItem';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import BookInfoService from '../../../service/BookInfoService';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Location } from '@angular/common';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Location} from '@angular/common';
 import Category from '../../../model/Category';
 import Tag from '../../../model/Tag';
 import CursoredFileSystemService from '../../../service/CursoredFileSystemService';
-import { SearchService } from '../../../service/SearchService';
+import {SearchService} from '../../../service/SearchService';
 import SearchFileSystemItemRequest from '../../../model/SearchFileSystemItemRequest';
 import AuthService from '../../../service/AuthService';
 import QRCodeService from '../../../service/QRCodeService';
@@ -21,10 +21,13 @@ import StripePrice from '../../../model/StripePrice';
 import PaymentService from '../../../service/PaymentService';
 import StripeCheckoutSessionRequest from '../../../model/StripeCheckoutSessionRequest';
 import StripeCheckoutSessionResponse from '../../../model/StripeCheckoutSessionResponse';
-import { loadStripe } from '@stripe/stripe-js';
-import { environment } from '../../../../environments/environment';
+import {loadStripe} from '@stripe/stripe-js';
+import {environment} from '../../../../environments/environment';
 import HttpErrorAdditionalInformation from '../../../model/HttpErrorAdditionalInformation';
-import { InternalErrorCode } from '../../../types/InternalErrorCode';
+import {InternalErrorCode} from '../../../types/InternalErrorCode';
+import LinkInfo from "../../../model/LinkInfo";
+import inlineLocale from "@angular-devkit/build-angular/src/tools/esbuild/i18n-inliner-worker";
+
 @Component({
   selector: 'app-file-info',
   templateUrl: './file-info.component.html',
@@ -43,6 +46,13 @@ export class FileInfoComponent implements OnInit {
   isHighlighted: boolean = false;
   isPurchasing: boolean = false;
   isRedirecting: boolean = false;
+  downloadLink?: string;
+  timer?: number = 0;
+  timerTTL?: number = 0;
+  outerIntervalId: any = null;
+  innerIntervalIdInner: any = null;
+  downloadButtonStatus: "loading" | "loaded" | "expired" | "downloadable" = "loading";
+
 
   constructor(
     private modalService: NgbModal,
@@ -57,7 +67,9 @@ export class FileInfoComponent implements OnInit {
     private featuredService: FeaturedService,
     private snackBarService: SnackBarService,
     private paymentService: PaymentService
-  ) {}
+  ) {
+  }
+
 
   isAdminAuthenticated(): any {
     return this.authService.isAdminAuthenticated();
@@ -127,7 +139,8 @@ export class FileInfoComponent implements OnInit {
         next: (operationstatus) => {
           this.isHighlighted = operationstatus.status;
         },
-        error: () => {},
+        error: () => {
+        },
       });
     }
   }
@@ -150,26 +163,83 @@ export class FileInfoComponent implements OnInit {
     this.stripePrice = fileSystemItem.fileMetaInfo!.stripePrice;
     this.isLocked =
       fileSystemItem.fileMetaInfo!.bookInfo!.manualLock ===
-        BookInfoConst.MANUAL_LOCK_LOCKED || false;
+      BookInfoConst.MANUAL_LOCK_LOCKED || false;
   }
 
   private loadFileSystemItem() {
     const state = this.location.getState() as any;
     const fileSystemItem: FileSystemItem = state[
       'fileSystemItem'
-    ] as FileSystemItem;
+      ] as FileSystemItem;
     this.fileSystemItem = fileSystemItem;
   }
 
-  public open(modal: any): void {
-    this.modalService.open(modal);
+  open(content: TemplateRef<any>) {
+    this.downloadButtonStatus = "loading";
+    this.retrieveDownloadLink()
+      .subscribe({
+        next: (linkInfo: LinkInfo) => {
+          this.downloadLink = linkInfo.url;
+          this.downloadButtonStatus = "loaded";
+          this.timer = linkInfo.validFromSeconds || 0;
+          this.outerIntervalId = setInterval(() => {
+            this.timer = ((this.timer || 0) - 1);
+            if (this.timer <= 0) {
+              this.downloadButtonStatus = "downloadable";
+              this.timerTTL = linkInfo.validSeconds;
+              this.innerIntervalIdInner = setInterval(() => {
+                this.timerTTL = (this.timerTTL || 0) - 1;
+                if (this.timerTTL <= 0) {
+                  clearInterval(this.innerIntervalIdInner);
+                  this.downloadButtonStatus = "expired"
+                }
+              }, 1000)
+              clearInterval(this.outerIntervalId);
+            }
+          }, 1000)
+
+        }, error: (reason) => {
+          clearInterval(this.innerIntervalIdInner);
+          clearInterval(this.outerIntervalId);
+        }
+      });
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result
+      .then((result) => {
+          if (this.innerIntervalIdInner) {
+            clearInterval(this.innerIntervalIdInner);
+          }
+          if (this.outerIntervalId) {
+            clearInterval(this.outerIntervalId);
+          }
+        }
+      );
+
   }
 
-  goToExplorer(fileSystemItem: FileSystemItem) {
+  closePopup(modal: any) {
+
+    if (this.outerIntervalId) {
+      clearInterval(this.outerIntervalId);
+    }
+    if (this.innerIntervalIdInner) {
+      clearInterval(this.innerIntervalIdInner);
+    }
+    this.timer = 0;
+    this.timerTTL = 0;
+    modal.close('Downloadc click');
+  }
+
+  goToExplorer(fileSystemItem
+                 :
+                 FileSystemItem
+  ) {
     this.router.navigate([`/explorer/${fileSystemItem.id}`]);
   }
 
-  goToCategory(category: Category) {
+  goToCategory(category
+                 :
+                 Category
+  ) {
     this.router.navigate([`/explorer/category/${category.id}`]);
   }
 
@@ -177,15 +247,23 @@ export class FileInfoComponent implements OnInit {
     this.router.navigate([`/explorer/tag/${tag.id}`]);
   }
 
-  download() {
+  retrieveDownloadLink() {
+    return this.cursoredFileSystemService.getDownloadLink(this.fileSystemItem?.id!);
+  }
+
+  download(modal: any) {
     if (!this.fileSystemItem || this.fileSystemItem.isDirectory) {
+      return;
+    }
+    if (!this.downloadLink) {
       return;
     }
     this.isDownloading = true;
     this.cursoredFileSystemService
-      .download(this.fileSystemItem!.id!)
+      .download(this.downloadLink)
       .subscribe({
         next: (data: any) => {
+          this.closePopup(modal);
           this.fileSystemItem!.downloadCount++;
           const a = document.createElement('a');
           document.body.appendChild(a);
@@ -205,7 +283,8 @@ export class FileInfoComponent implements OnInit {
               'This e-book is for sale. Please purchase it in order to be able to download.'
             );
           } else if (e.status !== 401) {
-            this.router.navigate(['/page-not-found']);
+            // this.router.navigate(['/page-not-found']);
+            this.snackBarService.showErrorWithMessage("Invalid link");
           }
           this.isDownloading = false;
         },
@@ -258,7 +337,7 @@ export class FileInfoComponent implements OnInit {
     this.search(searchFileSystemItemRequest);
   }
 
-  extractYear(date?: string) {
+  extractYear(date ?: string) {
     if (!date) {
       return;
     }
@@ -266,12 +345,16 @@ export class FileInfoComponent implements OnInit {
     return publishedDate.getFullYear();
   }
 
-  search(searchFileSystemItemRequest: SearchFileSystemItemRequest) {
+  search(searchFileSystemItemRequest
+           :
+           SearchFileSystemItemRequest
+  ) {
     this.router.navigate(['/search']);
     this.searchService.setSearchFileSystemItemRequest(
       searchFileSystemItemRequest
     );
   }
+
   edit() {
     this.router.navigate([`/file-info/edit/${this.fileSystemItem!.id}`]);
   }
@@ -387,8 +470,11 @@ export class FileInfoComponent implements OnInit {
             .redirectToCheckout({
               sessionId: data.sessionId,
             })
-            .then((data: any) => {});
+            .then((data: any) => {
+            });
         },
       });
   }
+
+  protected readonly close = close;
 }

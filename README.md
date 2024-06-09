@@ -30,7 +30,7 @@ multithreading), search, download and buy/sell e-books. The back-end project can
 # Demo
 
 I already bought a domain and deployed the application on my VPS. So that I have
-a working demo on [http://europea-library.eu](http://europea-library.eu). For now the Stripe payment features are set to
+a working demo on [https://europea-library.eu](https://europea-library.eu). For now the Stripe payment features are set to
 TEST MODE. It means that when you buy an e-book on europea-library.eu it is enough to use as test card like 424242...
 and some random information in order to purchase the book.
 

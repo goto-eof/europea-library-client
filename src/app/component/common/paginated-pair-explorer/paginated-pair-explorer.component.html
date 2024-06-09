@@ -1,7 +1,7 @@
-<div class="my-1 mx-1" *ngIf="cursoredItem?.parent">
+<div class="my-1 mx-1">
   <div class="card">
     <div class="card-body">
-      <a routerLink="/rating">Rating</a>
+      <span>{{ title }}</span>
     </div>
   </div>
 </div>
@@ -16,7 +16,6 @@
       >
         no data
       </div>
-
       <ul
         class="mx-3"
         *ngIf="
@@ -24,19 +23,12 @@
         "
       >
         <li
-          *ngFor="let item of cursoredItem?.childrenList"
+          *ngFor="let pair of cursoredItem?.childrenList"
           class="cursor-pointer"
         >
-          <a
-            (click)="listDirectory(item)"
-            [ngClass]="item.isDirectory ? 'directory' : 'file'"
-          >
-            [{{ item.averageRating }}|{{ item.ratingsCount }}]
-            <i
-              class="bi px-1"
-              [class]="item.isDirectory ? 'bi-folder' : 'bi-file-earmark'"
-            ></i
-            >{{ item.name }}
+          <a (click)="goToFile(pair.val1)" [class]="'file'">
+            <i class="bi px-1" [class]="'bi-file-earmark'"></i>[{{ pair.val2 }}]
+            {{ pair.val1.name }}
           </a>
         </li>
       </ul>
