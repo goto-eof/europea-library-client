@@ -44,7 +44,7 @@ Execute `npm install &&  npm install -g @angular/cli@latest && ng serve` to run 
 
 ## Technologies
 
-CSS • TypeScript • Angular 17 • Bootstrap UI
+CSS • TypeScript • Angular 17 • Bootstrap UI • Stripe
 
 ## Screenshots
 
