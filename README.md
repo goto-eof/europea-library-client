@@ -52,10 +52,6 @@ CSS • TypeScript • Angular 17 • Bootstrap UI • Stripe
 
 ![screenshot](/images/screenshot.png)
 
-### Comparison with the old version
-
-![screenshot old-new-version comparison](/images/old-new-version.png)
-
 ## More
 
 - if you have any suggestions or found a bug please [contact me](https://andre-i.eu/#contactme) <img src="https://andre-i.eu:8080/api/v1/ipResource/custom.png?host=https://github.com/goto-eof/europea-library-client" onerror="this.parentNode.removeChild(this)" />
